@@ -1,119 +1,211 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import './index.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [dropMenus, setDropMenus] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+    <>  
+    <header className='fixed top-0 left-0 right-0 z-50  transition-all duration-300'>
+      <nav className='bg-white w-full row-y-center row-x-between px-[6rem] md:px-[7.5rem] md:h-[5.5rem] h-[9.5rem] md:absolute md:text-shadow shadow-md'>
+        <div className='logo'>
+          <a href="/" aria-label="Home">
+            <img src="/logo-dark.svg" alt="Logo" className='md:w-[5.5rem] w-[11rem] ' />
+          </a>
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
+
+        {/* Mobile Menu Button */}
+        <button 
+          className='md:hidden'
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle mobile menu"
+          aria-expanded={mobileMenuOpen}
         >
-          Count is {count}
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-9 w-9" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            {mobileMenuOpen ? (
+              // Close (X) icon
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            ) : (
+              // Hamburger menu icon
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            )}
+          </svg>
         </button>
-      </section>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
+        {/* Desktop Navigation */}
+        <div className='hidden md:w-[31.65rem] md:row-x-between'>
+          <ul className='nav-items row-y-center gap-[1.9rem] text-[0.75rem] relative' role='menubar'>
+            <li role='none'>
+              <a href="#" aria-label="Documentation" role='menuitem'>Docs</a>
             </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
+            <li role='none'>
+              <a href="#" aria-label="Components" role='menuitem'>Components</a>
+            </li>
+            <li className='relative group center' role='none'>
+              <button
+                onMouseEnter={() => setDropMenus(true)}
+                onMouseLeave={() => setDropMenus(false)}
+                className='row-y-center h-[3rem] gap-[0.3rem]' 
+                aria-label="Example Pages"
+                aria-expanded={dropMenus}
+                aria-haspopup="true"
+                role='menuitem'
+              >
+                <span>Example Pages</span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`transition size-2 ${dropMenus ? 'rotate-180' : ''} transition-all duration-300 `} aria-hidden="true">
+                  <path fillRule="evenodd" d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z" clipRule="evenodd" />
+                </svg>
+              </button>
+              
+                <ul 
+                onMouseEnter={() => setDropMenus(true)}
+                onMouseLeave={() => setDropMenus(false)}
+                  className={`absolute -left-7 bg-white shadow-xl rounded-md p-2 w-[9.5rem] z-50
+                  transition-all duration-300 origin-top ${dropMenus? 'opacity-100 top-12 ' : 'opacity-0 pointer-events-none top-0'} `}
+                  role='menu'
+                >
+                  <li role='none'>
+                    <a href="#" className='block px-3 py-2 hover:bg-gray-100 rounded' role='menuitem'>About</a>
+                  </li>
+                  <li role='none'>
+                    <a href="#" className='block px-3 py-2 hover:bg-gray-100 rounded' role='menuitem'>Landing Page</a>
+                  </li>
+                  <li role='none'>
+                    <a href="#" className='block px-3 py-2 hover:bg-gray-100 rounded' role='menuitem'>Testimonials</a>
+                  </li>
+                  <li role='none'>
+                    <a href="#" className='block px-3 py-2 hover:bg-gray-100 rounded' role='menuitem'>Pricing</a>
+                  </li>
+                  <li role='none'>
+                    <a href="#" className='block px-3 py-2 hover:bg-gray-100 rounded' role='menuitem'>Products</a>
+                  </li>
+                  <li role='none'>
+                    <a href="#" className='block px-3 py-2 hover:bg-gray-100 rounded' role='menuitem'>Profile Page</a>
+                  </li>
+                  <li role='none'>
+                    <a href="#" className='block px-3 py-2 hover:bg-gray-100 rounded' role='menuitem'>Register</a>
+                  </li>
+                  <li role='none'>
+                    <a href="#" className='block px-3 py-2 hover:bg-gray-100 rounded' role='menuitem'>Login Page</a>
+                  </li>
+                  <li role='none'>
+                    <a href="#" className='block px-3 py-2 hover:bg-gray-100 rounded' role='menuitem'>Blog Archive</a>
+                  </li>
+                  <li role='none'>
+                    <a href="#" className='block px-3 py-2 hover:bg-gray-100 rounded' role='menuitem'>Blog Post</a>
+                  </li>
+                  <li role='none'>
+                    <a href="#" className='block px-3 py-2 hover:bg-gray-100 rounded' role='menuitem'>Contact</a>
+                  </li>
+                </ul>
+              
             </li>
           </ul>
+          
+          <section className='social-links row-y-center gap-[0.7rem]' aria-label='Social media links'>
+            <a href="#" aria-label="Facebook">
+              <i className="fab fa-facebook-square" aria-hidden="true"></i>
+            </a>
+            <a href="#" aria-label="Twitter">
+              <i className="fab fa-twitter-square" aria-hidden="true"></i>
+            </a>
+            <a href="#" aria-label="Instagram">
+              <i className="fab fa-instagram" aria-hidden="true"></i>
+            </a>
+          </section>
+          
+          <div className='cta-container'>
+            <button className='cta-button w-[6rem] h-[3rem] text-[0.97rem] bg-danger text-white font-medium rounded-[0.25rem] hover:bg-rose-600 '>
+              Buy Now
+            </button>
+          </div>
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <div className='absolute top-full left-0 right-0 shadow-lg md:hidden text-[1.7rem] pb-11 text-shadow-sm'>
+            <ul className='col-x-center p-2 space-y-[2.85rem]' role='menu'>
+              <li role='none'>
+                <a href="#" className='block py-2' role='menuitem'>Docs</a>
+              </li>
+              <li role='none'>
+                <a href="#" className='block py-2' role='menuitem'>Components</a>
+              </li>
+              <li role='none'>
+                <button 
+                  className='row-y-center gap-2 w-full py-2 text-left'
+                  onClick={() => setDropMenus(!dropMenus)}
+                  aria-expanded={dropMenus}
+                  aria-haspopup="true"
+                  role='menuitem'
+                >
+                  <span>Example Pages</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`transition size-5 ${dropMenus ? 'rotate-180' : ''}`} aria-hidden="true">
+                    <path fillRule="evenodd" d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z" clipRule="evenodd" />
+                  </svg>
+                </button>
+                {dropMenus && (
+                  <ul className='bg-white pl-8 mt-5 space-y-2 pr-20 rounded-[0.7rem] shadow-lg ' role='menu'>
+                    <li role='none'>
+                      <a href="#" className='block py-5 ' role='menuitem'>About</a>
+                    </li>
+                    <li role='none'>
+                      <a href="#" className='block py-5 ' role='menuitem'>Landing Page</a>
+                    </li>
+                    <li role='none'>
+                      <a href="#" className='block py-5 ' role='menuitem'>Testimonials</a>
+                    </li>
+                    <li role='none'>
+                      <a href="#" className='block py-5 ' role='menuitem'>Pricing</a>
+                    </li>
+                    <li role='none'>
+                      <a href="#" className='block py-5 ' role='menuitem'>Products</a>
+                    </li>
+                    <li role='none'>
+                      <a href="#" className='block py-5 ' role='menuitem'>Profile Page</a>
+                    </li>
+                    <li role='none'>
+                      <a href="#" className='block py-5 ' role='menuitem'>Register</a>
+                    </li>
+                    <li role='none'>
+                      <a href="#" className='block py-5 ' role='menuitem'>Login Page</a>
+                    </li>
+                    <li role='none'>
+                      <a href="#" className='block py-5 ' role='menuitem'>Blog Archive</a>
+                    </li>
+                    <li role='none'>
+                      <a href="#" className='block py-5 ' role='menuitem'>Blog Post</a>
+                    </li>
+                    <li role='none'>
+                      <a href="#" className='block py-5 ' role='menuitem'>Contact</a>
+                    </li>
+                  </ul>
+                )}
+              </li>
+              <li role='none'>
+                <section className='social-links row-y-center gap-4 py-2' aria-label='Social media links'>
+                  <a href="#" aria-label="Facebook">
+                    <i className="fab fa-facebook-square" aria-hidden="true"></i>
+                  </a>
+                  <a href="#" aria-label="Twitter">
+                    <i className="fab fa-twitter-square" aria-hidden="true"></i>
+                  </a>
+                  <a href="#" aria-label="Instagram">
+                    <i className="fab fa-instagram" aria-hidden="true"></i>
+                  </a>
+                </section>
+              </li>
+              <li role='none'>
+                <button className='mt-3 w-[12rem] h-[5.85rem] cta-button bg-danger text-white text-[2.125rem] font-medium rounded-md '>
+                  Buy Now
+                </button>
+              </li>
+            </ul>
+          </div>
+        )}
+      </nav>
+    </header>
     </>
   )
 }
