@@ -62,7 +62,7 @@ function App() {
                 onMouseEnter={() => setDropMenus(true)}
                 onMouseLeave={() => setDropMenus(false)}
                   className={`absolute -left-7 bg-white shadow-xl rounded-md p-2 w-[9.5rem] z-50
-                  transition-all duration-300 origin-top ${dropMenus? 'opacity-100 top-12 ' : 'opacity-0 pointer-events-none top-0'} `}
+                  transition-all  ${dropMenus? 'opacity-100 translate-y-[13.5rem] duration-500' : 'opacity-0 pointer-events-none translate-y-[14.5rem] duration-100'} `}
                   role='menu'
                 >
                   <li role='none'>
