@@ -48,7 +48,7 @@
   }
 }
 *{
-  outline: red 1px solid;
+  /* outline: red 1px solid; */
 }
 body {
   @apply col-x-center relative
