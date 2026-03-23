@@ -20,9 +20,9 @@ export default function Navbar() {
           {/* Desktop Menu */}
           <div className=" hidden md:row-y-center space-x-[1rem] text-xs w-[48%] ">
             <div className="row-y-center space-x-[1.9rem]">
-            <a href="#" className="hover:text-gray-300 transition">Docs</a>
-            <a href="#" className="hover:text-gray-300 transition">Components</a>
-            <a href="#" className="hover:text-gray-300 transition row-y-center gap-1 py-5 " onMouseEnter={() => setDropMenus(true)} onMouseLeave={() => setDropMenus(false)} ><span>Example Pages</span> 
+            <a href="#" className="hover:text-gray-500 transition">Docs</a>
+            <a href="#" className="hover:text-gray-500 transition">Components</a>
+            <a href="#" className="hover:text-gray-500 transition row-y-center gap-1 py-5 " onMouseEnter={() => setDropMenus(true)} onMouseLeave={() => setDropMenus(false)} ><span>Example Pages</span> 
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`transition size-2 ${dropMenus ? 'rotate-180' : ''} transition-all duration-300 `} aria-hidden="true">
                   <path fillRule="evenodd" d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z" clipRule="evenodd" />
                 </svg>
@@ -104,9 +104,9 @@ export default function Navbar() {
       {/* Mobile Menu (hidden by default) */}
       
       <div id="mobile-menu" className=" bg-white w-full md:hidden px-2 pt-3 mt-10 space-y-[4.3rem] text-2xl ">
-            <a href="#" className="hover:text-gray-300 transition block mx-auto w-fit ">Docs</a>
-            <a href="#" className="hover:text-gray-300 transition block mx-auto w-fit">Components</a>
-            <a href="#" className="hover:text-gray-300 transition row-y-center space-x-3  block mx-auto w-fit" onClick={() => setDropMenus(!dropMenus)}  ><span>Example Pages</span> 
+            <a href="#" className="hover:text-gray-500 transition block mx-auto w-fit ">Docs</a>
+            <a href="#" className="hover:text-gray-500 transition block mx-auto w-fit">Components</a>
+            <a href="#" className="hover:text-gray-500 transition row-y-center space-x-3  block mx-auto w-fit" onClick={() => setDropMenus(!dropMenus)}  ><span>Example Pages</span> 
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`transition size-4 ${dropMenus ? 'rotate-180' : ''} transition-all duration-300 `} aria-hidden="true">
                   <path fillRule="evenodd" d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z" clipRule="evenodd" />
                 </svg>
