@@ -1,16 +1,40 @@
-# React + Vite
+# Grok Level Journey
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Day 1: Responsive Navbar (Tailwind + mobile menu)
 
-Currently, two official plugins are available:
+### 🎯 What I Learned:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+#### React & TypeScript:
+- **useState Hook** - Managing component state for dropdown and mobile menu toggles
+- **Event Handling** - onMouseEnter/Leave, onClick for interactive elements
+- **Conditional Rendering** - Dynamic className based on state variables
+- **Component Structure** - Organized layout with logical sections
 
-## React Compiler
+#### Tailwind CSS:
+- **Responsive Design** - Using `md:` breakpoints for desktop/mobile layouts
+- **Utility Classes** - Efficient styling without custom CSS
+- **Transitions & Animations** - Smooth hover effects and menu transitions
+- **Flexbox Layout** - `flex`, `justify-between`, `items-center` for alignment
+- **Positioning** - `absolute`, `fixed`, `relative` for element placement
+- **Shadow & Spacing** - `shadow-xl`, `space-x-*`, `gap-*` for visual hierarchy
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+#### Advanced Techniques:
+- **Dropdown Menus** - Conditional opacity and transform for smooth show/hide
+- **Mobile-First Approach** - Base mobile styles with `md:` overrides
+- **Accessibility** - `role="menuitem"` attributes for screen readers
+- **Icon Animation** - SVG path manipulation for hamburger/close transitions
+- **DOM Manipulation** - Direct element class toggling for mobile menu
 
-## Expanding the ESLint configuration
+#### Best Practices Implemented:
+- **Semantic HTML** - Proper nav structure with accessibility
+- **Component Composition** - Reusable, maintainable code structure
+- **State Management** - Separate states for different UI elements
+- **Performance** - Efficient conditional rendering and event handling
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 🚀 Features Built:
+- ✅ Responsive navigation bar
+- ✅ Desktop dropdown menu with hover
+- ✅ Mobile hamburger menu with animation
+- ✅ Social media links
+- ✅ Call-to-action button
+- ✅ Smooth transitions and micro-interactions
