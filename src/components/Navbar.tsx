@@ -29,7 +29,7 @@ export default function Navbar() {
             </a>
  
 
-           <div className={`absolute top-[4rem] left-[48.5rem] w-48 bg-white shadow-lg rounded-md space-y-1 py-2
+           <div className={`absolute top-[4rem] left-[48.5rem] w-48 bg-white shadow-xl rounded-md space-y-1 py-2
            ${dropMenus? 'opacity-100 translate-y-0 duration-300 ' : 'opacity-0 translate-y-4 pointer-events-none '} transition-all 
            `}
            onMouseEnter={() => setDropMenus(true)} onMouseLeave={() => setDropMenus(false)} 
