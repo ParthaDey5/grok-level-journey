@@ -47,9 +47,7 @@
     filter: invert(1) brightness(2);
   }
 }
-*{
-  /* outline: red 1px solid; */
-}
+
 body {
   @apply col-x-center relative
 }
