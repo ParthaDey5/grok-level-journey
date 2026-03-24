@@ -49,23 +49,5 @@
 }
 
 body {
-  @apply col-x-center relative
-}
-header{
-  
-  color: var(--nav-text);
-  
-}
-
-.social-links i {
-  @apply md:text-[1.2rem] text-[2.4rem] 
-}
-.fa-facebook-square, .fa-twitter-square{
-@apply hover:text-green-300
-}
-.fa-instagram{
-@apply hover:text-warning 
-}
-.nav-items li, button {
-  @apply cursor-pointer
+  @apply col-x-center min-h-screen relative;
 }
