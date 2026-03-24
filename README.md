@@ -39,5 +39,5 @@
 - ✅ Call-to-action button
 - ✅ Smooth transitions and micro-interactions
 
-### Links
+### Links:
  - Live Site URL: [https://grok-level-journey.vercel.app]
