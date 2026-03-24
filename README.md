@@ -40,4 +40,4 @@
 - ✅ Smooth transitions and micro-interactions
 
 ### Links:
- - Live Site URL: (parthadey5)[https://grok-level-journey.vercel.app]
+ - Live Site URL: [parthadey5](https://grok-level-journey.vercel.app)
