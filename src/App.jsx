@@ -1,3 +1,4 @@
+import CardGrid from './components/CardGrid'
 import Navbar from './components/Navbar'
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
     <>  
      
     <Navbar />
+    <CardGrid/>
     
     </>
   )

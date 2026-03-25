@@ -48,6 +48,12 @@
   }
 }
 
+*{
+  outline: red 1px solid;
+  
+}
+
+
 body {
   @apply col-x-center min-h-screen relative;
 }
@@ -57,4 +63,7 @@ body {
 }
 .fa-instagram {
   @apply hover:text-danger
+}
+.card{
+  @apply cursor-pointer
 }
