@@ -38,7 +38,7 @@ export default function CardGrid() {
             {/* Card header with dynamic color and image */}
             <div className={`h-[65%]`}>
               {/* Dynamic image loading based on img_tag */}
-              <img src={`/${card.img_tag}.png`} alt="" className="w-full h-full object-fit" />
+              <img src={`/${card.img_tag}.jpg`} alt="" className="w-full h-full object-fit" />
             </div>
             
             {/* Card content with responsive spacing */}
