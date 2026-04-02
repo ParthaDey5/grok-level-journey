@@ -32,23 +32,23 @@ export default function CardGrid() {
             // - Desktop: calc(33.333% - 1.5rem) = 3 columns with gaps
             // Gap compensation ensures perfect spacing between cards
             //
-            className="card w-full sm:w-[calc(50%-2.5rem)] lg:w-[calc(33.333%-1.5rem)] aspect-[4/3] bg-white dark:bg-gray-800 rounded-[4%] drop-shadow-xl overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300"
+            className="card bg-white dark:bg-slate-500 w-full sm:w-[calc(50%-2.5rem)] lg:w-[calc(33.333%-1.5rem)] aspect-[4/3]  rounded-[4%] shadow-xl overflow-hidden hover:scale-105 transition-transform duration-300"
           >
             
             {/* Card header with dynamic color and image */}
-            <div className={`h-[65%]`}>
+            <div className={`h-[65%] p-[1%]`}>
               {/* Dynamic image loading based on img_tag */}
-              <img src={`/${card.img_tag}.jpg`} alt="" className="w-full h-full object-fit" />
+              <img src={`/${card.img_tag}.jpg`} alt="" className="w-full h-full object-fit rounded " />
             </div>
             
             {/* Card content with responsive spacing */}
-            <div className="px-[8%] py-[4%] sm:space-y-[1%] space-y-[3%] ">
+            <div className="px-[8%] py-[4%] sm:space-y-[1%] space-y-[3%] dark:text-white ">
               
               {/* Responsive title - larger on desktop */}
-              <h3 className="font-semibold lg:text-2xl sm:text-4xl text-7xl ">{card.title}</h3>
+              <h3 className="font-semibold lg:text-2xl sm:text-4xl text-7xl  ">{card.title}</h3>
               
               {/* Responsive description - larger on desktop */}
-              <p className="text-gray-600 dark:text-gray-400 lg:text-[1rem] sm:text-2xl text-5xl ">{card.desc}</p>
+              <p className=" lg:text-[1rem] sm:text-2xl text-5xl ">{card.desc}</p>
              </div>
            </div>
         ))}

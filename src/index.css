@@ -4,17 +4,18 @@
 @tailwind utilities;
 
 :root {
-  --nav-text: #808080;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+  --text-color: #374151;
+  --text-h: #111827;
+  --bg-color: #ffffff;
+  --card-bg: #f9fafb;
+  --border: #e5e7eb;
+  --code-bg: #f3f4f6;
+  --accent: #3b82f6;
+  --accent:  #ffffff; 
+  --accent-bg: rgba(59, 130, 246, 0.1);
+  --accent-border: rgba(59, 130, 246, 0.3);
+  --social-bg: rgba(243, 244, 246, 0.8);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
   --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
@@ -30,17 +31,17 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+    --text-color: #e5e7eb;
+    --card-bg: #1f2937;
+    --text-h: #f9fafb;
+    --bg-color: #111827;
+    --border: #374151;
+    --code-bg: #374151;
+    --accent: #60a5fa;
+    --accent-bg: rgba(96, 165, 250, 0.1);
+    --accent-border: rgba(96, 165, 250, 0.3);
+    --social-bg: rgba(31, 41, 55, 0.8);
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
   }
 
   #social .button-icon {
@@ -49,21 +50,50 @@
 }
 
 *{
-  outline: red 1px solid;
+  /* outline: red 1px solid; */
   
 }
 
 
 body {
-  @apply col-x-center min-h-screen relative;
+  @apply col-x-center min-h-screen relative ;
+   
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Add this rule */
+body.dark {
+  background-color: #111827;
+  color: #e5e7eb;
+}
+
+nav, .card, .drop-menus{
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+body.dark nav, body.dark .drop-menus {
+  background-color: #1f2937;
+  color: #e5e7eb;
 }
 
 .fa-facebook-square, .fa-twitter-square {
-  @apply hover:text-info
+  @apply hover:text-info;
+  
 }
 .fa-instagram {
   @apply hover:text-danger
 }
 .card{
   @apply cursor-pointer
+}
+
+#menu-btn{
+  @apply dark:text-white
+}
+
+.drop-menus a {
+  @apply hover:bg-gray-100 dark:hover:bg-slate-300
 }

@@ -1,0 +1,37 @@
+{
+  "name": "deepseek-theme",
+  "displayName": "Deepseek Theme",
+  "description": "A customized Dark+ theme with enhanced colors and better contrast",
+  "version": "1.0.5",
+  "publisher": "your-publisher-name",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "Deepseek Theme",
+        "uiTheme": "vs-dark",
+        "path": "./themes/deepseek-theme.json"
+      }
+    ]
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.75.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/custom-dark-plus-theme.git"
+  },
+  "keywords": [
+    "theme",
+    "dark",
+    "dark+",
+    "custom"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}
