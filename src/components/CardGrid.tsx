@@ -13,7 +13,7 @@ export default function CardGrid() {
 
   return (
     // Main container with responsive margins
-    <div className=" mx-[5%] lg:mt-[6%] mt-[13%] py-12">
+    <div className=" mx-[5%] lg:mt-[6%] mt-[13%] py-12 ">
       
       {/* Responsive heading - larger on desktop, smaller on mobile */}
       <h2 className="lg:text-3xl text-8xl font-bold text-center sm:mb-10 mb-20">My Missions</h2>
@@ -32,7 +32,7 @@ export default function CardGrid() {
             // - Desktop: calc(33.333% - 1.5rem) = 3 columns with gaps
             // Gap compensation ensures perfect spacing between cards
             //
-            className="card bg-white dark:bg-slate-500 w-full sm:w-[calc(50%-2.5rem)] lg:w-[calc(33.333%-1.5rem)] aspect-[4/3]  rounded-[4%] shadow-xl overflow-hidden hover:scale-105 transition-transform duration-300"
+            className="card w-full sm:w-[calc(50%-2.5rem)] lg:w-[calc(33.333%-1.5rem)] aspect-[4/3]  rounded-[4%] shadow-xl overflow-hidden hover:scale-105 transition-transform duration-300"
           >
             
             {/* Card header with dynamic color and image */}
@@ -45,10 +45,10 @@ export default function CardGrid() {
             <div className="px-[8%] py-[4%] sm:space-y-[1%] space-y-[3%] dark:text-white ">
               
               {/* Responsive title - larger on desktop */}
-              <h3 className="font-semibold lg:text-2xl sm:text-4xl text-7xl  ">{card.title}</h3>
+              <h3 className="card-title font-semibold lg:text-2xl sm:text-4xl text-7xl  ">{card.title}</h3>
               
               {/* Responsive description - larger on desktop */}
-              <p className=" lg:text-[1rem] sm:text-2xl text-5xl ">{card.desc}</p>
+              <p className="card-sub-title lg:text-[1rem] sm:text-2xl text-5xl ">{card.desc}</p>
              </div>
            </div>
         ))}

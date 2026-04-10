@@ -4,19 +4,13 @@
 @tailwind utilities;
 
 :root {
-  --text-color: #374151;
-  --text-h: #111827;
-  --bg-color: #ffffff;
-  --card-bg: #f9fafb;
-  --border: #e5e7eb;
-  --code-bg: #f3f4f6;
-  --accent: #3b82f6;
-  --accent:  #ffffff; 
-  --accent-bg: rgba(59, 130, 246, 0.1);
-  --accent-border: rgba(59, 130, 246, 0.3);
-  --social-bg: rgba(243, 244, 246, 0.8);
-  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-
+  --bg-color: #E8EDE8;
+  --text-color: #5F8A5C;
+  --nav-bg: #E8EDE8;
+  --card-bg: #E8EDEA;
+  --card-title: #5C8A6C;
+  --card-sub-title: #343D37;
+  --accent: #3b82f6;  
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
   --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
@@ -29,55 +23,33 @@
   
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text-color: #e5e7eb;
-    --card-bg: #1f2937;
-    --text-h: #f9fafb;
-    --bg-color: #111827;
-    --border: #374151;
-    --code-bg: #374151;
-    --accent: #60a5fa;
-    --accent-bg: rgba(96, 165, 250, 0.1);
-    --accent-border: rgba(96, 165, 250, 0.3);
-    --social-bg: rgba(31, 41, 55, 0.8);
-    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-  }
+
+.dark {
+  --bg-color: #0f172a;
+  --text-color: #f1f5f9;
+  --nav-bg: #0555bd;
+  --card-bg: #0555bd;
+  --accent: #60a5fa;
+}
+
+body {
+  @apply col-x-center min-h-screen relative ;
+
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
 
   #social .button-icon {
     filter: invert(1) brightness(2);
   }
-}
+
 
 *{
   /* outline: red 1px solid; */
   
 }
 
-
-body {
-  @apply col-x-center min-h-screen relative ;
-   
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* Add this rule */
-body.dark {
-  background-color: #111827;
-  color: #e5e7eb;
-}
-
-nav, .card, .drop-menus{
-  background-color: var(--bg-color);
-  color: var(--text-color);
-}
-
-body.dark nav, body.dark .drop-menus {
-  background-color: #1f2937;
-  color: #e5e7eb;
-}
 
 .fa-facebook-square, .fa-twitter-square {
   @apply hover:text-info;
@@ -86,8 +58,21 @@ body.dark nav, body.dark .drop-menus {
 .fa-instagram {
   @apply hover:text-danger
 }
+.navbar{
+  background-color: var(--nav-bg);
+}
 .card{
-  @apply cursor-pointer
+  @apply cursor-pointer;
+
+  background-color: var(--card-bg);
+}
+.card-title{
+  
+  color: var(--card-title);
+}
+.card-sub-title{
+
+  color: var(--card-sub-title);
 }
 
 #menu-btn{
