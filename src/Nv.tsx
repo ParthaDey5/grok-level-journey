@@ -9,7 +9,7 @@ export default function Navbar() {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <nav className="navbar text-white shadow-lg fixed top-0 w-full z-50">
+    <nav className="navbar text-white shadow-lg fixed left-0 top-0 w-full z-50">
       <div className="mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between ">
         <div className="w-[90%] flex justify-between h-16 items-center">
 

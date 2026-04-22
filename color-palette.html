@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Palette Pro • Professional Color Systems</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Inter', sans-serif; }
+    .swatch {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .swatch:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.5);
+    }
+    .toast {
+      animation: slideIn 0.3s ease, fadeOut 0.3s ease 2s forwards;
+    }
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes fadeOut {
+      to { opacity: 0; visibility: hidden; }
+    }
+    input[type="range"] {
+      -webkit-appearance: none;
+      background: transparent;
+    }
+    input[type="range"]:focus {
+      outline: none;
+    }
+    input[type="range"]::-webkit-slider-runnable-track {
+      height: 4px;
+      background: #27272a;
+      border-radius: 2px;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 16px;
+      width: 16px;
+      border-radius: 50%;
+      background: #818cf8;
+      margin-top: -6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+      background: #a78bfa;
+    }
+    .color-input {
+      transition: all 0.2s;
+    }
+    .color-input:focus {
+      border-color: #818cf8;
+      outline: none;
+      background: #1f1f24;
+    }
+    .copy-btn {
+      transition: all 0.2s;
+    }
+    .copy-btn:hover {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body class="bg-zinc-600 text-zinc-100 min-h-screen">
+
+  <div class="max-w-7xl mx-auto px-6 py-12 lg:py-16">
+    <!-- Header -->
+    <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-12 gap-6">
+      <div>
+        <h1 class="text-5xl lg:text-6xl font-bold tracking-tighter bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">
+          Palette Pro
+        </h1>
+        <p class="text-zinc-400 mt-3 text-lg max-w-xl">
+          Professional color systems — generate harmonious palettes, preview in real-time, export anywhere
+        </p>
+      </div>
+      <div class="flex gap-3 flex-wrap">
+        <button onclick="randomPalette()" 
+          class="px-5 py-2.5 bg-zinc-800 hover:bg-zinc-700 rounded-xl font-medium text-sm flex items-center gap-2 transition-all hover:scale-105">
+          🎲 Random
+        </button>
+        <button onclick="exportCSS()" 
+          class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 rounded-xl font-semibold text-sm transition-all hover:scale-105">
+          📋 Export CSS
+        </button>
+        <button onclick="exportJSON()" 
+          class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 rounded-xl font-semibold text-sm transition-all hover:scale-105">
+          📦 Export JSON
+        </button>
+      </div>
+    </div>
+
+    <!-- Base Color Control -->
+    <div class="bg-zinc-900/50 backdrop-blur-sm rounded-2xl border border-zinc-800 p-6 lg:p-8 mb-10">
+      <div class="flex flex-col lg:flex-row gap-8 items-center">
+        <div class="text-center">
+          <p class="text-xs uppercase tracking-wider text-zinc-500 mb-2">Base Color</p>
+          <input type="color" id="baseColor" value="#4f46e5" 
+            class="w-28 h-28 lg:w-36 lg:h-36 rounded-2xl cursor-pointer shadow-xl border-2 border-zinc-700 hover:border-indigo-500 transition-all">
+        </div>
+
+        <div class="flex-1 space-y-6">
+          <div>
+            <div class="flex justify-between text-xs uppercase tracking-wider text-zinc-500 mb-2">
+              <span>Hue <span class="text-zinc-400">(0-360)</span></span>
+              <span id="hueValue" class="text-indigo-400 font-mono">260°</span>
+            </div>
+            <input type="range" id="hueSlider" min="0" max="360" value="260" class="w-full">
+          </div>
+          <div>
+            <div class="flex justify-between text-xs uppercase tracking-wider text-zinc-500 mb-2">
+              <span>Saturation <span class="text-zinc-400">(0-100%)</span></span>
+              <span id="satValue" class="text-indigo-400 font-mono">70%</span>
+            </div>
+            <input type="range" id="satSlider" min="0" max="100" value="70" class="w-full">
+          </div>
+          <div>
+            <div class="flex justify-between text-xs uppercase tracking-wider text-zinc-500 mb-2">
+              <span>Lightness <span class="text-zinc-400">(0-100%)</span></span>
+              <span id="lightValue" class="text-indigo-400 font-mono">55%</span>
+            </div>
+            <input type="range" id="lightSlider" min="0" max="100" value="55" class="w-full">
+          </div>
+        </div>
+
+        <button onclick="generateFromBase()" 
+          class="w-full lg:w-auto px-8 py-3 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 rounded-xl font-semibold transition-all hover:scale-105 shadow-lg">
+          ✨ Generate Palette
+        </button>
+      </div>
+    </div>
+
+    <!-- Harmony Modes -->
+    <div class="mb-8">
+      <p class="text-xs uppercase tracking-wider text-zinc-500 mb-4">Harmony Mode</p>
+      <div class="flex flex-wrap gap-2" id="modeContainer"></div>
+    </div>
+
+    <!-- Color Palette Grid -->
+    <div class="bg-zinc-900/30 rounded-2xl border border-zinc-800 p-6 lg:p-8 mb-12">
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5" id="paletteGrid"></div>
+    </div>
+
+    <!-- Live Previews -->
+    <div class="grid lg:grid-cols-2 gap-8">
+      <!-- Light Preview Card -->
+      <div class="bg-white rounded-2xl overflow-hidden shadow-2xl border border-zinc-200">
+        <div class="h-1 bg-gradient-to-r from-zinc-800 to-zinc-500"></div>
+        <div class="p-8" id="lightPreview"></div>
+      </div>
+
+      <!-- Dark Preview Card -->
+      <div class="bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800">
+        <div class="h-1 bg-gradient-to-r from-indigo-500 to-violet-500"></div>
+        <div class="p-8" id="darkPreview"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-6 right-6 bg-zinc-800 border border-zinc-700 rounded-xl px-5 py-3 shadow-2xl hidden z-50">
+    <span class="text-sm" id="toastMessage"></span>
+  </div>
+
+  <script>
+    // State
+    let currentPalette = [];
+    let currentMode = "professional";
+    let lockedIndices = new Set();
+    let currentHue = 260;
+    let currentSat = 70;
+    let currentLight = 55;
+
+    // Color role labels
+    const roleLabels = ["Primary", "Secondary", "Accent", "Surface", "Muted", "Text"];
+
+    // Harmony modes
+    const harmonyModes = [
+      { id: "professional", name: "Professional", icon: "💼" },
+      { id: "tech", name: "Tech / SaaS", icon: "🚀" },
+      { id: "minimal", name: "Minimal", icon: "✨" },
+      { id: "corporate", name: "Corporate", icon: "🏢" },
+      { id: "analogous", name: "Analogous", icon: "🎨" },
+      { id: "complementary", name: "Complementary", icon: "⚡" },
+      { id: "triadic", name: "Triadic", icon: "🔺" }
+    ];
+
+    // Utility: HSL to Hex
+    function hslToHex(h, s, l) {
+      h = ((h % 360) + 360) % 360;
+      s = Math.min(100, Math.max(0, s));
+      l = Math.min(100, Math.max(0, l));
+      
+      s /= 100;
+      l /= 100;
+      
+      const c = (1 - Math.abs(2 * l - 1)) * s;
+      const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
+      const m = l - c / 2;
+      
+      let r = 0, g = 0, b = 0;
+      
+      if (h >= 0 && h < 60) { r = c; g = x; b = 0; }
+      else if (h >= 60 && h < 120) { r = x; g = c; b = 0; }
+      else if (h >= 120 && h < 180) { r = 0; g = c; b = x; }
+      else if (h >= 180 && h < 240) { r = 0; g = x; b = c; }
+      else if (h >= 240 && h < 300) { r = x; g = 0; b = c; }
+      else { r = c; g = 0; b = x; }
+      
+      const toHex = (val) => Math.round((val + m) * 255).toString(16).padStart(2, '0');
+      return `#${toHex(r)}${toHex(g)}${toHex(b)}`.toUpperCase();
+    }
+
+    // Generate palette based on mode and hue
+    function generatePalette(hue, mode, baseSat = 70, baseLight = 55) {
+      const colors = [];
+      
+      switch(mode) {
+        case "professional":
+          colors.push(hslToHex(hue, baseSat, baseLight));
+          colors.push(hslToHex(hue, baseSat - 20, baseLight - 15));
+          colors.push(hslToHex((hue + 180) % 360, baseSat - 30, baseLight + 10));
+          colors.push(hslToHex(hue, baseSat - 50, baseLight + 35));
+          colors.push(hslToHex(hue, baseSat - 55, baseLight - 30));
+          colors.push(hslToHex(hue, baseSat - 40, baseLight - 10));
+          break;
+        case "tech":
+          colors.push(hslToHex(hue, 85, 58));
+          colors.push(hslToHex((hue + 30) % 360, 75, 48));
+          colors.push(hslToHex((hue - 30) % 360, 80, 62));
+          colors.push(hslToHex(hue, 20, 94));
+          colors.push(hslToHex(hue, 25, 18));
+          colors.push(hslToHex((hue + 180) % 360, 40, 55));
+          break;
+        case "minimal":
+          colors.push(hslToHex(hue, 30, 50));
+          colors.push(hslToHex(hue, 15, 30));
+          colors.push(hslToHex(hue, 10, 85));
+          colors.push(hslToHex(hue, 5, 95));
+          colors.push(hslToHex(hue, 20, 18));
+          colors.push(hslToHex(hue, 25, 60));
+          break;
+        case "corporate":
+          colors.push(hslToHex(hue, 55, 48));
+          colors.push(hslToHex(hue, 35, 32));
+          colors.push(hslToHex((hue + 140) % 360, 45, 52));
+          colors.push(hslToHex(hue, 12, 90));
+          colors.push(hslToHex(hue, 10, 20));
+          colors.push(hslToHex(hue, 18, 42));
+          break;
+        case "analogous":
+          for (let i = -2; i <= 3; i++) {
+            colors.push(hslToHex((hue + i * 30) % 360, 70, 55));
+          }
+          break;
+        case "complementary":
+          colors.push(hslToHex(hue, 70, 55));
+          colors.push(hslToHex((hue + 180) % 360, 70, 55));
+          colors.push(hslToHex((hue + 160) % 360, 65, 50));
+          colors.push(hslToHex(hue, 15, 92));
+          colors.push(hslToHex(hue, 20, 18));
+          colors.push(hslToHex((hue + 20) % 360, 55, 48));
+          break;
+        case "triadic":
+          colors.push(hslToHex(hue, 70, 55));
+          colors.push(hslToHex((hue + 120) % 360, 70, 55));
+          colors.push(hslToHex((hue + 240) % 360, 70, 55));
+          colors.push(hslToHex(hue, 15, 92));
+          colors.push(hslToHex(hue, 20, 18));
+          colors.push(hslToHex((hue + 60) % 360, 55, 48));
+          break;
+        default:
+          for (let i = 0; i < 6; i++) {
+            colors.push(hslToHex((hue + i * 30) % 360, 70, 55));
+          }
+      }
+      
+      return colors.slice(0, 6);
+    }
+
+    // Get contrast color (black or white)
+    function getContrastColor(hex) {
+      const r = parseInt(hex.slice(1, 3), 16);
+      const g = parseInt(hex.slice(3, 5), 16);
+      const b = parseInt(hex.slice(5, 7), 16);
+      const brightness = (r * 0.299 + g * 0.587 + b * 0.114);
+      return brightness > 186 ? "#18181b" : "#ffffff";
+    }
+
+    // Copy color to clipboard
+    async function copyColor(color, roleName) {
+      try {
+        await navigator.clipboard.writeText(color);
+        showToast(`📋 ${roleName} (${color}) copied to clipboard!`);
+      } catch (err) {
+        showToast("Failed to copy", true);
+      }
+    }
+
+    // Render harmony mode buttons
+    function renderModeButtons() {
+      const container = document.getElementById("modeContainer");
+      container.innerHTML = harmonyModes.map(mode => `
+        <button onclick="setMode('${mode.id}')" 
+          class="px-5 py-2.5 rounded-xl text-sm font-medium transition-all flex items-center gap-2 ${mode.id === currentMode ? 'bg-indigo-600 text-white shadow-lg scale-105' : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300'}">
+          <span>${mode.icon}</span>
+          <span>${mode.name}</span>
+        </button>
+      `).join('');
+    }
+
+    // Render color palette grid
+    function renderPalette() {
+      const container = document.getElementById("paletteGrid");
+      
+      container.innerHTML = currentPalette.map((color, index) => {
+        const isLocked = lockedIndices.has(index);
+        return `
+          <div class="group">
+            <div class="swatch rounded-xl overflow-hidden shadow-lg border-2 ${isLocked ? 'border-emerald-500' : 'border-transparent'} hover:border-indigo-500 transition-all">
+              <div class="h-36 relative" style="background-color: ${color}">
+                <button onclick="copyColor('${color}', '${roleLabels[index]}')" 
+                  class="copy-btn absolute top-2 right-2 bg-black/50 backdrop-blur-sm rounded-lg px-2 py-1 text-xs text-white opacity-0 group-hover:opacity-100 transition-all hover:bg-black/70">
+                  📋 Copy
+                </button>
+              </div>
+              <div class="bg-zinc-900 p-3">
+                <div class="flex justify-between items-center mb-2">
+                  <span class="text-xs font-medium text-zinc-400">${roleLabels[index]}</span>
+                  <button onclick="toggleLock(${index})" 
+                    class="text-sm transition-all ${isLocked ? 'text-emerald-400' : 'text-zinc-600 hover:text-zinc-400'}">
+                    ${isLocked ? '🔒' : '🔓'
+}
+                  </button>
+                </div>
+                <div class="flex gap-2">
+                  <input type="text" value="${color}" 
+                    class="flex-1 bg-zinc-800 font-mono text-xs text-center py-1.5 rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 transition-all color-input"
+                    onchange="updateColor(${index}, this.value)">
+                  <button onclick="copyColor('${color}', '${roleLabels[index]}')" 
+                    class="copy-btn bg-zinc-800 hover:bg-zinc-700 rounded-lg px-2 text-xs transition-all">
+                    📋
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+      
+      updatePreviews();
+    }
+
+    // Toggle lock on a color
+    function toggleLock(index) {
+      if (lockedIndices.has(index)) {
+        lockedIndices.delete(index);
+      } else {
+        lockedIndices.add(index);
+      }
+      renderPalette(); // Re-render to update lock icon
+      showToast(lockedIndices.has(index) ? `🔒 ${roleLabels[index]} locked` : `🔓 ${roleLabels[index]} unlocked`);
+    }
+
+    // Update individual color
+    function updateColor(index, newColor) {
+      if (newColor.match(/^#[0-9A-Fa-f]{6}$/i)) {
+        currentPalette[index] = newColor.toUpperCase();
+        renderPalette();
+        showToast(`Updated ${roleLabels[index]} to ${newColor.toUpperCase()}`);
+      } else {
+        showToast("Invalid hex code — use format #RRGGBB", true);
+        renderPalette(); // reset display
+      }
+    }
+
+    // Set harmony mode
+    function setMode(mode) {
+      currentMode = mode;
+      renderModeButtons();
+      
+      const newPalette = generatePalette(currentHue, mode, currentSat, currentLight);
+      for (let i = 0; i < 6; i++) {
+        if (!lockedIndices.has(i)) {
+          currentPalette[i] = newPalette[i];
+        }
+      }
+      renderPalette();
+      showToast(`Switched to ${harmonyModes.find(m => m.id === mode).name} mode`);
+    }
+
+    // Generate from base color sliders
+    function generateFromBase() {
+      const newPalette = generatePalette(currentHue, currentMode, currentSat, currentLight);
+      for (let i = 0; i < 6; i++) {
+        if (!lockedIndices.has(i)) {
+          currentPalette[i] = newPalette[i];
+        }
+      }
+      renderPalette();
+      showToast("Palette regenerated from base color");
+    }
+
+    // Random palette
+    function randomPalette() {
+      lockedIndices.clear();
+      currentHue = Math.floor(Math.random() * 360);
+      currentSat = 55 + Math.floor(Math.random() * 40);
+      currentLight = 45 + Math.floor(Math.random() * 30);
+      
+      document.getElementById("hueSlider").value = currentHue;
+      document.getElementById("satSlider").value = currentSat;
+      document.getElementById("lightSlider").value = currentLight;
+      document.getElementById("hueValue").innerHTML = `${currentHue}°`;
+      document.getElementById("satValue").innerHTML = `${currentSat}%`;
+      document.getElementById("lightValue").innerHTML = `${currentLight}%`;
+      
+      const baseColor = hslToHex(currentHue, currentSat, currentLight);
+      document.getElementById("baseColor").value = baseColor;
+      
+      currentPalette = generatePalette(currentHue, currentMode, currentSat, currentLight);
+      renderPalette();
+      showToast("🎲 Random palette generated!");
+    }
+
+    // Update previews
+    function updatePreviews() {
+      const [primary, secondary, accent, surface, muted, textColor] = currentPalette;
+      
+      // Light preview
+      document.getElementById("lightPreview").innerHTML = `
+        <div class="flex justify-between items-center mb-8 pb-4 border-b border-zinc-200">
+          <span class="font-bold text-2xl tracking-tight" style="color: ${primary}">Brand</span>
+          <div class="flex gap-6 text-sm font-medium text-zinc-600">
+            <span>Features</span><span>Pricing</span><span>About</span>
+          </div>
+        </div>
+        <div>
+          <h2 class="text-4xl font-bold tracking-tight mb-4" style="color: ${textColor}">Design with confidence</h2>
+          <p class="text-zinc-600 mb-6">Professional color systems that scale across your entire product.</p>
+          <div class="flex gap-3">
+            <button class="px-6 py-2.5 rounded-lg font-semibold transition hover:opacity-90" style="background: ${primary}; color: ${getContrastColor(primary)}">Get started</button>
+            <button class="px-6 py-2.5 rounded-lg font-semibold border-2 transition hover:bg-zinc-50" style="border-color: ${secondary}; color: ${secondary}">Learn more</button>
+          </div>
+          <div class="mt-8 flex gap-2">
+            <div class="w-8 h-8 rounded-full" style="background: ${primary}"></div>
+            <div class="w-8 h-8 rounded-full" style="background: ${secondary}"></div>
+            <div class="w-8 h-8 rounded-full" style="background: ${accent}"></div>
+            <div class="w-8 h-8 rounded-full" style="background: ${surface}"></div>
+          </div>
+        </div>
+      `;
+      
+      // Dark preview
+      document.getElementById("darkPreview").innerHTML = `
+        <div class="flex justify-between items-center mb-8 pb-4 border-b border-zinc-800">
+          <span class="font-bold text-2xl tracking-tight" style="color: ${primary}">Brand</span>
+          <div class="flex gap-6 text-sm font-medium text-zinc-400">
+            <span>Features</span><span>Pricing</span><span>About</span>
+          </div>
+        </div>
+        <div>
+          <h2 class="text-4xl font-bold tracking-tight mb-4 text-white">Design with confidence</h2>
+          <p class="text-zinc-400 mb-6">Professional color systems that scale across your entire product.</p>
+          <div class="flex gap-3">
+            <button class="px-6 py-2.5 rounded-lg font-semibold transition hover:opacity-90" style="background: ${primary}; color: ${getContrastColor(primary)}">Get started</button>
+            <button class="px-6 py-2.5 rounded-lg font-semibold border-2 transition hover:bg-white/5" style="border-color: ${secondary}; color: ${secondary}">Learn more</button>
+          </div>
+          <div class="mt-8 flex gap-2">
+            <div class="w-8 h-8 rounded-full" style="background: ${primary}"></div>
+            <div class="w-8 h-8 rounded-full" style="background: ${secondary}"></div>
+            <div class="w-8 h-8 rounded-full" style="background: ${accent}"></div>
+            <div class="w-8 h-8 rounded-full" style="background: ${surface}"></div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Export CSS variables
+    function exportCSS() {
+      const cssVars = currentPalette.map((color, i) => `  --color-${roleLabels[i].toLowerCase()}: ${color};`).join('\n');
+      const css = `:root {\n${cssVars}\n}`;
+      navigator.clipboard.writeText(css);
+      showToast("📋 CSS variables copied to clipboard!");
+    }
+
+    // Export JSON
+    function exportJSON() {
+      const exportData = {
+        name: "Palette Pro Export",
+        mode: currentMode,
+        colors: {
+          primary: currentPalette[0],
+          secondary: currentPalette[1],
+          accent: currentPalette[2],
+          surface: currentPalette[3],
+          muted: currentPalette[4],
+          text: currentPalette[5]
+        },
+        metadata: {
+          generated: new Date().toISOString(),
+          harmonyMode: currentMode,
+          baseHue: currentHue
+        }
+      };
+      navigator.clipboard.writeText(JSON.stringify(exportData, null, 2));
+      showToast("📦 JSON exported to clipboard!");
+    }
+
+    // Toast notification
+    let toastTimeout;
+    function showToast(message, isError = false) {
+      const toastEl = document.getElementById("toast");
+      const toastMessage = document.getElementById("toastMessage");
+      
+      if (toastTimeout) clearTimeout(toastTimeout);
+      
+      toastMessage.textContent = message;
+      toastEl.classList.remove("hidden");
+      toastEl.classList.add("toast");
+      
+      if (isError) {
+        toastEl.classList.add("border-red-500", "bg-red-950");
+        toastEl.classList.remove("border-emerald-500");
+      } else {
+        toastEl.classList.remove("border-red-500", "bg-red-950");
+        toastEl.classList.add("border-emerald-500");
+      }
+      
+      toastTimeout = setTimeout(() => {
+        toastEl.classList.add("hidden");
+        toastEl.classList.remove("toast");
+      }, 2500);
+    }
+
+    // Sync sliders with base color
+    function syncSliders() {
+      const hueSlider = document.getElementById("hueSlider");
+      const satSlider = document.getElementById("satSlider");
+      const lightSlider = document.getElementById("lightSlider");
+      const baseColorInput = document.getElementById("baseColor");
+      
+      hueSlider.addEventListener("input", (e) => {
+        currentHue = parseInt(e.target.value);
+        document.getElementById("hueValue").innerHTML = `${currentHue}°`;
+        baseColorInput.value = hslToHex(currentHue, currentSat, currentLight);
+        generateFromBase();
+      });
+      
+      satSlider.addEventListener("input", (e) => {
+        currentSat = parseInt(e.target.value);
+        document.getElementById("satValue").innerHTML = `${currentSat}%`;
+        baseColorInput.value = hslToHex(currentHue, currentSat, currentLight);
+        generateFromBase();
+      });
+      
+      lightSlider.addEventListener("input", (e) => {
+        currentLight = parseInt(e.target.value);
+        document.getElementById("lightValue").innerHTML = `${currentLight}%`;
+        baseColorInput.value = hslToHex(currentHue, currentSat, currentLight);
+        generateFromBase();
+      });
+      
+      baseColorInput.addEventListener("input", (e) => {
+        const hex = e.target.value;
+        // Simple hex to HSL conversion
+        const r = parseInt(hex.slice(1,3), 16) / 255;
+        const g = parseInt(hex.slice(3,5), 16) / 255;
+        const b = parseInt(hex.slice(5,7), 16) / 255;
+        const max = Math.max(r, g, b);
+        const min = Math.min(r, g, b);
+        let h = 0, s = 0, l = (max + min) / 2;
+        
+        if (max !== min) {
+          const d = max - min;
+          s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+          if (max === r) h = ((g - b) / d + (g < b ? 6 : 0)) / 6;
+          else if (max === g) h = ((b - r) / d + 2) / 6;
+          else h = ((r - g) / d + 4) / 6;
+        }
+        
+        currentHue = Math.round(h * 360);
+        currentSat = Math.round(s * 100);
+        currentLight = Math.round(l * 100);
+        
+        hueSlider.value = currentHue;
+        satSlider.value = currentSat;
+        lightSlider.value = currentLight;
+        document.getElementById("hueValue").innerHTML = `${currentHue}°`;
+        document.getElementById("satValue").innerHTML = `${currentSat}%`;
+        document.getElementById("lightValue").innerHTML = `${currentLight}%`;
+        
+        generateFromBase();
+      });
+    }
+
+    // Initialize
+    function init() {
+      renderModeButtons();
+      syncSliders();
+      randomPalette();
+    }
+    
+    window.onload = init;
+    
+    // Make functions global for onclick handlers
+    window.setMode = setMode;
+    window.toggleLock = toggleLock;
+    window.updateColor = updateColor;
+    window.generateFromBase = generateFromBase;
+    window.randomPalette = randomPalette;
+    window.exportCSS = exportCSS;
+    window.exportJSON = exportJSON;
+    window.copyColor = copyColor;
+  </script>
+</body>
+</html>

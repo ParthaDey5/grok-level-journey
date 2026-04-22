@@ -1,0 +1,2308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Snippets</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <style>
+button{
+  cursor: pointer;
+}
+
+    /* Tab active underline indicator */
+    .tab-btn {
+      position: relative;
+    }
+    .tab-btn::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 50%;
+      width: 0;
+      height: 3px;
+      background: #4f46e5;
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+    .tab-btn.active::after {
+      width: 60%;
+    }
+
+    .code-block {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 1.25rem;
+      font-family: ui-monospace, monospace;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      overflow-x: auto;
+      color: #1f2937;
+      max-height: 20rem;
+      overflow-y: auto;
+    }
+
+    /* Modern Animated Category */
+    .category-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.25rem;
+      background: #f1f5f9;
+      border-radius: 12px;
+      margin-bottom: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .category-header:hover {
+      background: #e2e8f0;
+    }
+
+    .category-header.active {
+      background: #e0e7ff;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .category-content {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+      overflow: hidden;
+    }
+
+    .category-content.expanded {
+      grid-template-rows: 1fr;
+    }
+
+    .category-inner {
+      overflow: hidden;
+    }
+
+    .category-arrow {
+      transition: transform 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+
+    .category-arrow.expanded {
+      transform: rotate(180deg);
+    }
+
+    .tab-content:not(.hidden) {
+      display: block !important;
+    }
+  </style>
+</head>
+<body class="bg-zinc-100">
+
+  <div class="max-w-7xl mx-auto px-6 py-12">
+
+    <h1 class="text-4xl font-bold text-center mb-4">My Snippets</h1>
+    <p class="text-gray-600 text-center mb-12">Add or edit anything easily</p>
+
+    <!-- Tabs -->
+    <div class="flex justify-center mb-12 border-b border-gray-200">
+      <button onclick="switchTab(0)" id="tab-0"
+        class="tab-btn px-10 py-4 font-semibold border-b-2 border-indigo-600 text-indigo-600 active">HTML</button>
+      <button onclick="switchTab(1)" id="tab-1"
+        class="tab-btn px-10 py-4 font-semibold border-b-2 border-transparent text-gray-500">React</button>
+    </div>
+
+    <!-- ==================== HTML TAB ==================== -->
+    <div id="content-0" class="tab-content">
+
+      <!-- Layout Category -->
+      <div class="mb-10">
+        <div id="header-html-layout" class="category-header active" onclick="toggleCategory('html-layout')">
+          <div class="flex items-center gap-3">
+            <span class="category-title">📐 Layout</span>
+            <span class="category-count">3</span>
+          </div>
+          <svg id="arrow-html-layout" class="category-arrow w-5 h-5 expanded" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+        <div id="cat-html-layout" class="category-content expanded">
+          <div class="category-inner">
+            <div class="grid md:grid-cols-2 gap-8">
+
+              <!-- Responsive Navbar -->
+              <div class="bg-white rounded-3xl shadow p-8">
+                <div class="flex justify-between items-center mb-6">
+                  <h2 class="text-2xl font-semibold">Responsive Navbar</h2>
+                  <button onclick="copyCode('code1')" class="bg-indigo-600 text-white px-5 py-2 rounded-2xl text-sm">Copy</button>
+                </div>
+                <div id="code1" class="code-block">
+&lt;nav class="bg-gray-900 text-white shadow-lg fixed top-0 w-full z-50"&gt;
+  &lt;div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"&gt;
+    &lt;div class="flex justify-between h-16 items-center"&gt;
+      &lt;div class="flex-shrink-0 font-bold text-xl"&gt;Logo&lt;/div&gt;
+      
+      &lt;!-- Desktop Menu --&gt;
+      &lt;div class="hidden md:flex items-center space-x-8"&gt;
+        &lt;a href="#" class="hover:text-gray-300"&gt;Home&lt;/a&gt;
+        &lt;a href="#" class="hover:text-gray-300"&gt;About&lt;/a&gt;
+        &lt;a href="#" class="hover:text-gray-300"&gt;Projects&lt;/a&gt;
+      &lt;/div&gt;
+      
+      &lt;!-- Mobile Hamburger Button --&gt;
+      &lt;div class="md:hidden"&gt;
+        &lt;button id="hamburger-btn" class="text-white focus:outline-none p-2"&gt;
+          &lt;svg id="hamburger-icon" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"&gt;
+            &lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /&gt;
+          &lt;/svg&gt;
+          &lt;svg id="close-icon" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"&gt;
+            &lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /&gt;
+          &lt;/svg&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  
+  &lt;!-- Mobile Menu --&gt;
+  &lt;div id="mobile-menu" class="hidden md:hidden bg-gray-800 border-t border-gray-700"&gt;
+    &lt;div class="px-4 py-6 space-y-4"&gt;
+      &lt;a href="#" class="block px-3 py-3 hover:bg-gray-700 rounded"&gt;Home&lt;/a&gt;
+      &lt;a href="#" class="block px-3 py-3 hover:bg-gray-700 rounded"&gt;About&lt;/a&gt;
+      &lt;a href="#" class="block px-3 py-3 hover:bg-gray-700 rounded"&gt;Projects&lt;/a&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/nav&gt;
+
+&lt;script&gt;
+  // Mobile Menu Toggle
+  const hamburgerBtn = document.getElementById('hamburger-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const hamburgerIcon = document.getElementById('hamburger-icon');
+  const closeIcon = document.getElementById('close-icon');
+
+  hamburgerBtn.addEventListener('click', () =&gt; {
+    const isHidden = mobileMenu.classList.contains('hidden');
+    if (isHidden) {
+      mobileMenu.classList.remove('hidden');
+      hamburgerIcon.classList.add('hidden');
+      closeIcon.classList.remove('hidden');
+    } else {
+      mobileMenu.classList.add('hidden');
+      hamburgerIcon.classList.remove('hidden');
+      closeIcon.classList.add('hidden');
+    }
+  });
+&lt;/script&gt;
+                </div>
+              </div>
+
+              <!-- Landing Page -->
+              <div class="bg-white rounded-3xl shadow p-8">
+                <div class="flex justify-between items-center mb-6">
+                  <h2 class="text-2xl font-semibold">Landing Page (Hash Routing + Smooth Scroll)</h2>
+                  <button onclick="copyCode('code-landing')" class="bg-indigo-600 text-white px-5 py-2 rounded-2xl text-sm">Copy</button>
+                </div>
+                <div id="code-landing" class="code-block h-[25rem] overflow-y-auto">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"&gt;&lt;/script&gt;
+  &lt;title&gt;Landing Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;nav class="bg-gray-900 text-white shadow-lg fixed top-0 w-full z-50"&gt;
+    &lt;div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"&gt;
+      &lt;div class="flex justify-between h-16 items-center"&gt;
+        &lt;div class="flex-shrink-0 font-bold text-xl"&gt;Logo&lt;/div&gt;
+        &lt;div class="hidden md:flex items-center space-x-8"&gt;
+          &lt;a href="#home" class="nav-link group relative py-2 transition-colors"&gt;Home&lt;/a&gt;
+          &lt;a href="#about" class="nav-link group relative py-2 transition-colors"&gt;About&lt;/a&gt;
+          &lt;a href="#skills" class="nav-link group relative py-2 transition-colors"&gt;Skills&lt;/a&gt;
+          &lt;a href="#projects" class="nav-link group relative py-2 transition-colors"&gt;Projects&lt;/a&gt;
+          &lt;a href="#contact" class="nav-link group relative py-2 transition-colors"&gt;Contact&lt;/a&gt;
+        &lt;/div&gt;
+        &lt;div class="md:hidden"&gt;
+          &lt;button id="hamburger-btn" class="text-white focus:outline-none p-2"&gt;
+            &lt;svg id="hamburger-icon" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"&gt;
+              &lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /&gt;
+            &lt;/svg&gt;
+            &lt;svg id="close-icon" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"&gt;
+              &lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /&gt;
+            &lt;/svg&gt;
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id="mobile-menu" class="hidden md:hidden bg-gray-800 border-t border-gray-700"&gt;
+      &lt;div class="px-4 py-6 space-y-4"&gt;
+        &lt;a href="#home" class="block px-3 py-3 hover:bg-gray-700 rounded"&gt;Home&lt;/a&gt;
+        &lt;a href="#about" class="block px-3 py-3 hover:bg-gray-700 rounded"&gt;About&lt;/a&gt;
+        &lt;a href="#skills" class="block px-3 py-3 hover:bg-gray-700 rounded"&gt;Skills&lt;/a&gt;
+        &lt;a href="#projects" class="block px-3 py-3 hover:bg-gray-700 rounded"&gt;Projects&lt;/a&gt;
+        &lt;a href="#contact" class="block px-3 py-3 hover:bg-gray-700 rounded"&gt;Contact&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/nav&gt;
+
+  &lt;section id="home" class="min-h-screen bg-gray-900 text-white flex items-center justify-center pt-16"&gt;
+    &lt;div class="text-center px-4"&gt;
+      &lt;h1 class="text-5xl md:text-7xl font-bold mb-6"&gt;Welcome&lt;/h1&gt;
+      &lt;p class="text-xl text-gray-400 max-w-2xl mx-auto"&gt;Full-stack developer creating modern web experiences.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;section id="about" class="min-h-screen bg-gray-800 text-white flex items-center pt-16"&gt;
+    &lt;div class="max-w-4xl mx-auto px-4"&gt;
+      &lt;h2 class="text-4xl font-bold mb-8"&gt;About&lt;/h2&gt;
+      &lt;p class="text-lg text-gray-300"&gt;Your about content here.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;section id="skills" class="min-h-screen bg-gray-900 text-white flex items-center pt-16"&gt;
+    &lt;div class="max-w-6xl mx-auto px-4"&gt;
+      &lt;h2 class="text-4xl font-bold mb-12 text-center"&gt;Skills&lt;/h2&gt;
+      &lt;!-- Add skills content --&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;section id="projects" class="min-h-screen bg-gray-800 text-white flex items-center pt-16"&gt;
+    &lt;div class="max-w-6xl mx-auto px-4"&gt;
+      &lt;h2 class="text-4xl font-bold mb-12 text-center"&gt;Projects&lt;/h2&gt;
+      &lt;!-- Add projects content --&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;section id="contact" class="min-h-screen bg-gray-900 text-white flex items-center pt-16"&gt;
+    &lt;div class="max-w-4xl mx-auto px-4"&gt;
+      &lt;h2 class="text-4xl font-bold mb-12 text-center"&gt;Contact&lt;/h2&gt;
+      &lt;!-- Add contact form --&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;script&gt;
+    // Mobile Menu Toggle
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const hamburgerIcon = document.getElementById('hamburger-icon');
+    const closeIcon = document.getElementById('close-icon');
+
+    hamburgerBtn.addEventListener('click', () =&gt; {
+      const isHidden = mobileMenu.classList.contains('hidden');
+      if (isHidden) {
+        mobileMenu.classList.remove('hidden');
+        hamburgerIcon.classList.add('hidden');
+        closeIcon.classList.remove('hidden');
+      } else {
+        mobileMenu.classList.add('hidden');
+        hamburgerIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+      }
+    });
+
+    // Active Link Underline
+    function setActiveLinks() {
+      const currentHash = window.location.hash;
+      const links = document.querySelectorAll('.nav-link');
+      links.forEach(link =&gt; {
+        const href = link.getAttribute('href');
+        const underline = link.querySelector('span') || document.createElement('span');
+        if (!link.querySelector('span')) {
+          underline.className = 'absolute bottom-0 left-0 h-0.5 bg-blue-400 transition-all duration-300';
+          link.appendChild(underline);
+          link.classList.add('group', 'relative', 'py-2');
+        }
+        if (href === currentHash) {
+          link.classList.add('text-white', 'font-semibold');
+          underline.style.width = '100%';
+        } else {
+          link.classList.remove('text-white', 'font-semibold');
+          underline.style.width = '0';
+        }
+      });
+    }
+
+    // Custom Easing Smooth Scroll
+    function easeInOutCubic(t) {
+      return t &lt; 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+
+    function smoothScrollTo(targetPosition, duration = 800) {
+      const startPosition = window.pageYOffset;
+      const distance = targetPosition - startPosition;
+      let startTime = null;
+
+      function animation(currentTime) {
+        if (startTime === null) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+        const progress = Math.min(timeElapsed / duration, 1);
+        const ease = easeInOutCubic(progress);
+        window.scrollTo(0, startPosition + distance * ease);
+        if (progress &lt; 1) requestAnimationFrame(animation);
+      }
+      requestAnimationFrame(animation);
+    }
+
+    // Smooth scroll for nav links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor =&gt; {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+        if (targetSection) {
+          mobileMenu.classList.add('hidden');
+          hamburgerIcon.classList.remove('hidden');
+          closeIcon.classList.add('hidden');
+          const navHeight = document.querySelector('nav').offsetHeight;
+          smoothScrollTo(targetSection.offsetTop - navHeight, 800);
+          history.pushState(null, null, targetId);
+          setActiveLinks();
+        }
+      });
+    });
+
+    window.addEventListener('hashchange', setActiveLinks);
+    window.onload = setActiveLinks;
+
+    // Scroll spy
+    const sections = document.querySelectorAll('section[id]');
+    window.addEventListener('scroll', () =&gt; {
+      let current = '';
+      sections.forEach(section =&gt; {
+        const sectionTop = section.offsetTop;
+        if (pageYOffset &gt;= sectionTop - 100) {
+          current = '#' + section.getAttribute('id');
+        }
+      });
+      if (current && window.location.hash !== current) {
+        history.replaceState(null, null, current);
+        setActiveLinks();
+      }
+    });
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                </div>
+              </div>
+
+              <!-- Footer -->
+              <div class="bg-white rounded-3xl shadow p-8 md:col-span-2">
+                <div class="flex justify-between items-center mb-6">
+                  <h2 class="text-2xl font-semibold">Footer</h2>
+                  <button onclick="copyCode('code-footer')" class="bg-indigo-600 text-white px-5 py-2 rounded-2xl text-sm">Copy</button>
+                </div>
+                <div id="code-footer" class="code-block">
+  &lt;footer class="bg-gray-900 text-white w-full py-12"&gt;
+  &lt;div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"&gt;
+    &lt;div class="grid md:grid-cols-4 gap-8"&gt;
+      &lt;div class="col-span-2"&gt;
+        &lt;h3 class="text-xl font-bold mb-4"&gt;Logo&lt;/h3&gt;
+        &lt;p class="text-gray-400"&gt;Building modern web experiences with passion and precision.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;h4 class="font-semibold mb-4"&gt;Links&lt;/h4&gt;
+        &lt;ul class="space-y-2 text-gray-400"&gt;
+          &lt;li&gt;&lt;a href="#" class="hover:text-white"&gt;Home&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href="#" class="hover:text-white"&gt;About&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href="#" class="hover:text-white"&gt;Projects&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;h4 class="font-semibold mb-4"&gt;Social&lt;/h4&gt;
+        &lt;ul class="space-y-2 text-gray-400"&gt;
+          &lt;li&gt;&lt;a href="#" class="hover:text-white"&gt;GitHub&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href="#" class="hover:text-white"&gt;Twitter&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href="#" class="hover:text-white"&gt;LinkedIn&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400"&gt;
+      &lt;p&gt;© 2024 Your Name. All rights reserved.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/footer&gt;
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Components Category -->
+      <div class="mb-10">
+        <div id="header-html-components" class="category-header" onclick="toggleCategory('html-components')">
+          <div class="flex items-center gap-3">
+            <span class="category-title">🧩 Components</span>
+            <span class="category-count">4</span>
+          </div>
+          <svg id="arrow-html-components" class="category-arrow w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+        <div id="cat-html-components" class="category-content">
+          <div class="category-inner">
+            <div class="grid md:grid-cols-2 gap-8">
+              <!-- Hero Section -->
+            <div class="bg-white rounded-3xl shadow p-8">
+              <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-semibold">Hero Section</h2>
+                <button onclick="copyCode('code-hero')"
+                  class="bg-indigo-600 text-white px-5 py-2 rounded-2xl text-sm">Copy</button>
+              </div>
+              <div id="code-hero" class="code-block">
+&lt;section class="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 text-white flex items-center justify-center"&gt;
+  &lt;div class="text-center px-4 max-w-4xl mx-auto"&gt;
+    &lt;h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight"&gt;
+      Build Something &lt;span class="text-yellow-300"&gt;Amazing&lt;/span&gt;
+    &lt;/h1&gt;
+    &lt;p class="text-xl md:text-2xl text-gray-200 mb-8 max-w-2xl mx-auto"&gt;
+      Create stunning web experiences with modern tools and technologies.
+    &lt;/p&gt;
+    &lt;div class="flex flex-col sm:flex-row gap-4 justify-center"&gt;
+      &lt;a href="#" class="bg-yellow-400 text-gray-900 px-8 py-4 rounded-full font-semibold hover:bg-yellow-300 transition"&gt;
+        Get Started
+      &lt;/a&gt;
+      &lt;a href="#" class="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-gray-900 transition"&gt;
+        Learn More
+      &lt;/a&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+              </div>
+            </div>
+
+            <!-- Feature Cards -->
+            <div class="bg-white rounded-3xl shadow p-8">
+              <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-semibold">Feature Cards</h2>
+                <button onclick="copyCode('code-features')"
+                  class="bg-indigo-600 text-white px-5 py-2 rounded-2xl text-sm">Copy</button>
+              </div>
+              <div id="code-features" class="code-block">
+&lt;section class="py-20 bg-gray-50"&gt;
+  &lt;div class="max-w-6xl mx-auto px-4"&gt;
+    &lt;div class="text-center mb-16"&gt;
+      &lt;h2 class="text-4xl font-bold text-gray-900 mb-4"&gt;Features&lt;/h2&gt;
+      &lt;p class="text-xl text-gray-600"&gt;Everything you need to succeed&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="grid md:grid-cols-3 gap-8"&gt;
+      &lt;!-- Card 1 --&gt;
+      &lt;div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition"&gt;
+        &lt;div class="w-14 h-14 bg-indigo-100 rounded-xl flex items-center justify-center mb-6"&gt;
+          &lt;svg class="w-7 h-7 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"&gt;
+            &lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /&gt;
+          &lt;/svg&gt;
+        &lt;/div&gt;
+        &lt;h3 class="text-xl font-bold text-gray-900 mb-3"&gt;Lightning Fast&lt;/h3&gt;
+        &lt;p class="text-gray-600"&gt;Optimized for speed and performance. Load times under 1 second.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;!-- Card 2 --&gt;
+      &lt;div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition"&gt;
+        &lt;div class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center mb-6"&gt;
+          &lt;svg class="w-7 h-7 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"&gt;
+            &lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /&gt;
+          &lt;/svg&gt;
+        &lt;/div&gt;
+        &lt;h3 class="text-xl font-bold text-gray-900 mb-3"&gt;Secure by Default&lt;/h3&gt;
+        &lt;p class="text-gray-600"&gt;Enterprise-grade security built into every layer of the stack.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;!-- Card 3 --&gt;
+      &lt;div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition"&gt;
+        &lt;div class="w-14 h-14 bg-pink-100 rounded-xl flex items-center justify-center mb-6"&gt;
+          &lt;svg class="w-7 h-7 text-pink-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"&gt;
+            &lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" /&gt;
+          &lt;/svg&gt;
+        &lt;/div&gt;
+        &lt;h3 class="text-xl font-bold text-gray-900 mb-3"&gt;Modular Design&lt;/h3&gt;
+        &lt;p class="text-gray-600"&gt;Flexible components that adapt to your workflow and scale.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+              </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="bg-white rounded-3xl shadow p-8 md:col-span-2">
+              <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-semibold">Contact Form</h2>
+                <button onclick="copyCode('code-contact')"
+                  class="bg-indigo-600 text-white px-5 py-2 rounded-2xl text-sm">Copy</button>
+              </div>
+              <div id="code-contact" class="code-block">
+&lt;section class="py-20 bg-white"&gt;
+  &lt;div class="max-w-2xl mx-auto px-4"&gt;
+    &lt;div class="text-center mb-12"&gt;
+      &lt;h2 class="text-4xl font-bold text-gray-900 mb-4"&gt;Get in Touch&lt;/h2&gt;
+      &lt;p class="text-xl text-gray-600"&gt;We'd love to hear from you&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;form class="space-y-6"&gt;
+      &lt;div class="grid md:grid-cols-2 gap-6"&gt;
+        &lt;div&gt;
+          &lt;label class="block text-sm font-medium text-gray-700 mb-2"&gt;First Name&lt;/label&gt;
+          &lt;input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition" placeholder="John"&gt;
+        &lt;/div&gt;
+        &lt;div&gt;
+          &lt;label class="block text-sm font-medium text-gray-700 mb-2"&gt;Last Name&lt;/label&gt;
+          &lt;input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition" placeholder="Doe"&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;label class="block text-sm font-medium text-gray-700 mb-2"&gt;Email&lt;/label&gt;
+        &lt;input type="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition" placeholder="john@example.com"&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;label class="block text-sm font-medium text-gray-700 mb-2"&gt;Message&lt;/label&gt;
+        &lt;textarea rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition resize-none" placeholder="Tell us about your project..."&gt;&lt;/textarea&gt;
+      &lt;/div&gt;
+      &lt;button type="submit" class="w-full bg-indigo-600 text-white py-4 rounded-lg font-semibold hover:bg-indigo-700 transition"&gt;
+        Send Message
+      &lt;/button&gt;
+    &lt;/form&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+              </div>
+            </div>
+
+            <!-- CSS Spinner -->
+            <div class="bg-white rounded-3xl shadow p-8">
+              <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-semibold">CSS Spinner</h2>
+                <button onclick="copyCode('code-spinner')"
+                  class="bg-indigo-600 text-white px-5 py-2 rounded-2xl text-sm">Copy</button>
+              </div>
+              <div id="code-spinner" class="code-block">
+&lt;style&gt;
+.spinner {
+  font-size: 28px;
+  position: relative;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+}
+
+.spinner.center {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.spinner .spinner-blade {
+  position: absolute;
+  left: 0.4629em;
+  bottom: 0;
+  width: 0.074em;
+  height: 0.2777em;
+  border-radius: 0.0555em;
+  background-color: transparent;
+  transform-origin: center -0.2222em;
+  animation: spinner-fade9234 1s infinite linear;
+}
+
+.spinner .spinner-blade:nth-child(1) { animation-delay: 0s; transform: rotate(0deg); }
+.spinner .spinner-blade:nth-child(2) { animation-delay: 0.083s; transform: rotate(30deg); }
+.spinner .spinner-blade:nth-child(3) { animation-delay: 0.166s; transform: rotate(60deg); }
+.spinner .spinner-blade:nth-child(4) { animation-delay: 0.249s; transform: rotate(90deg); }
+.spinner .spinner-blade:nth-child(5) { animation-delay: 0.332s; transform: rotate(120deg); }
+.spinner .spinner-blade:nth-child(6) { animation-delay: 0.415s; transform: rotate(150deg); }
+.spinner .spinner-blade:nth-child(7) { animation-delay: 0.498s; transform: rotate(180deg); }
+.spinner .spinner-blade:nth-child(8) { animation-delay: 0.581s; transform: rotate(210deg); }
+.spinner .spinner-blade:nth-child(9) { animation-delay: 0.664s; transform: rotate(240deg); }
+.spinner .spinner-blade:nth-child(10) { animation-delay: 0.747s; transform: rotate(270deg); }
+.spinner .spinner-blade:nth-child(11) { animation-delay: 0.83s; transform: rotate(300deg); }
+.spinner .spinner-blade:nth-child(12) { animation-delay: 0.913s; transform: rotate(330deg); }
+
+@keyframes spinner-fade9234 {
+  0% { background-color: #69717d; }
+  100% { background-color: transparent; }
+}
+&lt;/style&gt;
+
+&lt;div class="spinner center"&gt;
+  &lt;div class="spinner-blade"&gt;&lt;/div&gt;
+  &lt;div class="spinner-blade"&gt;&lt;/div&gt;
+  &lt;div class="spinner-blade"&gt;&lt;/div&gt;
+  &lt;div class="spinner-blade"&gt;&lt;/div&gt;
+  &lt;div class="spinner-blade"&gt;&lt;/div&gt;
+  &lt;div class="spinner-blade"&gt;&lt;/div&gt;
+  &lt;div class="spinner-blade"&gt;&lt;/div&gt;
+  &lt;div class="spinner-blade"&gt;&lt;/div&gt;
+  &lt;div class="spinner-blade"&gt;&lt;/div&gt;
+  &lt;div class="spinner-blade"&gt;&lt;/div&gt;
+  &lt;div class="spinner-blade"&gt;&lt;/div&gt;
+  &lt;div class="spinner-blade"&gt;&lt;/div&gt;
+&lt;/div&gt;
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Effects Category -->
+      <div class="mb-10">
+        <div id="header-html-effects" class="category-header" onclick="toggleCategory('html-effects')">
+          <div class="flex items-center gap-3">
+            <span class="category-title">✨ Effects</span>
+            <span class="category-count">5</span>
+          </div>
+          <svg id="arrow-html-effects" class="category-arrow w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+        <div id="cat-html-effects" class="category-content">
+          <div class="category-inner">
+            <div class="grid md:grid-cols-2 gap-8">
+              <!-- Fade-in on Scroll -->
+            <div class="bg-white rounded-3xl shadow p-8">
+              <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-semibold">Fade-in on Scroll</h2>
+                <button onclick="copyCode('code-fade-scroll')"
+                  class="bg-indigo-600 text-white px-5 py-2 rounded-2xl text-sm">Copy</button>
+              </div>
+              <div id="code-fade-scroll" class="code-block">
+&lt;!-- CSS --&gt;
+&lt;style&gt;
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+&lt;/style&gt;
+
+&lt;!-- HTML --&gt;
+&lt;div class="fade-in"&gt;Content fades in on scroll&lt;/div&gt;
+
+&lt;!-- JavaScript (Intersection Observer) --&gt;
+&lt;script&gt;
+  // Elements fade in ONCE when they first enter the viewport (professional standard)
+  // They stay visible after - no reverse animation on scroll out
+  const observer = new IntersectionObserver((entries) =&gt; {
+    entries.forEach(entry =&gt; {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el =&gt; observer.observe(el));
+&lt;/script&gt;
+              </div>
+            </div>
+
+            <!-- Card Hover Lift + Glow -->
+            <div class="bg-white rounded-3xl shadow p-8">
+              <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-semibold">Card Hover Lift + Glow</h2>
+                <button onclick="copyCode('code-card-hover')"
+                  class="bg-indigo-600 text-white px-5 py-2 rounded-2xl text-sm">Copy</button>
+              </div>
+              <div id="code-card-hover" class="code-block">
+&lt;!-- CSS --&gt;
+&lt;style&gt;
+  .hover-card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .hover-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+  }
+&lt;/style&gt;
+
+&lt;!-- HTML --&gt;
+&lt;div class="hover-card"&gt;
+  &lt;h3&gt;Card Title&lt;/h3&gt;
+  &lt;p&gt;Hover to see the lift effect&lt;/p&gt;
+&lt;/div&gt;
+              </div>
+            </div>
+
+            <!-- Gradient Text Shimmer -->
+            <div class="bg-white rounded-3xl shadow p-8">
+              <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-semibold">Gradient Text Shimmer</h2>
+                <button onclick="copyCode('code-text-shimmer')"
+                  class="bg-indigo-600 text-white px-5 py-2 rounded-2xl text-sm">Copy</button>
+              </div>
+              <div id="code-text-shimmer" class="code-block">
+&lt;!-- CSS --&gt;
+&lt;style&gt;
+  .shimmer-text {
+    font-size: 3rem;
+    font-weight: bold;
+    background: linear-gradient(
+      90deg,
+      #6366f1 0%,
+      #a855f7 25%,
+      #ec4899 50%,
+      #a855f7 75%,
+      #6366f1 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s linear infinite;
+  }
+  
+  @keyframes shimmer {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+  }
+&lt;/style&gt;
+
+&lt;!-- HTML --&gt;
+&lt;h1 class="shimmer-text"&gt;Amazing Headline&lt;/h1&gt;
+              </div>
+            </div>
+
+            <!-- Custom Scrollbar -->
+            <div class="bg-white rounded-3xl shadow p-8">
+              <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-semibold">Custom Scrollbar</h2>
+                <button onclick="copyCode('code-scrollbar')"
+                  class="bg-indigo-600 text-white px-5 py-2 rounded-2xl text-sm">Copy</button>
+              </div>
+              <div id="code-scrollbar" class="code-block">
+&lt;!-- CSS (Webkit browsers + Firefox) --&gt;
+&lt;style&gt;
+  /* Track */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #6366f1;
+    border-radius: 5px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #4f46e5;
+  }
+  
+  /* Track background */
+  ::-webkit-scrollbar-track {
+    background: #1f2937;
+  }
+  
+  /* Firefox support */
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: #6366f1 #1f2937;
+  }
+&lt;/style&gt;
+              </div>
+            </div>
+
+            <!-- Skeleton Loading -->
+            <div class="bg-white rounded-3xl shadow p-8 md:col-span-2">
+              <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-semibold">Skeleton Loading</h2>
+                <button onclick="copyCode('code-skeleton')"
+                  class="bg-indigo-600 text-white px-5 py-2 rounded-2xl text-sm">Copy</button>
+              </div>
+              <div id="code-skeleton" class="code-block">
+&lt;!-- CSS --&gt;
+&lt;style&gt;
+  .skeleton {
+    background: linear-gradient(
+      90deg,
+      #f3f4f6 0%,
+      #e5e7eb 50%,
+      #f3f4f6 100%
+    );
+    background-size: 200% 100%;
+    animation: pulse 1.5s ease-in-out infinite;
+    border-radius: 8px;
+  }
+  
+  @keyframes pulse {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+  
+  .skeleton-text { height: 16px; margin-bottom: 12px; }
+  .skeleton-title { height: 24px; width: 60%; margin-bottom: 16px; }
+  .skeleton-circle { 
+    width: 60px; 
+    height: 60px; 
+    border-radius: 50%;
+  }
+&lt;/style&gt;
+
+&lt;!-- HTML --&gt;
+&lt;div class="flex items-center gap-4 p-4"&gt;
+  &lt;div class="skeleton skeleton-circle"&gt;&lt;/div&gt;
+  &lt;div class="flex-1"&gt;
+    &lt;div class="skeleton skeleton-title"&gt;&lt;/div&gt;
+    &lt;div class="skeleton skeleton-text"&gt;&lt;/div&gt;
+    &lt;div class="skeleton skeleton-text" style="width: 80%;"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ==================== REACT TAB ==================== -->
+    <div id="content-1" class="tab-content hidden">
+
+      <!-- React Layout Category -->
+      <div class="mb-10">
+        <div id="header-react-layout" class="category-header active" onclick="toggleCategory('react-layout')">
+          <div class="flex items-center gap-3">
+            <span class="category-title">📐 Layout</span>
+            <span class="category-count">4</span>
+          </div>
+          <svg id="arrow-react-layout" class="category-arrow w-5 h-5 expanded" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+        <div id="cat-react-layout" class="category-content expanded">
+          <div class="category-inner">
+            <div class="grid md:grid-cols-2 gap-8">
+
+              <!-- Navbar Component -->
+              <div class="bg-white rounded-3xl shadow p-8">
+                <div class="flex justify-between items-center mb-6">
+                  <h2 class="text-2xl font-semibold">Navbar Component</h2>
+                  <button onclick="copyCode('code2')" class="bg-indigo-600 text-white px-5 py-2 rounded-2xl text-sm">Copy</button>
+                </div>
+                <div id="code2" class="code-block min-h-[28rem]">
+import { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+
+export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+
+  const isActive = (path) =&gt; location.pathname === path;
+
+  return (
+    &lt;nav className="bg-gray-900 text-white shadow-lg fixed w-full z-50"&gt;
+      &lt;div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"&gt;
+        &lt;div className="flex justify-between h-16 items-center"&gt;
+          &lt;!-- Logo --&gt;
+          &lt;div className="flex-shrink-0 font-bold text-xl"&gt;Partha.dev&lt;/div&gt;
+
+          &lt;!-- Desktop Menu --&gt;
+          &lt;div className="hidden md:flex items-center space-x-8"&gt;
+            &lt;Link to="/" className={`group relative py-2 transition-colors ${isActive('/') ? 'text-white font-semibold' : 'text-gray-300 hover:text-white'}`}&gt;
+              Home
+              &lt;span className={`absolute bottom-0 left-0 h-0.5 bg-blue-400 transition-all duration-300 ${isActive('/') ? 'w-full' : 'w-0 group-hover:w-full'}`}&gt;&lt;/span&gt;
+            &lt;/Link&gt;
+            {/* Add other links similarly */}
+          &lt;/div&gt;
+
+          &lt;!-- Mobile Hamburger --&gt;
+          &lt;div className="md:hidden"&gt;
+            &lt;button onClick={() =&gt; setIsOpen(!isOpen)} className="text-white focus:outline-none p-2"&gt;
+              &lt;svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"&gt;
+                {isOpen ? (
+                  &lt;path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /&gt;
+                ) : (
+                  &lt;path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /&gt;
+                )}
+              &lt;/svg&gt;
+            &lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      {isOpen && (
+        &lt;div className="md:hidden bg-gray-800 border-t border-gray-700"&gt;
+          &lt;div className="px-4 py-6 space-y-4"&gt;
+            &lt;Link to="/" onClick={() =&gt; setIsOpen(false)} className="block px-3 py-3 hover:bg-gray-700 rounded"&gt;Home&lt;/Link&gt;
+            {/* Add other mobile links */}
+          &lt;/div&gt;
+        &lt;/div&gt;
+      )}
+    &lt;/nav&gt;
+  );
+}
+                </div>
+              </div>
+
+              <!-- Footer Component -->
+              <div class="bg-white rounded-3xl shadow p-8">
+                <div class="flex justify-between items-center mb-6">
+                  <h2 class="text-2xl font-semibold">Footer Component</h2>
+                  <button onclick="copyCode('code-react-footer')" class="bg-indigo-600 text-white px-5 py-2 rounded-2xl text-sm">Copy</button>
+                </div>
+                <div id="code-react-footer" class="code-block min-h-[28rem]">
+export default function Footer() {
+  const currentYear = new Date().getFullYear();
+  
+  return (
+    &lt;footer className="bg-gray-900 text-white py-12"&gt;
+      &lt;div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"&gt;
+        &lt;div className="grid md:grid-cols-4 gap-8"&gt;
+          &lt;div className="col-span-2"&gt;
+            &lt;h3 className="text-xl font-bold mb-4"&gt;YourBrand&lt;/h3&gt;
+            &lt;p className="text-gray-400"&gt;
+              Building modern web experiences with passion and precision.
+            &lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div&gt;
+            &lt;h4 className="font-semibold mb-4"&gt;Links&lt;/h4&gt;
+            &lt;ul className="space-y-2 text-gray-400"&gt;
+              &lt;li&gt;&lt;a href="#" className="hover:text-white transition"&gt;Home&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href="#" className="hover:text-white transition"&gt;About&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href="#" className="hover:text-white transition"&gt;Projects&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/div&gt;
+          &lt;div&gt;
+            &lt;h4 className="font-semibold mb-4"&gt;Social&lt;/h4&gt;
+            &lt;ul className="space-y-2 text-gray-400"&gt;
+              &lt;li&gt;&lt;a href="#" className="hover:text-white transition"&gt;GitHub&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href="#" className="hover:text-white transition"&gt;Twitter&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href="#" className="hover:text-white transition"&gt;LinkedIn&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400"&gt;
+          &lt;p&gt;© {currentYear} Your Name. All rights reserved.&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/footer&gt;
+  );
+}
+                </div>
+              </div>
+
+              <!-- Card Component -->
+              <div class="bg-white rounded-3xl shadow p-8">
+                <div class="flex justify-between items-center mb-6">
+                  <h2 class="text-2xl font-semibold">Card Component</h2>
+                  <button onclick="copyCode('code-react-card')" class="bg-indigo-600 text-white px-5 py-2 rounded-2xl text-sm">Copy</button>
+                </div>
+                <div id="code-react-card" class="code-block min-h-[28rem]">
+export default function Card({ 
+  title, 
+  description, 
+  image, 
+  tags = [], 
+  onClick,
+  variant = 'default' 
+}) {
+  const variants = {
+    default: 'bg-white',
+    dark: 'bg-gray-900 text-white',
+    outlined: 'bg-transparent border-2 border-gray-200'
+  };
+
+  return (
+    &lt;div 
+      onClick={onClick}
+      className={`rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 cursor-pointer ${variants[variant]}`}
+    &gt;
+      {image && (
+        &lt;div className="h-48 overflow-hidden"&gt;
+          &lt;img 
+            src={image} 
+            alt={title}
+            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+          /&gt;
+        &lt;/div&gt;
+      )}
+      &lt;div className="p-6"&gt;
+        {tags.length &gt; 0 && (
+          &lt;div className="flex flex-wrap gap-2 mb-3"&gt;
+            {tags.map((tag, i) =&gt; (
+              &lt;span 
+                key={i}
+                className="px-3 py-1 text-xs font-medium bg-indigo-100 text-indigo-700 rounded-full"
+              &gt;
+                {tag}
+              &lt;/span&gt;
+            ))}
+          &lt;/div&gt;
+        )}
+        &lt;h3 className="text-xl font-bold mb-2"&gt;{title}&lt;/h3&gt;
+        &lt;p className={`${variant === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}&gt;
+          {description}
+        &lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+                </div>
+              </div>
+
+              <!-- Container Component -->
+              <div class="bg-white rounded-3xl shadow p-8">
+                <div class="flex justify-between items-center mb-6">
+                  <h2 class="text-2xl font-semibold">Container Component</h2>
+                  <button onclick="copyCode('code-react-container')" class="bg-indigo-600 text-white px-5 py-2 rounded-2xl text-sm">Copy</button>
+                </div>
+                <div id="code-react-container" class="code-block min-h-[28rem]">
+export default function Container({ 
+  children, 
+  size = 'default',
+  padding = true,
+  center = false 
+}) {
+  const sizes = {
+    sm: 'max-w-3xl',
+    default: 'max-w-7xl',
+    lg: 'max-w-8xl',
+    full: 'max-w-full'
+  };
+
+  return (
+    &lt;div className={`mx-auto ${sizes[size]} ${padding ? 'px-4 sm:px-6 lg:px-8' : ''}`}&gt;
+      &lt;div className={center ? 'flex flex-col items-center justify-center min-h-screen' : ''}&gt;
+        {children}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+
+// Usage example:
+// &lt;Container size="sm" padding&gt;
+//   &lt;YourContent /&gt;
+// &lt;/Container&gt;
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- React Components Category -->
+      <div class="mb-10">
+        <div id="header-react-components" class="category-header" onclick="toggleCategory('react-components')">
+          <div class="flex items-center gap-3">
+            <span class="category-title">🧩 Components</span>
+            <span class="category-count">8</span>
+          </div>
+          <svg id="arrow-react-components" class="category-arrow w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+        <div id="cat-react-components" class="category-content">
+          <div class="category-inner">
+            <div class="grid md:grid-cols-2 gap-8">
+
+              <!-- Button Component -->
+              <div class="bg-white rounded-3xl shadow p-8">
+                <div class="flex justify-between items-center mb-6">
+                  <h2 class="text-2xl font-semibold">Button Component</h2>
+                  <button onclick="copyCode('code-react-button')" class="bg-indigo-600 text-white px-5 py-2 rounded-2xl text-sm">Copy</button>
+                </div>
+                <div id="code-react-button" class="code-block min-h-[28rem]">
+interface ButtonProps {
+  children: React.ReactNode;
+  onClick?: () => void;
+  type?: 'button' | 'submit' | 'reset';
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
+  size?: 'sm' | 'md' | 'lg';
+  disabled?: boolean;
+  fullWidth?: boolean;
+}
+
+export default function Button({ 
+  children, 
+  onClick, 
+  type = 'button',
+  variant = 'primary',
+  size = 'md',
+  disabled = false,
+  fullWidth = false
+}: ButtonProps) {
+  const baseStyles = 'font-semibold rounded-xl transition-all duration-200 flex items-center justify-center gap-2';
+  
+  const variants = {
+    primary: 'bg-indigo-600 text-white hover:bg-indigo-700 active:bg-indigo-800',
+    secondary: 'bg-gray-200 text-gray-800 hover:bg-gray-300',
+    outline: 'border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50',
+    ghost: 'text-indigo-600 hover:bg-indigo-50',
+    danger: 'bg-red-600 text-white hover:bg-red-700'
+  };
+
+  const sizes = {
+    sm: 'px-4 py-2 text-sm',
+    md: 'px-6 py-3',
+    lg: 'px-8 py-4 text-lg'
+  };
+
+  return (
+    &lt;button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${fullWidth ? 'w-full' : ''} ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+    &gt;
+      {children}
+    &lt;/button&gt;
+  );
+}
+                </div>
+              </div>
+
+              <!-- Input Component -->
+              <div class="bg-white rounded-3xl shadow p-8">
+                <div class="flex justify-between items-center mb-6">
+                  <h2 class="text-2xl font-semibold">Input Component</h2>
+                  <button onclick="copyCode('code-react-input')" class="bg-indigo-600 text-white px-5 py-2 rounded-2xl text-sm">Copy</button>
+                </div>
+                <div id="code-react-input" class="code-block min-h-[28rem]">
+import { forwardRef, ComponentType, InputHTMLAttributes } from 'react';
+
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  label?: string;
+  error?: string;
+  helper?: string;
+  icon?: ComponentType<{ className?: string }>;
+}
+
+const Input = forwardRef<HTMLInputElement, InputProps>(function Input({
+  label,
+  error,
+  helper,
+  icon: Icon,
+  ...props
+}, ref) {
+  return (
+    &lt;div className="w-full"&gt;
+      {label && (
+        &lt;label className="block text-sm font-medium text-gray-700 mb-1"&gt;
+          {label}
+          {props.required && &lt;span className="text-red-500 ml-1"&gt;*&lt;/span&gt;}
+        &lt;/label&gt;
+      )}
+      &lt;div className="relative"&gt;
+        {Icon && (
+          &lt;div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"&gt;
+            &lt;Icon className="h-5 w-5 text-gray-400" /&gt;
+          &lt;/div&gt;
+        )}
+        &lt;input
+          ref={ref}
+          className={`
+            w-full px-4 py-3 rounded-xl border-2 bg-white transition-colors
+            focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent
+            ${Icon ? 'pl-10' : ''}
+            ${error ? 'border-red-300 focus:ring-red-200' : 'border-gray-200'}
+            ${props.disabled ? 'bg-gray-100 cursor-not-allowed' : ''}
+          `}
+          {...props}
+        /&gt;
+      &lt;/div&gt;
+      {error && &lt;p className="mt-1 text-sm text-red-600"&gt;{error}&lt;/p&gt;}
+      {helper && !error && &lt;p className="mt-1 text-sm text-gray-500"&gt;{helper}&lt;/p&gt;}
+    &lt;/div&gt;
+  );
+});
+
+export default Input;
+                </div>
+              </div>
+
+              <!-- Modal Component -->
+              <div class="bg-white rounded-3xl shadow p-8">
+                <div class="flex justify-between items-center mb-6">
+                  <h2 class="text-2xl font-semibold">Modal Component</h2>
+                  <button onclick="copyCode('code-react-modal')" class="bg-indigo-600 text-white px-5 py-2 rounded-2xl text-sm">Copy</button>
+                </div>
+                <div id="code-react-modal" class="code-block min-h-[28rem]">
+import { useEffect, ReactNode } from 'react';
+
+interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  title?: string;
+  children: ReactNode;
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+}
+
+export default function Modal({ 
+  isOpen, 
+  onClose, 
+  title, 
+  children,
+  size = 'md'
+}: ModalProps) {
+  useEffect(() =&gt; {
+    const handleEscape = (e) =&gt; {
+      if (e.key === 'Escape') onClose();
+    };
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'hidden';
+    }
+    return () =&gt; {
+      document.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen, onClose]);
+
+  if (!isOpen) return null;
+
+  const sizes = {
+    sm: 'max-w-md',
+    md: 'max-w-lg',
+    lg: 'max-w-2xl',
+    xl: 'max-w-4xl'
+  };
+
+  return (
+    &lt;div className="fixed inset-0 z-50 overflow-y-auto"&gt;
+      &lt;div className="flex items-center justify-center min-h-screen p-4"&gt;
+        &lt;div 
+          className="fixed inset-0 bg-black/50 transition-opacity" 
+          onClick={onClose}
+        /&gt;
+        &lt;div className={`relative bg-white rounded-2xl shadow-xl w-full ${sizes[size]} overflow-hidden`}&gt;
+          {title && (
+            &lt;div className="flex items-center justify-between p-6 border-b"&gt;
+              &lt;h3 className="text-xl font-semibold"&gt;{title}&lt;/h3&gt;
+              &lt;button
+                onClick={onClose}
+                className="text-gray-400 hover:text-gray-600 transition"
+              &gt;
+                ✕
+              &lt;/button&gt;
+            &lt;/div&gt;
+          )}
+          &lt;div className="p-6"&gt;{children}&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+                </div>
+              </div>
+
+              <!-- Alert Component -->
+              <div class="bg-white rounded-3xl shadow p-8">
+                <div class="flex justify-between items-center mb-6">
+                  <h2 class="text-2xl font-semibold">Alert Component</h2>
+                  <button onclick="copyCode('code-react-alert')" class="bg-indigo-600 text-white px-5 py-2 rounded-2xl text-sm">Copy</button>
+                </div>
+                <div id="code-react-alert" class="code-block min-h-[28rem]">
+import { useState, ReactNode } from 'react';
+
+type AlertType = 'info' | 'success' | 'warning' | 'error';
+
+interface AlertProps {
+  type?: AlertType;
+  title?: string;
+  children: ReactNode;
+  dismissible?: boolean;
+  onDismiss?: () => void;
+}
+
+export default function Alert({ 
+  type = 'info', 
+  title, 
+  children,
+  dismissible = false,
+  onDismiss 
+}: AlertProps) {
+  const [isVisible, setIsVisible] = useState(true);
+  
+  if (!isVisible) return null;
+
+  const styles = {
+    info: {
+      bg: 'bg-blue-50',
+      border: 'border-blue-200',
+      text: 'text-blue-800',
+      icon: '💙'
+    },
+    success: {
+      bg: 'bg-green-50',
+      border: 'border-green-200',
+      text: 'text-green-800',
+      icon: '✅'
+    },
+    warning: {
+      bg: 'bg-yellow-50',
+      border: 'border-yellow-200',
+      text: 'text-yellow-800',
+      icon: '⚠️'
+    },
+    error: {
+      bg: 'bg-red-50',
+      border: 'border-red-200',
+      text: 'text-red-800',
+      icon: '❌'
+    }
+  };
+
+  const { bg, border, text, icon } = styles[type];
+
+  const handleDismiss = () =&gt; {
+    setIsVisible(false);
+    onDismiss?.();
+  };
+
+  return (
+    &lt;div className={`rounded-xl border-2 p-4 ${bg} ${border} ${text}`}&gt;
+      &lt;div className="flex items-start gap-3"&gt;
+        &lt;span className="text-xl"&gt;{icon}&lt;/span&gt;
+        &lt;div className="flex-1"&gt;
+          {title && &lt;h4 className="font-semibold mb-1"&gt;{title}&lt;/h4&gt;}
+          &lt;div className="text-sm"&gt;{children}&lt;/div&gt;
+        &lt;/div&gt;
+        {dismissible && (
+          &lt;button
+            onClick={handleDismiss}
+            className="text-gray-400 hover:text-gray-600 transition"
+          &gt;
+            ✕
+          &lt;/button&gt;
+        )}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+                </div>
+              </div>
+
+              <!-- CardGrid Component -->
+              <div class="bg-white rounded-3xl shadow p-8">
+                <div class="flex justify-between items-center mb-6">
+                  <h2 class="text-2xl font-semibold">CardGrid Component (Flexbox)</h2>
+                  <button onclick="copyCode('code-react-cardgrid')" class="bg-indigo-600 text-white px-5 py-2 rounded-2xl text-sm">Copy</button>
+                </div>
+                <div id="code-react-cardgrid" class="code-block min-h-[28rem]">
+export default function CardGrid() {
+  const cards = [
+    { title: "Mission 1", desc: "Build responsive navbar", color: "bg-blue-500" },
+    { title: "Mission 2", desc: "Dark mode toggle", color: "bg-purple-500" },
+    // add more...
+  ];
+
+  return (
+    &lt;div className="max-w-7xl mx-auto px-4 py-12"&gt;
+      &lt;h2 className="text-3xl font-bold text-center mb-10"&gt;My Missions&lt;/h2&gt;
+      &lt;div className="flex flex-wrap gap-6 justify-center"&gt;
+        {cards.map((card, i) =&gt; (
+          &lt;div
+            key={i}
+            className="w-full sm:w-[calc(50%-1.5rem)] lg:w-[calc(33.333%-1.5rem)] bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300"
+          &gt;
+            &lt;div className={`h-48 ${card.color}`}&gt;&lt;/div&gt;
+            &lt;div className="p-6"&gt;
+              &lt;h3 className="font-semibold text-xl mb-2"&gt;{card.title}&lt;/h3&gt;
+              &lt;p className="text-gray-600 dark:text-gray-400"&gt;{card.desc}&lt;/p&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        ))}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+
+// Usage: Just import and use &lt;CardGrid /&gt; anywhere in your app
+// Customize by modifying the cards array with your own data
+                </div>
+              </div>
+
+              <!-- DarkModeToggle Component -->
+              <div class="bg-white rounded-3xl shadow p-8">
+                <div class="flex justify-between items-center mb-6">
+                  <h2 class="text-2xl font-semibold">DarkModeToggle Component</h2>
+                  <button onclick="copyCode('code-react-darkmode')" class="bg-indigo-600 text-white px-5 py-2 rounded-2xl text-sm">Copy</button>
+                </div>
+                <div id="code-react-darkmode" class="code-block min-h-[28rem]">
+import { useState, useEffect } from &#x27;react&#x27;;
+
+export default function DarkModeToggle() {
+    const [isDark, setIsDark] = useState(false);
+
+    // Initialize from localStorage on mount
+    useEffect(() =&#x3E; {
+        const stored = localStorage.getItem(&#x27;theme&#x27;);
+        const prefersDark = window.matchMedia(&#x27;(prefers-color-scheme: dark)&#x27;).matches;
+        const darkMode = stored === &#x27;dark&#x27; || (!stored &#x26;&#x26; prefersDark);
+        setIsDark(darkMode);
+        updateTheme(darkMode);
+    }, []);
+
+    // Listen for system theme changes
+    useEffect(() =&#x3E; {
+        const mediaQuery = window.matchMedia(&#x27;(prefers-color-scheme: dark)&#x27;);
+        const handleChange = (e: MediaQueryListEvent) =&#x3E; {
+            setIsDark(e.matches);
+            updateTheme(e.matches);
+            localStorage.setItem(&#x27;theme&#x27;, e.matches ? &#x27;dark&#x27; : &#x27;light&#x27;);
+        };
+        mediaQuery.addEventListener(&#x27;change&#x27;, handleChange);
+        return () =&#x3E; mediaQuery.removeEventListener(&#x27;change&#x27;, handleChange);
+    }, [])
+
+
+    const updateTheme = (dark: boolean) =&#x3E; {
+        if (dark) {
+            document.documentElement.classList.add(&#x27;dark&#x27;);
+        } else {
+            document.documentElement.classList.remove(&#x27;dark&#x27;);
+        }
+    };
+
+    const toggle = () =&#x3E; {
+        const newMode = !isDark;
+        setIsDark(newMode);
+        updateTheme(newMode);
+        localStorage.setItem(&#x27;theme&#x27;, newMode ? &#x27;dark&#x27; : &#x27;light&#x27;);
+    };
+
+    return (
+        &#x3C;button
+            onClick={toggle}
+            className=&#x22;relative w-16 h-8 rounded-full transition-all duration-300 ease-spring
+        bg-gray-400 
+        shadow-lg hover:shadow-xl hover:scale-105 active:scale-95&#x22;
+            aria-label={isDark ? &#x27;Switch to light mode&#x27; : &#x27;Switch to dark mode&#x27;}
+        &#x3E;
+
+            {/* Sliding thumb */}
+            &#x3C;div
+                className={&#x60;w-7 h-7 rounded-full bg-purple-300 shadow-md
+          transition-transform duration-300 ease-spring flex items-center justify-center
+          ${isDark ? &#x27;translate-x-8&#x27; : &#x27;translate-x-0.5&#x27;} z-1&#x60;}
+            &#x3E;
+
+            &#x3C;/div&#x3E;
+
+            &#x3C;div className=&#x27;absolute top-1/2 -translate-y-1/2 w-full flex items-center justify-between pl-1.5 pr-2.5&#x27;&#x3E;
+                &#x3C;svg id=&#x22;light&#x22; xmlns=&#x22;http://www.w3.org/2000/svg&#x22; fill=&#x22;white&#x22; viewBox=&#x22;0 0 24 24&#x22; stroke-width=&#x22;1.5&#x22; stroke=&#x22;currentColor&#x22; className={&#x60;size-5&#x60;}&#x3E;
+                    &#x3C;path stroke-linecap=&#x22;round&#x22; stroke-linejoin=&#x22;round&#x22; d=&#x22;M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z&#x22; /&#x3E;
+                &#x3C;/svg&#x3E;
+
+                &#x3C;svg id=&#x22;dark&#x22; xmlns=&#x22;http://www.w3.org/2000/svg&#x22; fill=&#x22;white&#x22; viewBox=&#x22;0 0 24 24&#x22; stroke-width=&#x22;1.5&#x22; stroke=&#x22;currentColor&#x22; className=&#x22;size-4&#x22;&#x3E;
+                    &#x3C;path stroke-linecap=&#x22;round&#x22; stroke-linejoin=&#x22;round&#x22; d=&#x22;M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z&#x22; /&#x3E;
+                &#x3C;/svg&#x3E;
+            &#x3C;/div&#x3E;
+        &#x3C;/button&#x3E;
+    );
+}
+
+
+// ==================== SETUP ====================
+
+// 1. Add to your tailwind.config.js:
+// module.exports = {
+//   darkMode: 'class',  // Enable class-based dark mode
+//   // ...rest of config
+// }
+
+// 2. Wrap your app with the toggle in layout/navbar:
+// import DarkModeToggle from './DarkModeToggle';
+// &lt;nav&gt;&lt;DarkModeToggle /&gt;&lt;/nav&gt;
+
+// 3. Add this in your index.css file or wherever your global styles are:
+// :root {
+//   --bg-color: #f8fafc;
+//   --text-color: #0f172a;
+//   --card-bg: #ffffff;
+//   --accent: #3b82f6;
+// }
+
+// .dark {
+//   --bg-color: #0f172a;
+//   --text-color: #f1f5f9;
+//   --card-bg: #1e2937;
+//   --accent: #60a5fa;
+// }
+
+// body {
+//  background-color: var(--bg-color);
+//  color: var(--text-color);
+//  transition: background-color 0.3s ease, color 0.3s ease;
+// }
+
+                </div>
+              </div>
+
+              <!-- Badge Component -->
+              <div class="bg-white rounded-3xl shadow p-8">
+                <div class="flex justify-between items-center mb-6">
+                  <h2 class="text-2xl font-semibold">Badge Component</h2>
+                  <button onclick="copyCode('code-react-badge')" class="bg-indigo-600 text-white px-5 py-2 rounded-2xl text-sm">Copy</button>
+                </div>
+                <div id="code-react-badge" class="code-block min-h-[28rem]">
+import { ReactNode } from 'react';
+
+type BadgeVariant = 'default' | 'primary' | 'success' | 'warning' | 'error' | 'dark';
+type BadgeSize = 'sm' | 'md' | 'lg';
+type BadgeRounded = 'none' | 'sm' | 'md' | 'lg' | 'full';
+
+interface BadgeProps {
+  children: ReactNode;
+  variant?: BadgeVariant;
+  size?: BadgeSize;
+  rounded?: BadgeRounded;
+}
+
+export default function Badge({ 
+  children, 
+  variant = 'default',
+  size = 'md',
+  rounded = 'full'
+}: BadgeProps) {
+  const variants = {
+    default: 'bg-gray-100 text-gray-800',
+    primary: 'bg-indigo-100 text-indigo-800',
+    success: 'bg-green-100 text-green-800',
+    warning: 'bg-yellow-100 text-yellow-800',
+    error: 'bg-red-100 text-red-800',
+    dark: 'bg-gray-800 text-white'
+  };
+
+  const sizes = {
+    sm: 'px-2 py-0.5 text-xs',
+    md: 'px-3 py-1 text-sm',
+    lg: 'px-4 py-2 text-base'
+  };
+
+  const roundedStyles = {
+    none: 'rounded-none',
+    sm: 'rounded',
+    md: 'rounded-md',
+    lg: 'rounded-lg',
+    full: 'rounded-full'
+  };
+
+  return (
+    &lt;span className={`
+      inline-flex items-center font-medium
+      ${variants[variant]}
+      ${sizes[size]}
+      ${roundedStyles[rounded]}
+    `}&gt;
+      {children}
+    &lt;/span&gt;
+  );
+}
+                </div>
+              </div>
+
+              <!-- Debounce Search Bar -->
+              <div class="bg-white rounded-3xl shadow p-8">
+                <div class="flex justify-between items-center mb-6">
+                  <h2 class="text-2xl font-semibold">Debounce Search Bar</h2>
+                  <button onclick="copyCode('code-react-debounce-search')" class="bg-indigo-600 text-white px-5 py-2 rounded-2xl text-sm">Copy</button>
+                </div>
+                <div id="code-react-debounce-search" class="code-block min-h-[28rem]">
+// ==================== DEBOUNCE FUNCTION (TypeScript) ====================
+export const debounce = (func: Function, delay: number) =&gt; {
+  let timeoutId: number;
+  return (...args: any[]) =&gt; {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() =&gt; func(...args), delay);
+  };
+};
+
+// ==================== SEARCH BAR COMPONENT (TypeScript) ====================
+// Define the props interface - like you did with User interface
+interface SearchBarProps {
+  value: string;                          // required string
+  onChange: (value: string) =&gt; void;      // function type: takes string, returns nothing
+  placeholder?: string;                   // optional string (the ? means it can be undefined)
+}
+
+export default function SearchBar({ 
+  value, 
+  onChange, 
+  placeholder = "Search..."              // default value if not provided
+}: SearchBarProps) {                       // Use the interface here
+  return (
+    &lt;div className="w-full max-w-md mx-auto px-4"&gt;
+      &lt;div className="relative"&gt;
+        &lt;input
+          type="text"
+          value={value}
+          onChange={(e) =&gt; onChange(e.target.value)}
+          placeholder={placeholder}
+          className="w-full px-4 py-3 pl-12 rounded-lg border border-gray-300 
+                     bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+        /&gt;
+        &lt;svg id="search-icon" className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400"
+          fill="none" viewBox="0 0 24 24" stroke="currentColor"&gt;
+          &lt;path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /&gt;
+        &lt;/svg&gt;
+        {value &amp;&amp; (
+          &lt;button onClick={() =&gt; onChange('')}
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400"&gt;
+            ✕
+          &lt;/button&gt;
+        )}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+
+// ==================== USAGE IN APP (TypeScript) ====================
+import { useState, useRef, useEffect } from 'react';
+import SearchBar from './SearchBar';
+import { debounce } from './debounce';
+
+// Define the item interface
+interface Item {
+  title: string;
+  desc: string;
+}
+
+const allItems: Item[] = [
+  { title: "Item 1", desc: "Description" },
+  { title: "Item 2", desc: "Another description" },
+];
+
+function App() {
+  const [searchTerm, setSearchTerm] = useState&lt;string&gt;('');           // generic type
+  const [filteredItems, setFilteredItems] = useState&lt;Item[]&gt;(allItems); // array of Items
+  
+  // useRef stores the debounced function
+  const debouncedFilterRef = useRef&lt;((term: string) =&gt; void) | null&gt;(null);
+  
+  // Initialize debounced function once
+  useEffect(() =&gt; {
+    debouncedFilterRef.current = debounce((term: string) =&gt; {
+      if (!term.trim()) {
+        setFilteredItems(allItems);
+        return;
+      }
+      const lowercased = term.toLowerCase();
+      const filtered = allItems.filter((item: Item) =&gt;
+        item.title.toLowerCase().includes(lowercased) ||
+        item.desc.toLowerCase().includes(lowercased)
+      );
+      setFilteredItems(filtered);
+    }, 300);
+  }, []);
+  
+  // Trigger filter when searchTerm changes
+  useEffect(() =&gt; {
+    debouncedFilterRef.current?.(searchTerm);
+  }, [searchTerm]);
+  
+  return (
+    &lt;&gt;
+      &lt;SearchBar value={searchTerm} onChange={setSearchTerm} /&gt;
+      {/* Render filteredItems... */}
+    &lt;/&gt;
+  );
+}
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        </div>
+      
+
+              <!-- React Effects/Hooks Category -->
+      <div class="mb-10">
+        <div id="header-react-effects" class="category-header" onclick="toggleCategory('react-effects')">
+          <div class="flex items-center gap-3">
+            <span class="category-title">⚡ Effects</span>
+            <span class="category-count">5</span>
+          </div>
+          <svg id="arrow-react-effects" class="category-arrow w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+        <div id="cat-react-effects" class="category-content">
+          <div class="category-inner">
+            <div class="grid md:grid-cols-2 gap-8">
+
+              <!-- useFetch Hook - Advanced -->
+              <div class="bg-white rounded-3xl shadow p-8">
+                <div class="flex justify-between items-center mb-6">
+                  <div>
+                    <h2 class="text-2xl font-semibold">useFetch Hook <span class="text-sm font-normal text-amber-600 bg-amber-100 px-2 py-1 rounded-full ml-2">Advanced</span></h2>
+                    <p class="text-sm text-gray-500 mt-1">Use this for: Dashboards, Admin Panels, Data-heavy apps with retry & caching</p>
+                  </div>
+                  <button onclick="copyCode('code-react-usefetch')" class="bg-indigo-600 text-white px-5 py-2 rounded-2xl text-sm">Copy</button>
+                </div>
+                <div id="code-react-usefetch" class="code-block min-h-[28rem]">
+import { useState, useEffect, useCallback, useRef } from 'react';
+
+interface UseFetchOptions extends RequestInit {
+  enabled?: boolean;
+  retry?: number;
+  retryDelay?: number;
+  cacheTime?: number;
+}
+
+type CacheEntry&lt;T&gt; = {
+  data: T;
+  timestamp: number;
+};
+
+// Global cache and pending requests (shared across all instances)
+const cache = new Map&lt;string, CacheEntry&lt;any&gt;&gt;();
+const pendingRequests = new Map&lt;string, Promise&lt;any&gt;&gt;();
+
+export default function useFetch&lt;T = any&gt;(
+  key: string | null,        // Unique cache key
+  url: string | null,
+  options: UseFetchOptions = {}
+) {
+  const {
+    enabled = true,
+    retry = 2,
+    retryDelay = 1000,
+    cacheTime = 5 * 60 * 1000, // 5 minutes
+    ...fetchOptions
+  } = options;
+
+  const [data, setData] = useState&lt;T | null&gt;(null);
+  const [loading, setLoading] = useState&lt;boolean&gt;(true);
+  const [error, setError] = useState&lt;Error | null&gt;(null);
+
+  const abortControllerRef = useRef&lt;AbortController | null&gt;(null);
+  const requestIdRef = useRef(0);
+
+  const cacheKey = key || url || '';
+
+  const fetchData = useCallback(async () =&gt; {
+    if (!url || !enabled || !cacheKey) {
+      setLoading(false);
+      return;
+    }
+
+    const currentRequestId = ++requestIdRef.current;
+
+    // 1. Check Cache
+    const cached = cache.get(cacheKey);
+    if (cached &amp;&amp; Date.now() - cached.timestamp &lt; cacheTime) {
+      setData(cached.data);
+      setLoading(false);
+      setError(null);
+      // Background refresh can be added later
+    }
+
+    // 2. Deduplication - Reuse in-flight request
+    if (pendingRequests.has(cacheKey)) {
+      try {
+        const result = await pendingRequests.get(cacheKey)!;
+        if (currentRequestId === requestIdRef.current) {
+          setData(result);
+          setError(null);
+        }
+      } catch (err: any) {
+        if (currentRequestId === requestIdRef.current) {
+          setError(err);
+        }
+      } finally {
+        if (currentRequestId === requestIdRef.current) setLoading(false);
+      }
+      return;
+    }
+
+    // Cancel previous request
+    abortControllerRef.current?.abort();
+
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+
+    const requestPromise = (async () =&gt; {
+      for (let attempt = 0; attempt &lt;= retry; attempt++) {
+        try {
+          const response = await fetch(url, {
+            ...fetchOptions,
+            signal: controller.signal,
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          const result = response.status !== 204 ? await response.json() : null;
+
+          // Cache the successful result
+          cache.set(cacheKey, { data: result, timestamp: Date.now() });
+
+          return result;
+        } catch (err: any) {
+          if (err.name === 'AbortError') throw err;
+          if (attempt === retry) throw err;
+
+          await new Promise((resolve) =&gt; setTimeout(resolve, retryDelay));
+        }
+      }
+    })();
+
+    // Register for deduplication
+    pendingRequests.set(cacheKey, requestPromise);
+
+    try {
+      const result = await requestPromise;
+      if (currentRequestId === requestIdRef.current) {
+        setData(result);
+        setError(null);
+      }
+    } catch (err: any) {
+      if (err.name !== 'AbortError' &amp;&amp; currentRequestId === requestIdRef.current) {
+        setError(err);
+      }
+    } finally {
+      if (currentRequestId === requestIdRef.current) {
+        setLoading(false);
+      }
+      pendingRequests.delete(cacheKey);
+    }
+  }, [url, cacheKey, enabled, retry, retryDelay, cacheTime, fetchOptions]);
+
+  useEffect(() =&gt; {
+    fetchData();
+
+    return () =&gt; {
+      abortControllerRef.current?.abort();
+    };
+  }, [fetchData]);
+
+  const refetch = useCallback(() =&gt; {
+    cache.delete(cacheKey);
+    pendingRequests.delete(cacheKey);
+    fetchData();
+  }, [fetchData, cacheKey]);
+
+  return {
+    data,
+    loading,
+    error,
+    refetch,
+  };
+}
+
+// ==================== USAGE EXAMPLES ====================
+
+// 1. Basic Usage - Fetch users with caching
+// const { data: users, loading, error, refetch } = useFetch&lt;User[]&gt;(
+//   'users',                    // cache key
+//   '/api/users',              // URL
+//   { method: 'GET' }
+// );
+
+// 2. Conditional Fetching - Only fetch when ID exists
+// const { data: user } = useFetch&lt;User&gt;(
+//   `user-${userId}`,
+//   userId ? `/api/users/${userId}` : null,  // null = skip fetching
+//   { enabled: !!userId }
+// );
+
+// 3. POST Request with retry logic
+// const { data, loading, refetch } = useFetch&lt;CreateResponse&gt;(
+//   'create-user',
+//   '/api/users',
+//   {
+//     method: 'POST',
+//     headers: { 'Content-Type': 'application/json' },
+//     body: JSON.stringify({ name: 'John' }),
+//     retry: 3,           // Retry 3 times on failure
+//     retryDelay: 2000,   // Wait 2s between retries
+//   }
+// );
+
+// 4. Component Example
+// function UserProfile({ userId }: { userId: string }) {
+//   const { data: user, loading, error, refetch } = useFetch&lt;User&gt;(
+//     `user-${userId}`,
+//     `/api/users/${userId}`,
+//     { cacheTime: 10 * 60 * 1000 }  // Cache for 10 minutes
+//   );
+//
+//   if (loading) return &lt;Spinner /&gt;;
+//   if (error) return &lt;Error message={error.message} onRetry={refetch} /&gt;;
+//   if (!user) return null;
+//
+//   return (
+//     &lt;div&gt;
+//       &lt;h1&gt;{user.name}&lt;/h1&gt;
+//       &lt;button onClick={refetch}&gt;Refresh&lt;/button&gt;
+//     &lt;/div&gt;
+//   );
+// }
+                </div>
+              </div>
+
+              <!-- useFetch Hook - Simple -->
+              <div class="bg-white rounded-3xl shadow p-8">
+                <div class="flex justify-between items-center mb-6">
+                  <div>
+                    <h2 class="text-2xl font-semibold">useFetch Hook <span class="text-sm font-normal text-green-600 bg-green-100 px-2 py-1 rounded-full ml-2">Simple</span></h2>
+                    <p class="text-sm text-gray-500 mt-1">Use this for: Most apps. Race-condition safe with request cancellation</p>
+                  </div>
+                  <button onclick="copyCode('code-react-usefetch-simple')" class="bg-indigo-600 text-white px-5 py-2 rounded-2xl text-sm">Copy</button>
+                </div>
+                <div id="code-react-usefetch-simple" class="code-block min-h-[28rem]">
+import { useState, useEffect, useRef, useCallback } from 'react';
+
+interface UseFetchOptions extends RequestInit {
+  enabled?: boolean;
+}
+
+export default function useFetch&lt;T = any&gt;(
+  url: string | null,
+  options: UseFetchOptions = {}
+) {
+  const { enabled = true, ...fetchOptions } = options;
+
+  const [data, setData] = useState&lt;T | null&gt;(null);
+  const [loading, setLoading] = useState&lt;boolean&gt;(false);
+  const [error, setError] = useState&lt;Error | null&gt;(null);
+
+  const abortRef = useRef&lt;AbortController | null&gt;(null);
+  const requestIdRef = useRef(0);
+
+  const fetchData = useCallback(async () =&gt; {
+    if (!url || !enabled) return;
+
+    const requestId = ++requestIdRef.current;
+
+    // cancel previous request
+    abortRef.current?.abort();
+    const controller = new AbortController();
+    abortRef.current = controller;
+
+    try {
+      setLoading(true);
+      setError(null);
+
+      const res = await fetch(url, {
+        ...fetchOptions,
+        signal: controller.signal,
+      });
+
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}`);
+      }
+
+      const result = res.status !== 204 ? await res.json() : null;
+
+      // prevent stale updates
+      if (requestId === requestIdRef.current) {
+        setData(result);
+      }
+    } catch (err: any) {
+      if (err.name !== 'AbortError' &amp;&amp; requestId === requestIdRef.current) {
+        setError(err);
+      }
+    } finally {
+      if (requestId === requestIdRef.current) {
+        setLoading(false);
+      }
+    }
+  }, [url, enabled, fetchOptions]);
+
+  useEffect(() =&gt; {
+    fetchData();
+    return () =&gt; abortRef.current?.abort();
+  }, [fetchData]);
+
+  return { data, loading, error, refetch: fetchData };
+}
+
+// ==================== USAGE ====================
+
+// 1. Basic GET request
+// const { data: users, loading, error, refetch } = useFetch&lt;User[]&gt;('/api/users');
+
+// 2. Conditional fetching (fetch only when ID exists)
+// const { data: user } = useFetch&lt;User&gt;(
+//   userId ? `/api/users/${userId}` : null
+// );
+
+// 3. POST request with body
+// const { data, loading, refetch } = useFetch&lt;CreateResponse&gt;(
+//   '/api/users',
+//   {
+//     method: 'POST',
+//     headers: { 'Content-Type': 'application/json' },
+//     body: JSON.stringify({ name: 'John' }),
+//   }
+// );
+
+// 4. Disable auto-fetch
+// const { data } = useFetch&lt;User&gt;('/api/user', { enabled: false });
+// // Later: call refetch() manually
+
+// 5. Component with error handling
+// function UserProfile({ userId }: { userId: string }) {
+//   const { data: user, loading, error, refetch } = useFetch&lt;User&gt;(
+//     `/api/users/${userId}`
+//   );
+//
+//   if (loading) return &lt;Spinner /&gt;;
+//   if (error) return &lt;Error message={error.message} onRetry={refetch} /&gt;;
+//   if (!user) return null;
+//
+//   return (
+//     &lt;div&gt;
+//       &lt;h1&gt;{user.name}&lt;/h1&gt;
+//       &lt;button onClick={refetch}&gt;Refresh&lt;/button&gt;
+//     &lt;/div&gt;
+//   );
+// }
+                </div>
+              </div>
+
+              <!-- useLocalStorage Hook -->
+              <div class="bg-white rounded-3xl shadow p-8">
+                <div class="flex justify-between items-center mb-6">
+                  <h2 class="text-2xl font-semibold">useLocalStorage Hook</h2>
+                  <button onclick="copyCode('code-react-uselocalstorage')" class="bg-indigo-600 text-white px-5 py-2 rounded-2xl text-sm">Copy</button>
+                </div>
+                <div id="code-react-uselocalstorage" class="code-block min-h-[28rem]">
+import { useState, useEffect, Dispatch, SetStateAction } from 'react';
+
+export default function useLocalStorage<T>(key: string, initialValue: T): [T, Dispatch<SetStateAction<T>>] {
+  // Get stored value or use initial
+  const [storedValue, setStoredValue] = useState<T>(() =&gt; {
+    if (typeof window === 'undefined') return initialValue;
+    
+    try {
+      const item = window.localStorage.getItem(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch (error) {
+      console.error(`Error reading localStorage key "${key}":`, error);
+      return initialValue;
+    }
+  });
+
+  // Sync to localStorage
+  useEffect(() =&gt; {
+    try {
+      window.localStorage.setItem(key, JSON.stringify(storedValue));
+    } catch (error) {
+      console.error(`Error setting localStorage key "${key}":`, error);
+    }
+  }, [key, storedValue]);
+
+  return [storedValue, setStoredValue] as [T, Dispatch<SetStateAction<T>>];
+}
+
+// Usage:
+// const [theme, setTheme] = useLocalStorage<'light' | 'dark'>('theme', 'light');
+// const [user, setUser] = useLocalStorage<User | null>('user', null);
+                </div>
+              </div>
+
+              <!-- useToggle Hook -->
+              <div class="bg-white rounded-3xl shadow p-8">
+                <div class="flex justify-between items-center mb-6">
+                  <h2 class="text-2xl font-semibold">useToggle Hook</h2>
+                  <button onclick="copyCode('code-react-usetoggle')" class="bg-indigo-600 text-white px-5 py-2 rounded-2xl text-sm">Copy</button>
+                </div>
+                <div id="code-react-usetoggle" class="code-block min-h-[28rem]">
+import { useState, useCallback } from 'react';
+
+interface UseToggleReturn {
+  value: boolean;
+  toggle: () => void;
+  setTrue: () => void;
+  setFalse: () => void;
+  setValue: (value: boolean) => void;
+}
+
+export default function useToggle(initialValue = false): UseToggleReturn {
+  const [value, setValue] = useState<boolean>(initialValue);
+
+  const toggle = useCallback(() => {
+    setValue(v =&gt; !v);
+  }, []);
+
+  const setTrue = useCallback(() => {
+    setValue(true);
+  }, []);
+
+  const setFalse = useCallback(() => {
+    setValue(false);
+  }, []);
+
+  return {
+    value,
+    toggle,
+    setTrue,
+    setFalse,
+    setValue
+  };
+}
+
+// Usage:
+// const { value: isOpen, toggle, setFalse: close } = useToggle(false);
+// &lt;button onClick={toggle}&gt;{isOpen ? 'Close' : 'Open'}&lt;/button&gt;
+                </div>
+              </div>
+
+              <!-- useDebounce Hook -->
+              <div class="bg-white rounded-3xl shadow p-8">
+                <div class="flex justify-between items-center mb-6">
+                  <h2 class="text-2xl font-semibold">useDebounce Hook</h2>
+                  <button onclick="copyCode('code-react-usedebounce')" class="bg-indigo-600 text-white px-5 py-2 rounded-2xl text-sm">Copy</button>
+                </div>
+                <div id="code-react-usedebounce" class="code-block min-h-[28rem]">
+import { useState, useEffect } from 'react';
+
+export default function useDebounce<T>(value: T, delay = 500): T {
+  const [debouncedValue, setDebouncedValue] = useState<T>(value);
+
+  useEffect(() => {
+    // Set up the timeout
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    // Clear timeout if value changes (also on unmount)
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+}
+
+// Usage:
+// const [searchTerm, setSearchTerm] = useState<string>('');
+// const debouncedSearch = useDebounce<string>(searchTerm, 300);
+// 
+// useEffect(() =&gt; {
+//   if (debouncedSearch) {
+//     performSearch(debouncedSearch);
+//   }
+// }, [debouncedSearch]);
+                </div>
+              </div>
+
+              <!-- useWindowSize Hook -->
+              <div class="bg-white rounded-3xl shadow p-8">
+                <div class="flex justify-between items-center mb-6">
+                  <h2 class="text-2xl font-semibold">useWindowSize Hook</h2>
+                  <button onclick="copyCode('code-react-usewindowsize')" class="bg-indigo-600 text-white px-5 py-2 rounded-2xl text-sm">Copy</button>
+                </div>
+                <div id="code-react-usewindowsize" class="code-block min-h-[28rem]">
+import { useState, useEffect } from 'react';
+
+interface WindowSize {
+  width: number;
+  height: number;
+}
+
+export default function useWindowSize(): WindowSize {
+  const [windowSize, setWindowSize] = useState<WindowSize>({
+    width: typeof window !== 'undefined' ? window.innerWidth : 0,
+    height: typeof window !== 'undefined' ? window.innerHeight : 0,
+  });
+
+  useEffect(() =&gt; {
+    function handleResize() {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }
+
+    window.addEventListener('resize', handleResize);
+    
+    // Call handler right away to update state
+    handleResize();
+
+    return () =&gt; window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return windowSize;
+}
+
+// Usage:
+// const { width, height } = useWindowSize();
+// const isMobile: boolean = width &lt; 768;
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+            </div>
+            </div>
+            
+          
+
+      
+
+    
+
+  <script>
+    function switchTab(n) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.getElementById(`content-${n}`).classList.remove('hidden');
+
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('border-indigo-600', 'text-indigo-600', 'active');
+        btn.classList.add('border-transparent', 'text-gray-500');
+      });
+      document.getElementById(`tab-${n}`).classList.add('border-indigo-600', 'text-indigo-600', 'active');
+    }
+
+    function toggleCategory(categoryId) {
+      const content = document.getElementById(`cat-${categoryId}`);
+      const arrow = document.getElementById(`arrow-${categoryId}`);
+      const header = document.getElementById(`header-${categoryId}`);
+
+      if (!content || !arrow || !header) return;
+
+      content.classList.toggle('expanded');
+      arrow.classList.toggle('expanded');
+      header.classList.toggle('active');
+    }
+
+    async function copyCode(id) {
+      const block = document.getElementById(id);
+      if (!block) return;
+
+      const text = block.textContent.trim();
+
+      try {
+        await navigator.clipboard.writeText(text);
+        const btn = document.querySelector(`button[onclick*="copyCode('${id}')"]`);
+        if (btn) {
+          const originalHTML = btn.innerHTML;
+          btn.innerHTML = '✓ Copied!';
+          btn.style.backgroundColor = '#10b981';
+          setTimeout(() => {
+            btn.innerHTML = originalHTML;
+            btn.style.backgroundColor = '';
+          }, 2000);
+        }
+      } catch (err) {
+        alert("Failed to copy to clipboard");
+      }
+    }
+
+    window.onload = () => {
+      switchTab(0);
+    };
+  </script>
+
+</body>
+</html>

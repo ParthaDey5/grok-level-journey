@@ -1,15 +1,17 @@
 // Responsive card grid component with dynamic calculations and gap handling
 
-export default function CardGrid() {
-  // Mission data with image tags for dynamic image loading
-  const cards = [
-    { title: "Mission 1", desc: "Build responsive navbar", color: "bg-blue-500", img_tag: "Build_responsive_navbar" },
-    { title: "Mission 2", desc: "Dark mode toggle", color: "bg-purple-500", img_tag: "Dark_mode_toggle" },
-    { title: "Mission 3", desc: "Hero section design", color: "bg-green-500", img_tag: "Hero_section_design" },
-    { title: "Mission 4", desc: "Footer component", color: "bg-yellow-500", img_tag: "Footer_component" },
-    { title: "Mission 5", desc: "Contact form", color: "bg-red-500", img_tag: "Contact_form" },
-    { title: "Mission 6", desc: "Portfolio gallery", color: "bg-indigo-500", img_tag: "Portfolio_gallery" },
-  ];
+interface Card {
+  title: string;
+  desc: string;
+  color: string;
+  img_tag: string;
+}
+
+interface CardGridProps {
+  cards: Card[];
+}
+
+export default function CardGrid({ cards }: CardGridProps) {
 
   return (
     // Main container with responsive margins
@@ -20,6 +22,15 @@ export default function CardGrid() {
       
       {/* Flex container with responsive gaps */}
       <div className="flex flex-wrap lg:gap-x-6 lg:gap-y-14 sm:gap-x-10 sm:gap-y-16 gap-y-36  justify-center">
+        
+        {/* No results found message */}
+        {cards.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-gray-500 dark:text-gray-400 text-lg">
+              No results found
+            </p>
+          </div>
+        )}
         
         {/* Map through cards and create responsive card elements */}
         {cards.map((card, i) => (
