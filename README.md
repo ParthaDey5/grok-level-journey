@@ -40,5 +40,5 @@
 - ✅ Smooth transitions and micro-interactions
 
 ### Links:
- - Repo URL: [parthadey5](https://github.com/ParthaDey5/grok-level-journey)
+ - Github Repo URL: [parthadey5](https://github.com/ParthaDey5/grok-level-journey)
  - Live Site URL: [parthadey5](https://grok-level-journey.vercel.app)
