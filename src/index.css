@@ -138,6 +138,17 @@ body {
     animation: pulse 1.5s ease-in-out infinite;
     border-radius: 8px;
   }
+.dark .skeleton {
+    background: linear-gradient(
+      90deg,
+      #909091 0%,
+      #6b6b6b 50%,
+      #909091 100%
+    );
+    background-size: 200% 100%;
+    animation: pulse 1.5s ease-in-out infinite;
+    border-radius: 8px;
+  }
   
   @keyframes pulse {
     0% { background-position: 200% 0; }
@@ -153,7 +164,8 @@ body {
   }
 
   .custom-table {
-    border: 0.1rem solid black;
+    @apply border border-black dark:border-white ;
+    
   border-collapse:separate;
   padding: 0.2rem;
   
@@ -161,5 +173,9 @@ body {
 
 
 th, td {
-  @apply h-8 px-4 border border-black text-center ;
+  @apply h-8 px-4 border border-black dark:border-white text-center ;
+}
+
+input, textarea{
+  @apply w-96 ;
 }

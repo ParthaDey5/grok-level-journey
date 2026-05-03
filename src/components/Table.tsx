@@ -1,10 +1,22 @@
-import React, { useState, useEffect } from 'react'
-import { data } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+
+interface User {
+    id: number;
+    name: string;
+    username: string;
+    email: string;
+    address: {
+        city: string;
+    };
+    company: {
+        name: string;
+    };
+}
 
 function Table() {
 
-    const [fetching, setFetching] = useState(true)
-    const [users, setUsers] = useState([])
+    const [fetching, setFetching] = useState<boolean>(true)
+    const [users, setUsers] = useState<User[]>([])
 
     useEffect(() => {
         const fetchData = fetch('https://jsonplaceholder.typicode.com/users').then((res) => res.json())
@@ -33,8 +45,7 @@ function Table() {
                     <div className='skeleton w-full h-10'></div>
                     <div className='skeleton w-full h-10'></div>
                     <div className='skeleton w-full h-10'></div>
-                    <div className='skeleton w-full h-10'></div>
-                    <div className='skeleton w-full h-10'></div>
+                    
                 </div>
 
             }

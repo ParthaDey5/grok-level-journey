@@ -1,0 +1,1677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Regex Mastery - Complete Practice Guide</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style>
+    button {
+      cursor: pointer
+    }
+    .pattern-input {
+      font-family: 'Courier New', monospace;
+    }
+    .test-input {
+      transition: all 0.3s ease;
+    }
+    .match-success {
+      background-color: #10b981 !important;
+      color: white !important;
+    }
+    .match-fail {
+      background-color: #ef4444 !important;
+      color: white !important;
+    }
+    .level-badge {
+      transition: transform 0.2s;
+    }
+    .level-badge:hover {
+      transform: scale(1.05);
+    }
+    .hint-box {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .hint-box.show {
+      max-height: 200px;
+    }
+    .solution-box {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .solution-box.show {
+      max-height: 300px;
+    }
+    .progress-bar {
+      transition: width 0.5s ease;
+    }
+    .task-card {
+      transition: all 0.3s ease;
+    }
+    .task-card.completed {
+      border-left: 4px solid #10b981;
+      background-color: #ecfdf5;
+    }
+    .regex-highlight {
+      background-color: #fef3c7;
+      padding: 2px 4px;
+      border-radius: 3px;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-8">
+    <div class="max-w-6xl mx-auto px-6">
+      <h1 class="text-4xl font-bold mb-2">🎯 Regex Mastery</h1>
+      <p class="text-lg opacity-90">Master Regular Expressions from Beginner to Advanced</p>
+      
+      <!-- Progress -->
+      <div class="mt-6 bg-white/20 rounded-full h-4 overflow-hidden">
+        <div id="progressBar" class="progress-bar bg-green-400 h-full" style="width: 0%"></div>
+      </div>
+      <p class="text-sm mt-2">Progress: <span id="progressText">0/30</span> tasks completed</p>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="bg-white shadow-sm sticky top-0 z-10">
+    <div class="max-w-6xl mx-auto px-6 py-4">
+      <div class="flex flex-wrap gap-4 justify-center">
+        <button onclick="showLevel('easy')" id="btn-easy" class="level-badge px-6 py-2 rounded-full font-semibold bg-green-100 text-green-700 hover:bg-green-200">
+          🟢 Easy (10 tasks)
+        </button>
+        <button onclick="showLevel('medium')" id="btn-medium" class="level-badge px-6 py-2 rounded-full font-semibold bg-yellow-100 text-yellow-700 hover:bg-yellow-200">
+          🟡 Medium (10 tasks)
+        </button>
+        <button onclick="showLevel('hard')" id="btn-hard" class="level-badge px-6 py-2 rounded-full font-semibold bg-red-100 text-red-700 hover:bg-red-200">
+          🔴 Hard (10 tasks)
+        </button>
+        <button onclick="showLevel('playground')" id="btn-playground" class="level-badge px-6 py-2 rounded-full font-semibold bg-blue-100 text-blue-700 hover:bg-blue-200">
+          🔧 Playground
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="max-w-6xl mx-auto px-6 py-8">
+    
+    <!-- Easy Level -->
+    <div id="level-easy" class="level-section">
+      <div class="bg-green-50 border-l-4 border-green-500 p-4 mb-6 rounded">
+        <h2 class="text-2xl font-bold text-green-800">🟢 Easy Level - Foundations</h2>
+        <p class="text-green-700 mt-1">Learn basic regex characters, quantifiers, and simple patterns.</p>
+      </div>
+      
+      <div class="grid gap-6">
+        <!-- Task 1 -->
+        <div class="task-card bg-white rounded-lg shadow p-6" data-task="1">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <span class="text-sm font-semibold text-green-600">Task 1</span>
+              <h3 class="text-xl font-bold text-gray-800">Match Any Digit</h3>
+            </div>
+            <span class="status-icon text-2xl">⭕</span>
+          </div>
+          
+          <p class="text-gray-600 mb-4">Create a pattern that matches any single digit (0-9).</p>
+          
+          <div class="bg-gray-100 p-3 rounded mb-4">
+            <p class="text-sm text-gray-700"><strong>Test strings:</strong></p>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">5</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">0</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">9</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">a</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">!</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2 mb-4">
+            <input type="text" class="pattern-input flex-1 p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="Enter regex pattern (e.g., \d)">
+            <button onclick="testPattern(this)" class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-semibold">Test</button>
+          </div>
+
+          <div class="flex gap-2">
+            <button onclick="toggleHint(this)" class="text-yellow-600 hover:text-yellow-700 font-medium text-sm">💡 Show Hint</button>
+            <button onclick="toggleSolution(this)" class="text-green-600 hover:text-green-700 font-medium text-sm">✓ Show Solution</button>
+          </div>
+
+          <div class="hint-box mt-3 bg-yellow-50 p-3 rounded">
+            <p class="text-sm text-yellow-800">Use the <span class="regex-highlight">\d</span> shorthand character class which matches any digit (0-9).</p>
+          </div>
+
+          <div class="solution-box mt-3 bg-green-50 p-3 rounded">
+            <p class="text-sm text-green-800 font-semibold">Solution: <code class="bg-white px-2 py-1 rounded">\d</code></p>
+            <p class="text-xs text-green-700 mt-1">\d matches any digit from 0 to 9</p>
+          </div>
+        </div>
+
+        <!-- Task 2 -->
+        <div class="task-card bg-white rounded-lg shadow p-6" data-task="2">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <span class="text-sm font-semibold text-green-600">Task 2</span>
+              <h3 class="text-xl font-bold text-gray-800">Match Any Letter</h3>
+            </div>
+            <span class="status-icon text-2xl">⭕</span>
+          </div>
+          
+          <p class="text-gray-600 mb-4">Create a pattern that matches any word character (letters, numbers, underscore).</p>
+          
+          <div class="bg-gray-100 p-3 rounded mb-4">
+            <p class="text-sm text-gray-700"><strong>Test strings:</strong></p>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">a</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">Z</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">5</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">_</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">!</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">@</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2 mb-4">
+            <input type="text" class="pattern-input flex-1 p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="Enter regex pattern">
+            <button onclick="testPattern(this)" class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-semibold">Test</button>
+          </div>
+
+          <div class="flex gap-2">
+            <button onclick="toggleHint(this)" class="text-yellow-600 hover:text-yellow-700 font-medium text-sm">💡 Show Hint</button>
+            <button onclick="toggleSolution(this)" class="text-green-600 hover:text-green-700 font-medium text-sm">✓ Show Solution</button>
+          </div>
+
+          <div class="hint-box mt-3 bg-yellow-50 p-3 rounded">
+            <p class="text-sm text-yellow-800">Use the <span class="regex-highlight">\w</span> shorthand which matches word characters.</p>
+          </div>
+
+          <div class="solution-box mt-3 bg-green-50 p-3 rounded">
+            <p class="text-sm text-green-800 font-semibold">Solution: <code class="bg-white px-2 py-1 rounded">\w</code></p>
+            <p class="text-xs text-green-700 mt-1">\w matches [a-zA-Z0-9_] - letters, digits, and underscore</p>
+          </div>
+        </div>
+
+        <!-- Task 3 -->
+        <div class="task-card bg-white rounded-lg shadow p-6" data-task="3">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <span class="text-sm font-semibold text-green-600">Task 3</span>
+              <h3 class="text-xl font-bold text-gray-800">Match Only Vowels</h3>
+            </div>
+            <span class="status-icon text-2xl">⭕</span>
+          </div>
+          
+          <p class="text-gray-600 mb-4">Create a pattern that matches any vowel (a, e, i, o, u - case insensitive).</p>
+          
+          <div class="bg-gray-100 p-3 rounded mb-4">
+            <p class="text-sm text-gray-700"><strong>Test strings:</strong></p>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">a</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">E</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">i</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">O</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">u</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">b</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">x</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2 mb-4">
+            <input type="text" class="pattern-input flex-1 p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="Enter regex pattern with flags">
+            <button onclick="testPattern(this)" class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-semibold">Test</button>
+          </div>
+
+          <div class="flex gap-2">
+            <button onclick="toggleHint(this)" class="text-yellow-600 hover:text-yellow-700 font-medium text-sm">💡 Show Hint</button>
+            <button onclick="toggleSolution(this)" class="text-green-600 hover:text-green-700 font-medium text-sm">✓ Show Solution</button>
+          </div>
+
+          <div class="hint-box mt-3 bg-yellow-50 p-3 rounded">
+            <p class="text-sm text-yellow-800">Use a character class <span class="regex-highlight">[aeiou]</span> and the case-insensitive flag <span class="regex-highlight">i</span>.</p>
+          </div>
+
+          <div class="solution-box mt-3 bg-green-50 p-3 rounded">
+            <p class="text-sm text-green-800 font-semibold">Solution: <code class="bg-white px-2 py-1 rounded">[aeiou]i</code></p>
+            <p class="text-xs text-green-700 mt-1">Character class [aeiou] matches any vowel, 'i' flag makes it case-insensitive</p>
+          </div>
+        </div>
+
+        <!-- Task 4 -->
+        <div class="task-card bg-white rounded-lg shadow p-6" data-task="4">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <span class="text-sm font-semibold text-green-600">Task 4</span>
+              <h3 class="text-xl font-bold text-gray-800">Match One or More Digits</h3>
+            </div>
+            <span class="status-icon text-2xl">⭕</span>
+          </div>
+          
+          <p class="text-gray-600 mb-4">Create a pattern that matches one or more consecutive digits.</p>
+          
+          <div class="bg-gray-100 p-3 rounded mb-4">
+            <p class="text-sm text-gray-700"><strong>Test strings:</strong></p>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">123</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">5</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">9876543210</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">abc</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">a1b2c3</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2 mb-4">
+            <input type="text" class="pattern-input flex-1 p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="Enter regex pattern">
+            <button onclick="testPattern(this)" class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-semibold">Test</button>
+          </div>
+
+          <div class="flex gap-2">
+            <button onclick="toggleHint(this)" class="text-yellow-600 hover:text-yellow-700 font-medium text-sm">💡 Show Hint</button>
+            <button onclick="toggleSolution(this)" class="text-green-600 hover:text-green-700 font-medium text-sm">✓ Show Solution</button>
+          </div>
+
+          <div class="hint-box mt-3 bg-yellow-50 p-3 rounded">
+            <p class="text-sm text-yellow-800">Use the <span class="regex-highlight">+</span> quantifier which means "one or more".</p>
+          </div>
+
+          <div class="solution-box mt-3 bg-green-50 p-3 rounded">
+            <p class="text-sm text-green-800 font-semibold">Solution: <code class="bg-white px-2 py-1 rounded">\d+</code></p>
+            <p class="text-xs text-green-700 mt-1">\d matches a digit, + means one or more occurrences</p>
+          </div>
+        </div>
+
+        <!-- Task 5 -->
+        <div class="task-card bg-white rounded-lg shadow p-6" data-task="5">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <span class="text-sm font-semibold text-green-600">Task 5</span>
+              <h3 class="text-xl font-bold text-gray-800">Match Zero or More</h3>
+            </div>
+            <span class="status-icon text-2xl">⭕</span>
+          </div>
+          
+          <p class="text-gray-600 mb-4">Create a pattern that matches the letter 'a' appearing zero or more times.</p>
+          
+          <div class="bg-gray-100 p-3 rounded mb-4">
+            <p class="text-sm text-gray-700"><strong>Test strings:</strong></p>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true"></span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">a</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">aaa</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">b</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">ab</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2 mb-4">
+            <input type="text" class="pattern-input flex-1 p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="Enter regex pattern">
+            <button onclick="testPattern(this)" class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-semibold">Test</button>
+          </div>
+
+          <div class="flex gap-2">
+            <button onclick="toggleHint(this)" class="text-yellow-600 hover:text-yellow-700 font-medium text-sm">💡 Show Hint</button>
+            <button onclick="toggleSolution(this)" class="text-green-600 hover:text-green-700 font-medium text-sm">✓ Show Solution</button>
+          </div>
+
+          <div class="hint-box mt-3 bg-yellow-50 p-3 rounded">
+            <p class="text-sm text-yellow-800">Use the <span class="regex-highlight">*</span> quantifier which means "zero or more".</p>
+          </div>
+
+          <div class="solution-box mt-3 bg-green-50 p-3 rounded">
+            <p class="text-sm text-green-800 font-semibold">Solution: <code class="bg-white px-2 py-1 rounded">a*</code></p>
+            <p class="text-xs text-green-700 mt-1">* means zero or more occurrences of the preceding element</p>
+          </div>
+        </div>
+
+        <!-- Task 6 -->
+        <div class="task-card bg-white rounded-lg shadow p-6" data-task="6">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <span class="text-sm font-semibold text-green-600">Task 6</span>
+              <h3 class="text-xl font-bold text-gray-800">Match Start of String</h3>
+            </div>
+            <span class="status-icon text-2xl">⭕</span>
+          </div>
+          
+          <p class="text-gray-600 mb-4">Create a pattern that matches "Hello" only at the beginning of a string.</p>
+          
+          <div class="bg-gray-100 p-3 rounded mb-4">
+            <p class="text-sm text-gray-700"><strong>Test strings:</strong></p>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">Hello World</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">Hello There</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">Hi Hello</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">Say Hello</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2 mb-4">
+            <input type="text" class="pattern-input flex-1 p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="Enter regex pattern">
+            <button onclick="testPattern(this)" class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-semibold">Test</button>
+          </div>
+
+          <div class="flex gap-2">
+            <button onclick="toggleHint(this)" class="text-yellow-600 hover:text-yellow-700 font-medium text-sm">💡 Show Hint</button>
+            <button onclick="toggleSolution(this)" class="text-green-600 hover:text-green-700 font-medium text-sm">✓ Show Solution</button>
+          </div>
+
+          <div class="hint-box mt-3 bg-yellow-50 p-3 rounded">
+            <p class="text-sm text-yellow-800">Use the <span class="regex-highlight">^</span> anchor to match the start of a string.</p>
+          </div>
+
+          <div class="solution-box mt-3 bg-green-50 p-3 rounded">
+            <p class="text-sm text-green-800 font-semibold">Solution: <code class="bg-white px-2 py-1 rounded">^Hello</code></p>
+            <p class="text-xs text-green-700 mt-1">^ asserts position at the start of the string</p>
+          </div>
+        </div>
+
+        <!-- Task 7 -->
+        <div class="task-card bg-white rounded-lg shadow p-6" data-task="7">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <span class="text-sm font-semibold text-green-600">Task 7</span>
+              <h3 class="text-xl font-bold text-gray-800">Match End of String</h3>
+            </div>
+            <span class="status-icon text-2xl">⭕</span>
+          </div>
+          
+          <p class="text-gray-600 mb-4">Create a pattern that matches "world" only at the end of a string.</p>
+          
+          <div class="bg-gray-100 p-3 rounded mb-4">
+            <p class="text-sm text-gray-700"><strong>Test strings:</strong></p>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">Hello world</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">Goodbye world</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">world peace</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">worldwide</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2 mb-4">
+            <input type="text" class="pattern-input flex-1 p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="Enter regex pattern">
+            <button onclick="testPattern(this)" class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-semibold">Test</button>
+          </div>
+
+          <div class="flex gap-2">
+            <button onclick="toggleHint(this)" class="text-yellow-600 hover:text-yellow-700 font-medium text-sm">💡 Show Hint</button>
+            <button onclick="toggleSolution(this)" class="text-green-600 hover:text-green-700 font-medium text-sm">✓ Show Solution</button>
+          </div>
+
+          <div class="hint-box mt-3 bg-yellow-50 p-3 rounded">
+            <p class="text-sm text-yellow-800">Use the <span class="regex-highlight">$</span> anchor to match the end of a string.</p>
+          </div>
+
+          <div class="solution-box mt-3 bg-green-50 p-3 rounded">
+            <p class="text-sm text-green-800 font-semibold">Solution: <code class="bg-white px-2 py-1 rounded">world$</code></p>
+            <p class="text-xs text-green-700 mt-1">$ asserts position at the end of the string</p>
+          </div>
+        </div>
+
+        <!-- Task 8 -->
+        <div class="task-card bg-white rounded-lg shadow p-6" data-task="8">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <span class="text-sm font-semibold text-green-600">Task 8</span>
+              <h3 class="text-xl font-bold text-gray-800">Optional Character</h3>
+            </div>
+            <span class="status-icon text-2xl">⭕</span>
+          </div>
+          
+          <p class="text-gray-600 mb-4">Create a pattern that matches "color" with optional "u" (matches both "color" and "colour").</p>
+          
+          <div class="bg-gray-100 p-3 rounded mb-4">
+            <p class="text-sm text-gray-700"><strong>Test strings:</strong></p>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">color</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">colour</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">colur</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">colr</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2 mb-4">
+            <input type="text" class="pattern-input flex-1 p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="Enter regex pattern">
+            <button onclick="testPattern(this)" class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-semibold">Test</button>
+          </div>
+
+          <div class="flex gap-2">
+            <button onclick="toggleHint(this)" class="text-yellow-600 hover:text-yellow-700 font-medium text-sm">💡 Show Hint</button>
+            <button onclick="toggleSolution(this)" class="text-green-600 hover:text-green-700 font-medium text-sm">✓ Show Solution</button>
+          </div>
+
+          <div class="hint-box mt-3 bg-yellow-50 p-3 rounded">
+            <p class="text-sm text-yellow-800">Use the <span class="regex-highlight">?</span> quantifier which means "zero or one" (optional).</p>
+          </div>
+
+          <div class="solution-box mt-3 bg-green-50 p-3 rounded">
+            <p class="text-sm text-green-800 font-semibold">Solution: <code class="bg-white px-2 py-1 rounded">colou?r</code></p>
+            <p class="text-xs text-green-700 mt-1">? makes the preceding character (u) optional</p>
+          </div>
+        </div>
+
+        <!-- Task 9 -->
+        <div class="task-card bg-white rounded-lg shadow p-6" data-task="9">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <span class="text-sm font-semibold text-green-600">Task 9</span>
+              <h3 class="text-xl font-bold text-gray-800">Match Any Character</h3>
+            </div>
+            <span class="status-icon text-2xl">⭕</span>
+          </div>
+          
+          <p class="text-gray-600 mb-4">Create a pattern that matches "cat", "cot", "cut" (any middle letter).</p>
+          
+          <div class="bg-gray-100 p-3 rounded mb-4">
+            <p class="text-sm text-gray-700"><strong>Test strings:</strong></p>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">cat</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">cot</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">cut</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">cit</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">c t</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2 mb-4">
+            <input type="text" class="pattern-input flex-1 p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="Enter regex pattern">
+            <button onclick="testPattern(this)" class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-semibold">Test</button>
+          </div>
+
+          <div class="flex gap-2">
+            <button onclick="toggleHint(this)" class="text-yellow-600 hover:text-yellow-700 font-medium text-sm">💡 Show Hint</button>
+            <button onclick="toggleSolution(this)" class="text-green-600 hover:text-green-700 font-medium text-sm">✓ Show Solution</button>
+          </div>
+
+          <div class="hint-box mt-3 bg-yellow-50 p-3 rounded">
+            <p class="text-sm text-yellow-800">Use the dot <span class="regex-highlight">.</span> which matches any single character except newline.</p>
+          </div>
+
+          <div class="solution-box mt-3 bg-green-50 p-3 rounded">
+            <p class="text-sm text-green-800 font-semibold">Solution: <code class="bg-white px-2 py-1 rounded">c.t</code></p>
+            <p class="text-xs text-green-700 mt-1">. matches any character (except newline)</p>
+          </div>
+        </div>
+
+        <!-- Task 10 -->
+        <div class="task-card bg-white rounded-lg shadow p-6" data-task="10">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <span class="text-sm font-semibold text-green-600">Task 10</span>
+              <h3 class="text-xl font-bold text-gray-800">Exact Character Count</h3>
+            </div>
+            <span class="status-icon text-2xl">⭕</span>
+          </div>
+          
+          <p class="text-gray-600 mb-4">Create a pattern that matches exactly 5 digits (like a ZIP code).</p>
+          
+          <div class="bg-gray-100 p-3 rounded mb-4">
+            <p class="text-sm text-gray-700"><strong>Test strings:</strong></p>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">12345</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">00000</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">1234</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">123456</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">abcde</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2 mb-4">
+            <input type="text" class="pattern-input flex-1 p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="Enter regex pattern">
+            <button onclick="testPattern(this)" class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-semibold">Test</button>
+          </div>
+
+          <div class="flex gap-2">
+            <button onclick="toggleHint(this)" class="text-yellow-600 hover:text-yellow-700 font-medium text-sm">💡 Show Hint</button>
+            <button onclick="toggleSolution(this)" class="text-green-600 hover:text-green-700 font-medium text-sm">✓ Show Solution</button>
+          </div>
+
+          <div class="hint-box mt-3 bg-yellow-50 p-3 rounded">
+            <p class="text-sm text-yellow-800">Use curly braces <span class="regex-highlight">{n}</span> to specify exact number of occurrences.</p>
+          </div>
+
+          <div class="solution-box mt-3 bg-green-50 p-3 rounded">
+            <p class="text-sm text-green-800 font-semibold">Solution: <code class="bg-white px-2 py-1 rounded">\d{5}</code> or <code class="bg-white px-2 py-1 rounded">^[0-9]{5}$</code></p>
+            <p class="text-xs text-green-700 mt-1">{5} means exactly 5 occurrences of the preceding element</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Medium Level -->
+    <div id="level-medium" class="level-section hidden">
+      <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 mb-6 rounded">
+        <h2 class="text-2xl font-bold text-yellow-800">🟡 Medium Level - Real World</h2>
+        <p class="text-yellow-700 mt-1">Apply regex to practical scenarios: emails, phones, URLs, and more.</p>
+      </div>
+
+      <div class="grid gap-6">
+        <!-- Task 11 -->
+        <div class="task-card bg-white rounded-lg shadow p-6" data-task="11">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <span class="text-sm font-semibold text-yellow-600">Task 11</span>
+              <h3 class="text-xl font-bold text-gray-800">Email Validation (Basic)</h3>
+            </div>
+            <span class="status-icon text-2xl">⭕</span>
+          </div>
+          
+          <p class="text-gray-600 mb-4">Create a pattern that validates email addresses (simplified version).</p>
+          
+          <div class="bg-gray-100 p-3 rounded mb-4">
+            <p class="text-sm text-gray-700"><strong>Test strings:</strong></p>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">user@example.com</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">john.doe@company.co.uk</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">name+tag@gmail.com</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">invalid.email</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">@example.com</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">user@</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2 mb-4">
+            <input type="text" class="pattern-input flex-1 p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="Enter regex pattern">
+            <button onclick="testPattern(this)" class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-semibold">Test</button>
+          </div>
+
+          <div class="flex gap-2">
+            <button onclick="toggleHint(this)" class="text-yellow-600 hover:text-yellow-700 font-medium text-sm">💡 Show Hint</button>
+            <button onclick="toggleSolution(this)" class="text-green-600 hover:text-green-700 font-medium text-sm">✓ Show Solution</button>
+          </div>
+
+          <div class="hint-box mt-3 bg-yellow-50 p-3 rounded">
+            <p class="text-sm text-yellow-800">Pattern: username + @ + domain + . + extension. Use <span class="regex-highlight">\w</span>, <span class="regex-highlight">+</span>, <span class="regex-highlight">\.</span>, and <span class="regex-highlight">{2,}</span>.</p>
+          </div>
+
+          <div class="solution-box mt-3 bg-green-50 p-3 rounded">
+            <p class="text-sm text-green-800 font-semibold">Solution: <code class="bg-white px-2 py-1 rounded">^[\w.-]+@[\w.-]+\.\w{2,}$</code></p>
+            <p class="text-xs text-green-700 mt-1">Matches: local@domain.extension (2+ chars for extension)</p>
+          </div>
+        </div>
+
+        <!-- Task 12 -->
+        <div class="task-card bg-white rounded-lg shadow p-6" data-task="12">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <span class="text-sm font-semibold text-yellow-600">Task 12</span>
+              <h3 class="text-xl font-bold text-gray-800">Phone Number (US Format)</h3>
+            </div>
+            <span class="status-icon text-2xl">⭕</span>
+          </div>
+          
+          <p class="text-gray-600 mb-4">Match US phone numbers in format: (123) 456-7890 or 123-456-7890</p>
+          
+          <div class="bg-gray-100 p-3 rounded mb-4">
+            <p class="text-sm text-gray-700"><strong>Test strings:</strong></p>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">(123) 456-7890</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">123-456-7890</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">123.456.7890</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">1234567890</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">12-345-6789</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2 mb-4">
+            <input type="text" class="pattern-input flex-1 p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="Enter regex pattern">
+            <button onclick="testPattern(this)" class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-semibold">Test</button>
+          </div>
+
+          <div class="flex gap-2">
+            <button onclick="toggleHint(this)" class="text-yellow-600 hover:text-yellow-700 font-medium text-sm">💡 Show Hint</button>
+            <button onclick="toggleSolution(this)" class="text-green-600 hover:text-green-700 font-medium text-sm">✓ Show Solution</button>
+          </div>
+
+          <div class="hint-box mt-3 bg-yellow-50 p-3 rounded">
+            <p class="text-sm text-yellow-800">Use <span class="regex-highlight">\(?</span> for optional parenthesis, <span class="regex-highlight">[\s.-]?</span> for separators, and groups.</p>
+          </div>
+
+          <div class="solution-box mt-3 bg-green-50 p-3 rounded">
+            <p class="text-sm text-green-800 font-semibold">Solution: <code class="bg-white px-2 py-1 rounded">^\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$</code></p>
+            <p class="text-xs text-green-700 mt-1">Matches: (123) 456-7890, 123-456-7890, 123.456.7890</p>
+          </div>
+        </div>
+
+        <!-- Task 13 -->
+        <div class="task-card bg-white rounded-lg shadow p-6" data-task="13">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <span class="text-sm font-semibold text-yellow-600">Task 13</span>
+              <h3 class="text-xl font-bold text-gray-800">URL Validation</h3>
+            </div>
+            <span class="status-icon text-2xl">⭕</span>
+          </div>
+          
+          <p class="text-gray-600 mb-4">Match HTTP/HTTPS URLs (simplified).</p>
+          
+          <div class="bg-gray-100 p-3 rounded mb-4">
+            <p class="text-sm text-gray-700"><strong>Test strings:</strong></p>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">https://www.example.com</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">http://example.com</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">https://sub.domain.co.uk/path</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">ftp://example.com</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">www.example.com</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2 mb-4">
+            <input type="text" class="pattern-input flex-1 p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="Enter regex pattern">
+            <button onclick="testPattern(this)" class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-semibold">Test</button>
+          </div>
+
+          <div class="flex gap-2">
+            <button onclick="toggleHint(this)" class="text-yellow-600 hover:text-yellow-700 font-medium text-sm">💡 Show Hint</button>
+            <button onclick="toggleSolution(this)" class="text-green-600 hover:text-green-700 font-medium text-sm">✓ Show Solution</button>
+          </div>
+
+          <div class="hint-box mt-3 bg-yellow-50 p-3 rounded">
+            <p class="text-sm text-yellow-800">Use alternation <span class="regex-highlight">(http|https)</span>, escaped slash <span class="regex-highlight">\/</span>, and domain pattern.</p>
+          </div>
+
+          <div class="solution-box mt-3 bg-green-50 p-3 rounded">
+            <p class="text-sm text-green-800 font-semibold">Solution: <code class="bg-white px-2 py-1 rounded">^https?:\/\/[\w.-]+\.\w{2,}</code></p>
+            <p class="text-xs text-green-700 mt-1">Matches http:// or https:// followed by domain</p>
+          </div>
+        </div>
+
+        <!-- Task 14 -->
+        <div class="task-card bg-white rounded-lg shadow p-6" data-task="14">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <span class="text-sm font-semibold text-yellow-600">Task 14</span>
+              <h3 class="text-xl font-bold text-gray-800">Date Format (MM/DD/YYYY)</h3>
+            </div>
+            <span class="status-icon text-2xl">⭕</span>
+          </div>
+          
+          <p class="text-gray-600 mb-4">Match dates in MM/DD/YYYY format (simplified, doesn't validate actual dates).</p>
+          
+          <div class="bg-gray-100 p-3 rounded mb-4">
+            <p class="text-sm text-gray-700"><strong>Test strings:</strong></p>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">12/25/2023</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">01/01/2000</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">6/5/1999</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">25/12/2023</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">12-25-2023</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">12/25/23</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2 mb-4">
+            <input type="text" class="pattern-input flex-1 p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="Enter regex pattern">
+            <button onclick="testPattern(this)" class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-semibold">Test</button>
+          </div>
+
+          <div class="flex gap-2">
+            <button onclick="toggleHint(this)" class="text-yellow-600 hover:text-yellow-700 font-medium text-sm">💡 Show Hint</button>
+            <button onclick="toggleSolution(this)" class="text-green-600 hover:text-green-700 font-medium text-sm">✓ Show Solution</button>
+          </div>
+
+          <div class="hint-box mt-3 bg-yellow-50 p-3 rounded">
+            <p class="text-sm text-yellow-800">Pattern: 1-2 digits + / + 1-2 digits + / + 4 digits. Use <span class="regex-highlight">\d{1,2}</span> and <span class="regex-highlight">\d{4}</span>.</p>
+          </div>
+
+          <div class="solution-box mt-3 bg-green-50 p-3 rounded">
+            <p class="text-sm text-green-800 font-semibold">Solution: <code class="bg-white px-2 py-1 rounded">^\d{1,2}\/\d{1,2}\/\d{4}$</code></p>
+            <p class="text-xs text-green-700 mt-1">\d{1,2} matches 1-2 digits, \/ matches literal slash</p>
+          </div>
+        </div>
+
+        <!-- Task 15 -->
+        <div class="task-card bg-white rounded-lg shadow p-6" data-task="15">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <span class="text-sm font-semibold text-yellow-600">Task 15</span>
+              <h3 class="text-xl font-bold text-gray-800">Hex Color Code</h3>
+            </div>
+            <span class="status-icon text-2xl">⭕</span>
+          </div>
+          
+          <p class="text-gray-600 mb-4">Match hex color codes (#FFF, #FFFFFF, with or without #).</p>
+          
+          <div class="bg-gray-100 p-3 rounded mb-4">
+            <p class="text-sm text-gray-700"><strong>Test strings:</strong></p>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">#FFF</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">#FFFFFF</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">#abc123</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">FFF</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">#FF</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">#FFFFFFF</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">GGG</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2 mb-4">
+            <input type="text" class="pattern-input flex-1 p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="Enter regex pattern">
+            <button onclick="testPattern(this)" class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-semibold">Test</button>
+          </div>
+
+          <div class="flex gap-2">
+            <button onclick="toggleHint(this)" class="text-yellow-600 hover:text-yellow-700 font-medium text-sm">💡 Show Hint</button>
+            <button onclick="toggleSolution(this)" class="text-green-600 hover:text-green-700 font-medium text-sm">✓ Show Solution</button>
+          </div>
+
+          <div class="hint-box mt-3 bg-yellow-50 p-3 rounded">
+            <p class="text-sm text-yellow-800">Hex chars are 0-9 and a-f (case insensitive). Use <span class="regex-highlight">#?</span>, <span class="regex-highlight">[0-9a-fA-F]</span>, and group with <span class="regex-highlight">{3}|{6}</span>.</p>
+          </div>
+
+          <div class="solution-box mt-3 bg-green-50 p-3 rounded">
+            <p class="text-sm text-green-800 font-semibold">Solution: <code class="bg-white px-2 py-1 rounded">^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$</code></p>
+            <p class="text-xs text-green-700 mt-1">Matches: #FFF, #FFFFFF, FFF, FFFFFF (case insensitive)</p>
+          </div>
+        </div>
+
+        <!-- Task 16 -->
+        <div class="task-card bg-white rounded-lg shadow p-6" data-task="16">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <span class="text-sm font-semibold text-yellow-600">Task 16</span>
+              <h3 class="text-xl font-bold text-gray-800">Password Strength (Basic)</h3>
+            </div>
+            <span class="status-icon text-2xl">⭕</span>
+          </div>
+          
+          <p class="text-gray-600 mb-4">Match passwords with at least: 8 chars, 1 uppercase, 1 lowercase, 1 digit.</p>
+          
+          <div class="bg-gray-100 p-3 rounded mb-4">
+            <p class="text-sm text-gray-700"><strong>Test strings:</strong></p>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">Password123</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">MyP@ssw0rd</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">password</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">PASSWORD123</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">Pass123</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2 mb-4">
+            <input type="text" class="pattern-input flex-1 p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="Enter regex pattern with lookahead">
+            <button onclick="testPattern(this)" class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-semibold">Test</button>
+          </div>
+
+          <div class="flex gap-2">
+            <button onclick="toggleHint(this)" class="text-yellow-600 hover:text-yellow-700 font-medium text-sm">💡 Show Hint</button>
+            <button onclick="toggleSolution(this)" class="text-green-600 hover:text-green-700 font-medium text-sm">✓ Show Solution</button>
+          </div>
+
+          <div class="hint-box mt-3 bg-yellow-50 p-3 rounded">
+            <p class="text-sm text-yellow-800">Use positive lookaheads: <span class="regex-highlight">(?=.*[A-Z])</span>, <span class="regex-highlight">(?=.*[a-z])</span>, <span class="regex-highlight">(?=.*\d)</span>, then <span class="regex-highlight">.{8,}</span>.</p>
+          </div>
+
+          <div class="solution-box mt-3 bg-green-50 p-3 rounded">
+            <p class="text-sm text-green-800 font-semibold">Solution: <code class="bg-white px-2 py-1 rounded">^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$</code></p>
+            <p class="text-xs text-green-700 mt-1">Lookaheads check for each requirement without consuming characters</p>
+          </div>
+        </div>
+
+        <!-- Task 17 -->
+        <div class="task-card bg-white rounded-lg shadow p-6" data-task="17">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <span class="text-sm font-semibold text-yellow-600">Task 17</span>
+              <h3 class="text-xl font-bold text-gray-800">Extract File Extension</h3>
+            </div>
+            <span class="status-icon text-2xl">⭕</span>
+          </div>
+          
+          <p class="text-gray-600 mb-4">Match file names with extensions (jpg, png, gif, pdf, doc, txt).</p>
+          
+          <div class="bg-gray-100 p-3 rounded mb-4">
+            <p class="text-sm text-gray-700"><strong>Test strings:</strong></p>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">photo.jpg</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">document.pdf</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">data.TXT</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">archive.zip</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">noextension</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2 mb-4">
+            <input type="text" class="pattern-input flex-1 p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="Enter regex pattern with alternation">
+            <button onclick="testPattern(this)" class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-semibold">Test</button>
+          </div>
+
+          <div class="flex gap-2">
+            <button onclick="toggleHint(this)" class="text-yellow-600 hover:text-yellow-700 font-medium text-sm">💡 Show Hint</button>
+            <button onclick="toggleSolution(this)" class="text-green-600 hover:text-green-700 font-medium text-sm">✓ Show Solution</button>
+          </div>
+
+          <div class="hint-box mt-3 bg-yellow-50 p-3 rounded">
+            <p class="text-sm text-yellow-800">Use alternation <span class="regex-highlight">(jpg|png|gif)</span>, escaped dot <span class="regex-highlight">\.</span>, and case-insensitive flag.</p>
+          </div>
+
+          <div class="solution-box mt-3 bg-green-50 p-3 rounded">
+            <p class="text-sm text-green-800 font-semibold">Solution: <code class="bg-white px-2 py-1 rounded">^.*\.(jpg|jpeg|png|gif|pdf|doc|docx|txt)$i</code></p>
+            <p class="text-xs text-green-700 mt-1">Matches filename followed by allowed extensions (case insensitive)</p>
+          </div>
+        </div>
+
+        <!-- Task 18 -->
+        <div class="task-card bg-white rounded-lg shadow p-6" data-task="18">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <span class="text-sm font-semibold text-yellow-600">Task 18</span>
+              <h3 class="text-xl font-bold text-gray-800">Credit Card (Basic)</h3>
+            </div>
+            <span class="status-icon text-2xl">⭕</span>
+          </div>
+          
+          <p class="text-gray-600 mb-4">Match credit card numbers with 4 groups of 4 digits (with or without spaces).</p>
+          
+          <div class="bg-gray-100 p-3 rounded mb-4">
+            <p class="text-sm text-gray-700"><strong>Test strings:</strong></p>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">1234 5678 9012 3456</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">1234567890123456</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">1234-5678-9012-3456</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">123456789012345</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2 mb-4">
+            <input type="text" class="pattern-input flex-1 p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="Enter regex pattern with optional spaces">
+            <button onclick="testPattern(this)" class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-semibold">Test</button>
+          </div>
+
+          <div class="flex gap-2">
+            <button onclick="toggleHint(this)" class="text-yellow-600 hover:text-yellow-700 font-medium text-sm">💡 Show Hint</button>
+            <button onclick="toggleSolution(this)" class="text-green-600 hover:text-green-700 font-medium text-sm">✓ Show Solution</button>
+          </div>
+
+          <div class="hint-box mt-3 bg-yellow-50 p-3 rounded">
+            <p class="text-sm text-yellow-800">Use <span class="regex-highlight">(\d{4}\s?){3}\d{4}</span> or capture groups with optional spaces.</p>
+          </div>
+
+          <div class="solution-box mt-3 bg-green-50 p-3 rounded">
+            <p class="text-sm text-green-800 font-semibold">Solution: <code class="bg-white px-2 py-1 rounded">^(\d{4}\s?){3}\d{4}$</code></p>
+            <p class="text-xs text-green-700 mt-1">Matches 4 digits, optional space, repeated 3 times, then 4 more digits</p>
+          </div>
+        </div>
+
+        <!-- Task 19 -->
+        <div class="task-card bg-white rounded-lg shadow p-6" data-task="19">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <span class="text-sm font-semibold text-yellow-600">Task 19</span>
+              <h3 class="text-xl font-bold text-gray-800">HTML Tag Matcher</h3>
+            </div>
+            <span class="status-icon text-2xl">⭕</span>
+          </div>
+          
+          <p class="text-gray-600 mb-4">Match simple HTML tags like &lt;div&gt;, &lt;/div&gt;, &lt;br /&gt; (simplified).</p>
+          
+          <div class="bg-gray-100 p-3 rounded mb-4">
+            <p class="text-sm text-gray-700"><strong>Test strings:</strong></p>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">&lt;div&gt;</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">&lt;/div&gt;</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">&lt;br /&gt;</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">&lt;img /&gt;</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">div</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">&lt;div</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2 mb-4">
+            <input type="text" class="pattern-input flex-1 p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="Enter regex pattern">
+            <button onclick="testPattern(this)" class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-semibold">Test</button>
+          </div>
+
+          <div class="flex gap-2">
+            <button onclick="toggleHint(this)" class="text-yellow-600 hover:text-yellow-700 font-medium text-sm">💡 Show Hint</button>
+            <button onclick="toggleSolution(this)" class="text-green-600 hover:text-green-700 font-medium text-sm">✓ Show Solution</button>
+          </div>
+
+          <div class="hint-box mt-3 bg-yellow-50 p-3 rounded">
+            <p class="text-sm text-yellow-800">Pattern: &lt; + optional / + tag name + optional / + &gt;. Use <span class="regex-highlight">&lt;\/?</span>, <span class="regex-highlight">\w+</span>, <span class="regex-highlight">\/?&gt;</span>.</p>
+          </div>
+
+          <div class="solution-box mt-3 bg-green-50 p-3 rounded">
+            <p class="text-sm text-green-800 font-semibold">Solution: <code class="bg-white px-2 py-1 rounded">&lt;\/?\w+\s*\/?&gt;</code></p>
+            <p class="text-xs text-green-700 mt-1">Matches: &lt;tag&gt;, &lt;/tag&gt;, &lt;tag /&gt; (basic HTML tags)</p>
+          </div>
+        </div>
+
+        <!-- Task 20 -->
+        <div class="task-card bg-white rounded-lg shadow p-6" data-task="20">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <span class="text-sm font-semibold text-yellow-600">Task 20</span>
+              <h3 class="text-xl font-bold text-gray-800">IP Address (IPv4)</h3>
+            </div>
+            <span class="status-icon text-2xl">⭕</span>
+          </div>
+          
+          <p class="text-gray-600 mb-4">Match IPv4 addresses (simplified, doesn't validate number ranges).</p>
+          
+          <div class="bg-gray-100 p-3 rounded mb-4">
+            <p class="text-sm text-gray-700"><strong>Test strings:</strong></p>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">192.168.1.1</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">10.0.0.0</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">255.255.255.255</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">192.168.1</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">192.168.1.1.1</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">256.1.1.1</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2 mb-4">
+            <input type="text" class="pattern-input flex-1 p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="Enter regex pattern">
+            <button onclick="testPattern(this)" class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-semibold">Test</button>
+          </div>
+
+          <div class="flex gap-2">
+            <button onclick="toggleHint(this)" class="text-yellow-600 hover:text-yellow-700 font-medium text-sm">💡 Show Hint</button>
+            <button onclick="toggleSolution(this)" class="text-green-600 hover:text-green-700 font-medium text-sm">✓ Show Solution</button>
+          </div>
+
+          <div class="hint-box mt-3 bg-yellow-50 p-3 rounded">
+            <p class="text-sm text-yellow-800">Pattern: (1-3 digits + dot) × 3 + 1-3 digits. Use <span class="regex-highlight">\d{1,3}</span> and escaped dot <span class="regex-highlight">\.</span>.</p>
+          </div>
+
+          <div class="solution-box mt-3 bg-green-50 p-3 rounded">
+            <p class="text-sm text-green-800 font-semibold">Solution: <code class="bg-white px-2 py-1 rounded">^(\d{1,3}\.){3}\d{1,3}$</code></p>
+            <p class="text-xs text-green-700 mt-1">Matches: xxx.xxx.xxx.xxx where x is 1-3 digits (simplified)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hard Level -->
+    <div id="level-hard" class="level-section hidden">
+      <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-6 rounded">
+        <h2 class="text-2xl font-bold text-red-800">🔴 Hard Level - Advanced</h2>
+        <p class="text-red-700 mt-1">Complex patterns: nested structures, advanced lookarounds, backreferences.</p>
+      </div>
+
+      <div class="grid gap-6">
+        <!-- Task 21 -->
+        <div class="task-card bg-white rounded-lg shadow p-6" data-task="21">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <span class="text-sm font-semibold text-red-600">Task 21</span>
+              <h3 class="text-xl font-bold text-gray-800">Email (Advanced RFC)</h3>
+            </div>
+            <span class="status-icon text-2xl">⭕</span>
+          </div>
+          
+          <p class="text-gray-600 mb-4">More comprehensive email validation following RFC standards.</p>
+          
+          <div class="bg-gray-100 p-3 rounded mb-4">
+            <p class="text-sm text-gray-700"><strong>Test strings:</strong></p>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">user.name+tag@example.co.uk</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">user_name@example-domain.com</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">123@example.com</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">user..name@example.com</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">user@.example.com</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2 mb-4">
+            <input type="text" class="pattern-input flex-1 p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="Enter comprehensive email regex">
+            <button onclick="testPattern(this)" class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-semibold">Test</button>
+          </div>
+
+          <div class="flex gap-2">
+            <button onclick="toggleHint(this)" class="text-yellow-600 hover:text-yellow-700 font-medium text-sm">💡 Show Hint</button>
+            <button onclick="toggleSolution(this)" class="text-green-600 hover:text-green-700 font-medium text-sm">✓ Show Solution</button>
+          </div>
+
+          <div class="hint-box mt-3 bg-yellow-50 p-3 rounded">
+            <p class="text-sm text-yellow-800">Use negative lookahead to prevent consecutive dots: <span class="regex-highlight">(?!.*\.\.)</span>. Allow special chars in local part.</p>
+          </div>
+
+          <div class="solution-box mt-3 bg-green-50 p-3 rounded">
+            <p class="text-sm text-green-800 font-semibold">Solution: <code class="bg-white px-2 py-1 rounded text-xs">^(?!.*\.\.)(?!.*\.$)[\w.-]+@[\w-]+(\.[\w-]+)*\.\w{2,}$</code></p>
+            <p class="text-xs text-green-700 mt-1">Prevents consecutive dots and dot at end of local part</p>
+          </div>
+        </div>
+
+        <!-- Task 22 -->
+        <div class="task-card bg-white rounded-lg shadow p-6" data-task="22">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <span class="text-sm font-semibold text-red-600">Task 22</span>
+              <h3 class="text-xl font-bold text-gray-800">Password (Complex)</h3>
+            </div>
+            <span class="status-icon text-2xl">⭕</span>
+          </div>
+          
+          <p class="text-gray-600 mb-4">Match passwords with: 8+ chars, uppercase, lowercase, digit, and special char. No spaces.</p>
+          
+          <div class="bg-gray-100 p-3 rounded mb-4">
+            <p class="text-sm text-gray-700"><strong>Test strings:</strong></p>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">MyP@ssw0rd!</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">C0mpl3x#Pwd</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">Password123</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">password</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">My Pass@123</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2 mb-4">
+            <input type="text" class="pattern-input flex-1 p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="Enter regex with multiple lookaheads">
+            <button onclick="testPattern(this)" class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-semibold">Test</button>
+          </div>
+
+          <div class="flex gap-2">
+            <button onclick="toggleHint(this)" class="text-yellow-600 hover:text-yellow-700 font-medium text-sm">💡 Show Hint</button>
+            <button onclick="toggleSolution(this)" class="text-green-600 hover:text-green-700 font-medium text-sm">✓ Show Solution</button>
+          </div>
+
+          <div class="hint-box mt-3 bg-yellow-50 p-3 rounded">
+            <p class="text-sm text-yellow-800">Use multiple lookaheads: <span class="regex-highlight">(?=.*[A-Z])</span>, <span class="regex-highlight">(?=.*[a-z])</span>, <span class="regex-highlight">(?=.*\d)</span>, <span class="regex-highlight">(?=.*[!@#$%])</span>, <span class="regex-highlight">(?!.*\s)</span>.</p>
+          </div>
+
+          <div class="solution-box mt-3 bg-green-50 p-3 rounded">
+            <p class="text-sm text-green-800 font-semibold">Solution: <code class="bg-white px-2 py-1 rounded text-xs">^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])(?!.*\s).{8,}$</code></p>
+            <p class="text-xs text-green-700 mt-1">Requires uppercase, lowercase, digit, special char, no spaces, 8+ chars</p>
+          </div>
+        </div>
+
+        <!-- Task 23 -->
+        <div class="task-card bg-white rounded-lg shadow p-6" data-task="23">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <span class="text-sm font-semibold text-red-600">Task 23</span>
+              <h3 class="text-xl font-bold text-gray-800">Matching Quotes</h3>
+            </div>
+            <span class="status-icon text-2xl">⭕</span>
+          </div>
+          
+          <p class="text-gray-600 mb-4">Match text inside double quotes (non-greedy, handles escaped quotes).</p>
+          
+          <div class="bg-gray-100 p-3 rounded mb-4">
+            <p class="text-sm text-gray-700"><strong>Test strings:</strong></p>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">"hello world"</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">"test"</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">"say \"hello\""</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">hello world</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">"unclosed</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2 mb-4">
+            <input type="text" class="pattern-input flex-1 p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="Enter regex with non-greedy quantifier">
+            <button onclick="testPattern(this)" class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-semibold">Test</button>
+          </div>
+
+          <div class="flex gap-2">
+            <button onclick="toggleHint(this)" class="text-yellow-600 hover:text-yellow-700 font-medium text-sm">💡 Show Hint</button>
+            <button onclick="toggleSolution(this)" class="text-green-600 hover:text-green-700 font-medium text-sm">✓ Show Solution</button>
+          </div>
+
+          <div class="hint-box mt-3 bg-yellow-50 p-3 rounded">
+            <p class="text-sm text-yellow-800">Use non-greedy quantifier <span class="regex-highlight">*?</span> or <span class="regex-highlight">+?</span>. Pattern: <span class="regex-highlight">".+?"</span> or handle escapes: <span class="regex-highlight">"(?:[^"\\]|\\.)*"</span>.</p>
+          </div>
+
+          <div class="solution-box mt-3 bg-green-50 p-3 rounded">
+            <p class="text-sm text-green-800 font-semibold">Solution: <code class="bg-white px-2 py-1 rounded">"(?:[^"\\]|\\.)*"</code></p>
+            <p class="text-xs text-green-700 mt-1">Matches: quoted strings, handles escaped quotes inside</p>
+          </div>
+        </div>
+
+        <!-- Task 24 -->
+        <div class="task-card bg-white rounded-lg shadow p-6" data-task="24">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <span class="text-sm font-semibold text-red-600">Task 24</span>
+              <h3 class="text-xl font-bold text-gray-800">Palindrome (3-5 chars)</h3>
+            </div>
+            <span class="status-icon text-2xl">⭕</span>
+          </div>
+          
+          <p class="text-gray-600 mb-4">Match 3-5 character palindromes (aba, abba, abcba).</p>
+          
+          <div class="bg-gray-100 p-3 rounded mb-4">
+            <p class="text-sm text-gray-700"><strong>Test strings:</strong></p>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">aba</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">abcba</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">abba</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">abc</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">abcc</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">abcda</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2 mb-4">
+            <input type="text" class="pattern-input flex-1 p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="Enter regex with backreferences">
+            <button onclick="testPattern(this)" class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-semibold">Test</button>
+          </div>
+
+          <div class="flex gap-2">
+            <button onclick="toggleHint(this)" class="text-yellow-600 hover:text-yellow-700 font-medium text-sm">💡 Show Hint</button>
+            <button onclick="toggleSolution(this)" class="text-green-600 hover:text-green-700 font-medium text-sm">✓ Show Solution</button>
+          </div>
+
+          <div class="hint-box mt-3 bg-yellow-50 p-3 rounded">
+            <p class="text-sm text-yellow-800">Use capturing groups <span class="regex-highlight">(\w)</span> and backreferences <span class="regex-highlight">\1</span>, <span class="regex-highlight">\2</span> to match mirrored characters.</p>
+          </div>
+
+          <div class="solution-box mt-3 bg-green-50 p-3 rounded">
+            <p class="text-sm text-green-800 font-semibold">Solution: <code class="bg-white px-2 py-1 rounded">^(\w)(\w)?\w?\2?\1$</code></p>
+            <p class="text-xs text-green-700 mt-1">Captures chars and uses backreferences to check palindrome structure</p>
+          </div>
+        </div>
+
+        <!-- Task 25 -->
+        <div class="task-card bg-white rounded-lg shadow p-6" data-task="25">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <span class="text-sm font-semibold text-red-600">Task 25</span>
+              <h3 class="text-xl font-bold text-gray-800">No Consecutive Same</h3>
+            </div>
+            <span class="status-icon text-2xl">⭕</span>
+          </div>
+          
+          <p class="text-gray-600 mb-4">Match strings with no consecutive identical characters (using negative lookahead).</p>
+          
+          <div class="bg-gray-100 p-3 rounded mb-4">
+            <p class="text-sm text-gray-700"><strong>Test strings:</strong></p>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">abc</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">abab</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">xyz</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">aabb</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">abcc</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">aa</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2 mb-4">
+            <input type="text" class="pattern-input flex-1 p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="Enter regex with negative lookahead">
+            <button onclick="testPattern(this)" class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-semibold">Test</button>
+          </div>
+
+          <div class="flex gap-2">
+            <button onclick="toggleHint(this)" class="text-yellow-600 hover:text-yellow-700 font-medium text-sm">💡 Show Hint</button>
+            <button onclick="toggleSolution(this)" class="text-green-600 hover:text-green-700 font-medium text-sm">✓ Show Solution</button>
+          </div>
+
+          <div class="hint-box mt-3 bg-yellow-50 p-3 rounded">
+            <p class="text-sm text-yellow-800">Use negative lookahead <span class="regex-highlight">(?!.*(.)\1)</span> to prevent any char followed by itself.</p>
+          </div>
+
+          <div class="solution-box mt-3 bg-green-50 p-3 rounded">
+            <p class="text-sm text-green-800 font-semibold">Solution: <code class="bg-white px-2 py-1 rounded">^(?!.*(.)\1)[\w\s]+$</code></p>
+            <p class="text-xs text-green-700 mt-1">(.) captures any char, \1 references it, (?!...) is negative lookahead</p>
+          </div>
+        </div>
+
+        <!-- Task 26 -->
+        <div class="task-card bg-white rounded-lg shadow p-6" data-task="26">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <span class="text-sm font-semibold text-red-600">Task 26</span>
+              <h3 class="text-xl font-bold text-gray-800">Balanced Parentheses</h3>
+            </div>
+            <span class="status-icon text-2xl">⭕</span>
+          </div>
+          
+          <p class="text-gray-600 mb-4">Match simple balanced parentheses (one level deep).</p>
+          
+          <div class="bg-gray-100 p-3 rounded mb-4">
+            <p class="text-sm text-gray-700"><strong>Test strings:</strong></p>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">(abc)</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">(123)</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">(()</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">abc</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">(abc</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">abc)</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2 mb-4">
+            <input type="text" class="pattern-input flex-1 p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="Enter regex pattern">
+            <button onclick="testPattern(this)" class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-semibold">Test</button>
+          </div>
+
+          <div class="flex gap-2">
+            <button onclick="toggleHint(this)" class="text-yellow-600 hover:text-yellow-700 font-medium text-sm">💡 Show Hint</button>
+            <button onclick="toggleSolution(this)" class="text-green-600 hover:text-green-700 font-medium text-sm">✓ Show Solution</button>
+          </div>
+
+          <div class="hint-box mt-3 bg-yellow-50 p-3 rounded">
+            <p class="text-sm text-yellow-800">Pattern: <span class="regex-highlight">\(</span> + any chars + <span class="regex-highlight">\)</span>. Use escaped parentheses.</p>
+          </div>
+
+          <div class="solution-box mt-3 bg-green-50 p-3 rounded">
+            <p class="text-sm text-green-800 font-semibold">Solution: <code class="bg-white px-2 py-1 rounded">^\([^()]*\)$</code></p>
+            <p class="text-xs text-green-700 mt-1">Matches: (content) where content has no parentheses</p>
+          </div>
+        </div>
+
+        <!-- Task 27 -->
+        <div class="task-card bg-white rounded-lg shadow p-6" data-task="27">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <span class="text-sm font-semibold text-red-600">Task 27</span>
+              <h3 class="text-xl font-bold text-gray-800">IPv4 (Strict)</h3>
+            </div>
+            <span class="status-icon text-2xl">⭕</span>
+          </div>
+          
+          <p class="text-gray-600 mb-4">Match valid IPv4 addresses (each octet 0-255, no leading zeros).</p>
+          
+          <div class="bg-gray-100 p-3 rounded mb-4">
+            <p class="text-sm text-gray-700"><strong>Test strings:</strong></p>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">192.168.1.1</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">255.255.255.255</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">0.0.0.0</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">256.1.1.1</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">01.02.03.04</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">192.168.1</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2 mb-4">
+            <input type="text" class="pattern-input flex-1 p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="Enter strict IPv4 regex (complex!)">
+            <button onclick="testPattern(this)" class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-semibold">Test</button>
+          </div>
+
+          <div class="flex gap-2">
+            <button onclick="toggleHint(this)" class="text-yellow-600 hover:text-yellow-700 font-medium text-sm">💡 Show Hint</button>
+            <button onclick="toggleSolution(this)" class="text-green-600 hover:text-green-700 font-medium text-sm">✓ Show Solution</button>
+          </div>
+
+          <div class="hint-box mt-3 bg-yellow-50 p-3 rounded">
+            <p class="text-sm text-yellow-800">Break down by ranges: 0-9, 10-99, 100-199, 200-249, 250-255. Use <span class="regex-highlight">(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)</span>.</p>
+          </div>
+
+          <div class="solution-box mt-3 bg-green-50 p-3 rounded">
+            <p class="text-sm text-green-800 font-semibold">Solution: <code class="bg-white px-2 py-1 rounded text-xs">^((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)$</code></p>
+            <p class="text-xs text-green-700 mt-1">Strict validation: each octet 0-255, no leading zeros</p>
+          </div>
+        </div>
+
+        <!-- Task 28 -->
+        <div class="task-card bg-white rounded-lg shadow p-6" data-task="28">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <span class="text-sm font-semibold text-red-600">Task 28</span>
+              <h3 class="text-xl font-bold text-gray-800">Valid Variable Name</h3>
+            </div>
+            <span class="status-icon text-2xl">⭕</span>
+          </div>
+          
+          <p class="text-gray-600 mb-4">Match valid JavaScript variable names (no reserved words, valid format).</p>
+          
+          <div class="bg-gray-100 p-3 rounded mb-4">
+            <p class="text-sm text-gray-700"><strong>Test strings:</strong></p>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">myVariable</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">_private</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">$jquery</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">var123</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">123var</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">my-variable</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">var</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2 mb-4">
+            <input type="text" class="pattern-input flex-1 p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="Enter regex with negative lookahead for reserved words">
+            <button onclick="testPattern(this)" class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-semibold">Test</button>
+          </div>
+
+          <div class="flex gap-2">
+            <button onclick="toggleHint(this)" class="text-yellow-600 hover:text-yellow-700 font-medium text-sm">💡 Show Hint</button>
+            <button onclick="toggleSolution(this)" class="text-green-600 hover:text-green-700 font-medium text-sm">✓ Show Solution</button>
+          </div>
+
+          <div class="hint-box mt-3 bg-yellow-50 p-3 rounded">
+            <p class="text-sm text-yellow-800">Pattern: <span class="regex-highlight">[a-zA-Z_$]</span> start, then <span class="regex-highlight">\w</span>*. Exclude reserved words with negative lookahead.</p>
+          </div>
+
+          <div class="solution-box mt-3 bg-green-50 p-3 rounded">
+            <p class="text-sm text-green-800 font-semibold">Solution: <code class="bg-white px-2 py-1 rounded text-xs">^(?!.*\b(?:var|let|const|function|class|if|else)\b)[a-zA-Z_$][\w$]*$</code></p>
+            <p class="text-xs text-green-700 mt-1">Valid JS variable: starts with letter/_/$, no reserved words</p>
+          </div>
+        </div>
+
+        <!-- Task 29 -->
+        <div class="task-card bg-white rounded-lg shadow p-6" data-task="29">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <span class="text-sm font-semibold text-red-600">Task 29</span>
+              <h3 class="text-xl font-bold text-gray-800">Divisible by 3 (Binary)</h3>
+            </div>
+            <span class="status-icon text-2xl">⭕</span>
+          </div>
+          
+          <p class="text-gray-600 mb-4">Match binary numbers divisible by 3 (this is a theoretical exercise).</p>
+          
+          <div class="bg-gray-100 p-3 rounded mb-4">
+            <p class="text-sm text-gray-700"><strong>Test strings:</strong></p>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">0</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">11</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">110</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">1001</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">1</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">10</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">101</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2 mb-4">
+            <input type="text" class="pattern-input flex-1 p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="Enter regex (this is very complex!)">
+            <button onclick="testPattern(this)" class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-semibold">Test</button>
+          </div>
+
+          <div class="flex gap-2">
+            <button onclick="toggleHint(this)" class="text-yellow-600 hover:text-yellow-700 font-medium text-sm">💡 Show Hint</button>
+            <button onclick="toggleSolution(this)" class="text-green-600 hover:text-green-700 font-medium text-sm">✓ Show Solution</button>
+          </div>
+
+          <div class="hint-box mt-3 bg-yellow-50 p-3 rounded">
+            <p class="text-sm text-yellow-800">This requires a finite state machine approach with regex. Pattern: <span class="regex-highlight">^(0|1(01*0)*1)+$</span>.</p>
+          </div>
+
+          <div class="solution-box mt-3 bg-green-50 p-3 rounded">
+            <p class="text-sm text-green-800 font-semibold">Solution: <code class="bg-white px-2 py-1 rounded">^(0|1(01*0)*1)+$</code></p>
+            <p class="text-xs text-green-700 mt-1">Finite state machine regex for divisibility by 3 in binary</p>
+          </div>
+        </div>
+
+        <!-- Task 30 -->
+        <div class="task-card bg-white rounded-lg shadow p-6" data-task="30">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <span class="text-sm font-semibold text-red-600">Task 30</span>
+              <h3 class="text-xl font-bold text-gray-800">HTML Tag with Attributes</h3>
+            </div>
+            <span class="status-icon text-2xl">⭕</span>
+          </div>
+          
+          <p class="text-gray-600 mb-4">Match HTML tags with attributes (class, id, style, etc.)</p>
+          
+          <div class="bg-gray-100 p-3 rounded mb-4">
+            <p class="text-sm text-gray-700"><strong>Test strings:</strong></p>
+            <div class="flex flex-wrap gap-2 mt-2">
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">&lt;div class="container"&gt;</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">&lt;img src="photo.jpg" alt="test" /&gt;</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="true">&lt;a href="#" id="link"&gt;</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">&lt;div class=noquotes&gt;</span>
+              <span class="test-item px-3 py-1 bg-white rounded border" data-match="false">&lt;div&gt;</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2 mb-4">
+            <input type="text" class="pattern-input flex-1 p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="Enter complex regex for HTML with attributes">
+            <button onclick="testPattern(this)" class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-semibold">Test</button>
+          </div>
+
+          <div class="flex gap-2">
+            <button onclick="toggleHint(this)" class="text-yellow-600 hover:text-yellow-700 font-medium text-sm">💡 Show Hint</button>
+            <button onclick="toggleSolution(this)" class="text-green-600 hover:text-green-700 font-medium text-sm">✓ Show Solution</button>
+          </div>
+
+          <div class="hint-box mt-3 bg-yellow-50 p-3 rounded">
+            <p class="text-sm text-yellow-800">Pattern: tag + (attribute="value")*. Use groups: <span class="regex-highlight">(\s+\w+="[^"]*")*</span>.</p>
+          </div>
+
+          <div class="solution-box mt-3 bg-green-50 p-3 rounded">
+            <p class="text-sm text-green-800 font-semibold">Solution: <code class="bg-white px-2 py-1 rounded text-xs">&lt;\w+(\s+\w+="[^"]*")*\s*\/?&gt;</code></p>
+            <p class="text-xs text-green-700 mt-1">Matches HTML tags with quoted attributes (simplified)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Playground -->
+    <div id="level-playground" class="level-section hidden">
+      <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6 rounded">
+        <h2 class="text-2xl font-bold text-blue-800">🔧 Regex Playground</h2>
+        <p class="text-blue-700 mt-1">Test your own patterns and strings here. Experiment freely!</p>
+      </div>
+
+      <div class="bg-white rounded-lg shadow p-6">
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- Pattern Input -->
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Regex Formula</label>
+            <input type="text" id="playground-pattern" class="pattern-input w-full p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="Enter full regex like: /\d+/gi or /^[a-z]+$/i">
+            <p class="text-xs text-gray-500 mt-1">Type complete formula with slashes and flags: <code>/pattern/flags</code></p>
+          </div>
+
+          <!-- Test String -->
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Test String</label>
+            <textarea id="playground-text" rows="3" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="Enter text to test..."></textarea>
+          </div>
+        </div>
+
+        <button onclick="testPlayground()" class="mt-4 w-full py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-semibold">Test Pattern</button>
+
+        <!-- Results -->
+        <div id="playground-result" class="mt-4 p-4 rounded-lg hidden">
+          <h4 class="font-semibold mb-2">Results:</h4>
+          <div id="playground-output"></div>
+        </div>
+
+        <!-- Quick Reference -->
+        <div class="mt-6 bg-gray-50 p-4 rounded-lg">
+          <h4 class="font-semibold text-gray-800 mb-3">📝 Quick Reference</h4>
+          <div class="grid md:grid-cols-3 gap-4 text-sm">
+            <div>
+              <p class="font-medium text-gray-700">Character Classes</p>
+              <ul class="text-gray-600 mt-1 space-y-1">
+                <li><code>\d</code> - Digit [0-9]</li>
+                <li><code>\w</code> - Word [a-zA-Z0-9_]</li>
+                <li><code>\s</code> - Whitespace</li>
+                <li><code>.</code> - Any char</li>
+              </ul>
+            </div>
+            <div>
+              <p class="font-medium text-gray-700">Quantifiers</p>
+              <ul class="text-gray-600 mt-1 space-y-1">
+                <li><code>*</code> - 0 or more</li>
+                <li><code>+</code> - 1 or more</li>
+                <li><code>?</code> - 0 or 1</li>
+                <li><code>{n,m}</code> - n to m</li>
+              </ul>
+            </div>
+            <div>
+              <p class="font-medium text-gray-700">Anchors & Groups</p>
+              <ul class="text-gray-600 mt-1 space-y-1">
+                <li><code>^</code> - Start</li>
+                <li><code>$</code> - End</li>
+                <li><code>()</code> - Group</li>
+                <li><code>|</code> - OR</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-6 mt-12">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <p class="text-gray-400">Practice makes perfect. Keep learning regex! 🚀</p>
+    </div>
+  </footer>
+
+  <script>
+    // Track completed tasks
+    let completedTasks = new Set();
+
+    // Show level
+    function showLevel(level) {
+      // Hide all levels
+      document.querySelectorAll('.level-section').forEach(section => {
+        section.classList.add('hidden');
+      });
+      
+      // Show selected level
+      document.getElementById('level-' + level).classList.remove('hidden');
+      
+      // Update button styles
+      document.querySelectorAll('.level-badge').forEach(btn => {
+        btn.classList.remove('ring-2', 'ring-offset-2', 'ring-indigo-500');
+      });
+      document.getElementById('btn-' + level).classList.add('ring-2', 'ring-offset-2', 'ring-indigo-500');
+    }
+
+    // Toggle hint
+    function toggleHint(btn) {
+      const hintBox = btn.closest('.task-card').querySelector('.hint-box');
+      hintBox.classList.toggle('show');
+      btn.textContent = hintBox.classList.contains('show') ? '💡 Hide Hint' : '💡 Show Hint';
+    }
+
+    // Toggle solution
+    function toggleSolution(btn) {
+      const solutionBox = btn.closest('.task-card').querySelector('.solution-box');
+      solutionBox.classList.toggle('show');
+      btn.textContent = solutionBox.classList.contains('show') ? '✓ Hide Solution' : '✓ Show Solution';
+    }
+
+    // Test pattern
+    function testPattern(btn) {
+      const card = btn.closest('.task-card');
+      const patternInput = card.querySelector('.pattern-input');
+      const pattern = patternInput.value;
+      const testItems = card.querySelectorAll('.test-item');
+      
+      if (!pattern) {
+        alert('Please enter a regex pattern');
+        return;
+      }
+
+      let allCorrect = true;
+      
+      try {
+        const regex = new RegExp(pattern, 'i');
+        
+        testItems.forEach(item => {
+          const text = item.textContent;
+          const shouldMatch = item.dataset.match === 'true';
+          const doesMatch = regex.test(text);
+          
+          item.classList.remove('match-success', 'match-fail');
+          
+          if (doesMatch === shouldMatch) {
+            item.classList.add('match-success');
+          } else {
+            item.classList.add('match-fail');
+            allCorrect = false;
+          }
+        });
+
+        // Mark as completed if all correct
+        if (allCorrect) {
+          const taskId = card.dataset.task;
+          completedTasks.add(taskId);
+          card.classList.add('completed');
+          card.querySelector('.status-icon').textContent = '✅';
+          updateProgress();
+        }
+
+      } catch (e) {
+        alert('Invalid regex pattern: ' + e.message);
+      }
+    }
+
+    // Update progress
+    function updateProgress() {
+      const total = 30;
+      const completed = completedTasks.size;
+      const percentage = (completed / total) * 100;
+      
+      document.getElementById('progressBar').style.width = percentage + '%';
+      document.getElementById('progressText').textContent = completed + '/' + total;
+    }
+
+    // Test playground
+    function testPlayground() {
+      const fullPattern = document.getElementById('playground-pattern').value.trim();
+      const text = document.getElementById('playground-text').value;
+      const resultDiv = document.getElementById('playground-result');
+      const outputDiv = document.getElementById('playground-output');
+      
+      if (!fullPattern || !text) {
+        alert('Please enter both pattern and test text');
+        return;
+      }
+
+      // Parse full regex formula: /pattern/flags or pattern
+      let pattern = fullPattern;
+      let flags = '';
+      
+      // Check if pattern starts with / (regex literal format)
+      if (fullPattern.startsWith('/')) {
+        // Find the last / to separate pattern from flags
+        const lastSlashIndex = fullPattern.lastIndexOf('/');
+        if (lastSlashIndex > 0) {
+          pattern = fullPattern.slice(1, lastSlashIndex);
+          flags = fullPattern.slice(lastSlashIndex + 1);
+        }
+      }
+
+      try {
+        const regex = new RegExp(pattern, flags);
+        const matches = text.match(regex);
+        
+        resultDiv.classList.remove('hidden');
+        
+        if (matches) {
+          resultDiv.className = 'mt-4 p-4 rounded-lg bg-green-50';
+          outputDiv.innerHTML = `
+            <p class="text-green-700 font-semibold">✓ Pattern matched!</p>
+            <p class="text-green-600 mt-2">Matches found: ${matches.length}</p>
+            <div class="mt-2 bg-white p-2 rounded">
+              ${matches.map(m => `<code class="text-green-700">${m}</code>`).join(', ')}
+            </div>
+          `;
+          
+          // Highlight matches in text
+          const highlighted = text.replace(regex, match => `<mark class="bg-yellow-200">${match}</mark>`);
+          outputDiv.innerHTML += `
+            <div class="mt-3 p-2 bg-white rounded border">
+              <p class="text-xs text-gray-500 mb-1">Highlighted text:</p>
+              <p>${highlighted}</p>
+            </div>
+          `;
+        } else {
+          resultDiv.className = 'mt-4 p-4 rounded-lg bg-red-50';
+          outputDiv.innerHTML = `
+            <p class="text-red-700 font-semibold">✗ No matches found</p>
+            <p class="text-red-600 mt-2">Pattern: <code>${fullPattern}</code></p>
+            <p class="text-xs text-gray-500 mt-1">Parsed as: /${pattern}/${flags}</p>
+          `;
+        }
+      } catch (e) {
+        resultDiv.classList.remove('hidden');
+        resultDiv.className = 'mt-4 p-4 rounded-lg bg-red-50';
+        outputDiv.innerHTML = `<p class="text-red-700">Invalid regex: ${e.message}</p>`;
+      }
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      showLevel('easy');
+    });
+  </script>
+
+</body>
+</html>
