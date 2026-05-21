@@ -49,6 +49,13 @@ body {
   /* outline: red 1px solid; */
   
 }
+.navlink{
+  @apply dark:text-white
+}
+@media (min-width:768px) {
+.navlink { font-size: 0.840rem;letter-spacing: 0.140rem; }
+
+}
 
 
 .fa-facebook-square, .fa-twitter-square {
@@ -164,16 +171,16 @@ body {
   }
 
   .custom-table {
-    @apply border border-black dark:border-white ;
+    @apply border border-black dark:border-white md:text-[0.875rem] text-[1.125rem] md:p-[0.2rem] p-[0.01rem] bg-red-300 dark:bg-red-600 ;
     
   border-collapse:separate;
-  padding: 0.2rem;
+
   
 }
 
 
 th, td {
-  @apply h-8 px-4 border border-black dark:border-white text-center ;
+  @apply md:h-8 h-16 md:px-4 px-2 border border-black dark:border-white text-center text-black dark:text-gray-600 bg-white dark:bg-gray-300 ;
 }
 
 input, textarea{

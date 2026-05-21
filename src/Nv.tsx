@@ -9,12 +9,12 @@ export default function Navbar() {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <nav className="navbar text-white shadow-lg fixed left-0 top-0 w-full z-50">
+    <nav className="navbar text-white shadow-lg dark:shadow-gray-400 fixed left-0 top-0 w-full z-50">
       <div className="mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between ">
         <div className="w-[90%] flex justify-between h-16 items-center">
 
           {/* Logo */}
-          <div className="flex-shrink-0 text-green-500 font-bold text-xl">
+          <div className="flex-shrink-0 text-green-500 dark:text-orange-500 font-bold text-xl">
             Partha.dev
           </div>
 
@@ -23,37 +23,37 @@ export default function Navbar() {
             
             <Link
               to="/"
-              className={`group relative py-2 transition-colors ${isActive('/') ? 'text-[#40D435] font-semibold' : 'text-[#5F8A5C] hover:text-white'}`}
+              className={`navlink group relative py-2 transition-colors ${isActive('/') ? 'text-[#40D435] font-semibold' : 'text-[#5F8A5C] hover:text-white'}`}
             >
               Home
-              <span className={`absolute bottom-0 left-0 h-0.5 bg-blue-400 transition-all duration-300 
+              <span className={`absolute bottom-0 left-0 h-0.5 bg-blue-400 dark:bg-orange-500 transition-all duration-300 
                 ${isActive('/') ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
             </Link>
 
             <Link
               to="/about"
-              className={`group relative py-2 transition-colors ${isActive('/about') ? 'text-[#40D435] font-semibold' : 'text-[#5F8A5C] hover:text-white'}`}
+              className={`navlink group relative py-2 transition-colors ${isActive('/about') ? 'text-[#40D435] font-semibold' : 'text-[#5F8A5C] hover:text-white'}`}
             >
               About
-              <span className={`absolute bottom-0 left-0 h-0.5 bg-blue-400 transition-all duration-300 
+              <span className={`absolute bottom-0 left-0 h-0.5 bg-blue-400 dark:bg-orange-500 transition-all duration-300 
                 ${isActive('/about') ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
             </Link>
 
             <Link
               to="/projects"
-              className={`group relative py-2 transition-colors ${isActive('/projects') ? 'text-[#40D435] font-semibold' : 'text-[#5F8A5C] hover:text-white'}`}
+              className={`navlink group relative py-2 transition-colors ${isActive('/projects') ? 'text-[#40D435] font-semibold' : 'text-[#5F8A5C] hover:text-white'}`}
             >
               Projects
-              <span className={`absolute bottom-0 left-0 h-0.5 bg-blue-400 transition-all duration-300 
+              <span className={`absolute bottom-0 left-0 h-0.5 bg-blue-400 dark:bg-orange-500 transition-all duration-300 
                 ${isActive('/projects') ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
             </Link>
 
             <Link
               to="/contact"
-              className={`group relative py-2 transition-colors ${isActive('/contact') ? 'text-[#40D435] font-semibold' : 'text-[#5F8A5C] hover:text-white'}`}
+              className={`navlink group relative py-2 transition-colors ${isActive('/contact') ? 'text-[#40D435] font-semibold' : 'text-[#5F8A5C] hover:text-white'}`}
             >
               Contact
-              <span className={`absolute bottom-0 left-0 h-0.5 bg-blue-400 transition-all duration-300 
+              <span className={`absolute bottom-0 left-0 h-0.5 bg-blue-400 dark:bg-orange-500 transition-all duration-300 
                 ${isActive('/contact') ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
             </Link>
           </div>

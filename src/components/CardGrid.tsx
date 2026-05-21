@@ -15,10 +15,10 @@ export default function CardGrid({ cards }: CardGridProps) {
 
   return (
     // Main container with responsive margins
-    <div className=" mx-[5%] lg:mt-[6%] mt-[13%] py-12 ">
+    <div className=" mx-[5%] mt-[13%] py-12 md:mb-[2.450rem] mb-[7.7rem] md:-mt-[1.903rem]">
       
       {/* Responsive heading - larger on desktop, smaller on mobile */}
-      <h2 className="lg:text-3xl text-8xl font-bold text-center sm:mb-10 mb-20">My Missions</h2>
+      <h2 className="lg:text-3xl text-8xl font-bold text-center tracking-[0.1rem] sm:mb-10 mb-20">My Missions</h2>
       
       {/* Flex container with responsive gaps */}
       <div className="flex flex-wrap lg:gap-x-6 lg:gap-y-14 sm:gap-x-10 sm:gap-y-16 gap-y-36  justify-center">
@@ -53,13 +53,13 @@ export default function CardGrid({ cards }: CardGridProps) {
             </div>
             
             {/* Card content with responsive spacing */}
-            <div className="px-[8%] py-[4%] sm:space-y-[1%] space-y-[3%] dark:text-white ">
+            <div className="px-[8%] py-[4%] sm:space-y-[1%] space-y-[3%]  ">
               
               {/* Responsive title - larger on desktop */}
-              <h3 className="card-title font-semibold lg:text-2xl sm:text-4xl text-7xl  ">{card.title}</h3>
+              <h3 className="card-title font-semibold lg:text-2xl sm:text-4xl text-7xl dark:text-white ">{card.title}</h3>
               
               {/* Responsive description - larger on desktop */}
-              <p className="card-sub-title lg:text-[1rem] sm:text-2xl text-5xl ">{card.desc}</p>
+              <p className="card-sub-title lg:text-[1rem] sm:text-2xl text-5xl dark:text-gray-300">{card.desc}</p>
              </div>
            </div>
         ))}
