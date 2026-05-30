@@ -1,14 +1,47 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>grok-level-frontend</title>
-  </head>
-  <body>
-    
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>grok-level-frontend</title>
+</head>
+
+<body>
+
+  <div id="root" data-fs="5" data-display="flex" data-lh="8" data-fw="15"></div>
+  <script type="module" src="/src/main.tsx"></script>
+
+  <script>
+    const root = document.querySelector("#root").cloneNode(true);
+
+    Object.keys(root.dataset).forEach(key => 
+     delete root.dataset[key]
+    );
+    console.log(root.outerHTML);
+
+
+    if (root) {
+      // 1. Clone body (so original DOM is untouched)
+      const clone = document.body.cloneNode(true);
+
+      // 2. Remove all data-* attributes
+      clone.querySelectorAll("*").forEach(el => {
+        [...el.attributes].forEach(attr => {
+          if (attr.name.startsWith("data-")) {
+            el.removeAttribute(attr.name);
+          }
+        });
+      });
+
+      // 3. Convert to string
+      const cleanHTML = clone.outerHTML;
+
+      // console.log(cleanHTML);
+    }
+
+  </script>
+</body>
+
 </html>

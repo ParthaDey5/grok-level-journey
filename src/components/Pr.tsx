@@ -1,11 +1,11 @@
-import React, { useRef, useState } from 'react'
+import React, {useEffect, useRef, useState } from 'react'
 
 function Pr() {
   const [value, setValue] = useState<string>("")
   const [loader, setLoader] = useState<boolean>(false)
   const [results, setResults] = useState<any[]>([])
-  
-  
+
+
 
 
   const controllerRef = useRef(null)
@@ -44,53 +44,53 @@ function Pr() {
       return;
     } else {
 
-    try {
-      // console.log("START: ", input)
-      setLoader(true)
-      await new Promise((res, rej) => {
-        const timeout = setTimeout(res, 1000)
+      try {
+        // console.log("START: ", input)
+        setLoader(true)
+        await new Promise((res, rej) => {
+          const timeout = setTimeout(res, 1000)
 
-        signal.addEventListener('abort', () => {
-          clearTimeout(timeout)
-          rej(new Error('aborted'))
-        }, { once: true })
-
-
-
-      })
-      const res = await fetch(`https://dummyjson.com/products/search?q=${input}`, { signal })
-      const data = await res.json()
-
-      
+          signal.addEventListener('abort', () => {
+            clearTimeout(timeout)
+            rej(new Error('aborted'))
+          }, { once: true })
 
 
-      // console.log('SUCCESS: ', input);
-      setLoader(false)
 
-      if (!input.trim()) {
-        setResults([])
-        return;
+        })
+        const res = await fetch(`https://dummyjson.com/products/search?q=${input}`, { signal })
+        const data = await res.json()
+
+
+
+
+        // console.log('SUCCESS: ', input);
+        setLoader(false)
+
+        if (!input.trim()) {
+          setResults([])
+          return;
+        }
+
+        setResults(data.products)
+        cache.current[key] = data.products
+
+        console.log(cache.current);
+
+
+
+
+      } catch (error) {
+        if (signal.aborted) {
+          // console.log("ABORTED:", input);
+
+          return;
+        }
+        // console.log("ERROR:", error);
+      } finally {
+        setLoader(false)
       }
-
-      setResults(data.products)
-      cache.current[key]= data.products
-
-      console.log(cache.current);
-      
-      
-      
-
-    } catch (error) {
-      if (signal.aborted) {
-        // console.log("ABORTED:", input);
-        
-        return;
-      }
-      // console.log("ERROR:", error);
-    } finally {
-      setLoader(false)
     }
-  }
   }
 
 
@@ -131,13 +131,13 @@ function Pr() {
     const value = e.target.value
     setValue(value)
     // console.log(value.length);
-    
-    if (controllerRef.current) controllerRef.current.abort()
-      
-      controllerRef.current = new AbortController()
-      
 
-      if (value.length > 2) {
+    if (controllerRef.current) controllerRef.current.abort()
+
+    controllerRef.current = new AbortController()
+
+
+    if (value.length > 2) {
       ref.current(value, { signal: controllerRef.current.signal })
     } else {
       setLoader(false)
@@ -146,10 +146,19 @@ function Pr() {
     }
 
 
+
+
+
   }
 
+  
+  
+  
+  
+  
+
   return (
-    <div className='w-[100vw] flex flex-col items-center gap-10'>
+    <div id="test" className='w-[100vw] flex flex-col items-center gap-10' data-fs="5" data-display="flex" data-lh="8" data-fw="15" >
       <input type="text" value={value} onChange={handleChange} className='bg-red-300 mt-28' />
 
       <div className='relative space-y-2'>
@@ -172,7 +181,7 @@ function Pr() {
           </div>}
 
         {/* no result */}
-        {!loader && value.length>2 && results.length===0 &&
+        {!loader && value.length > 2 && results.length === 0 &&
           <p>No Result Found</p>
         }
 

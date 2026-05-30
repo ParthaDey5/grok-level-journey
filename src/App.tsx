@@ -3,6 +3,7 @@ import CardGrid from './components/CardGrid';
 import Nv from './Nv';
 import SearchBar from './components/SearchBar';
 import Table from './components/Table';
+import PomodoroTimer from './components/PomodoroTimer';
 
 // Define types for your data
 interface Card {
@@ -97,7 +98,8 @@ function App() {
 
       <CardGrid cards={filteredCards} />
       <Table />
-    </>
+      <PomodoroTimer/>
+      </>
   );
 }
 
