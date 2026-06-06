@@ -1,43 +1,33 @@
 import { useState, useEffect } from 'react';
 
 export default function DarkModeToggle() {
-    const [isDark, setIsDark] = useState(false);
-
-    // Initialize from localStorage on mount
-    useEffect(() => {
+    const [isDark, setIsDark] = useState(() => {
         const stored = localStorage.getItem('theme');
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const darkMode = stored === 'dark' || (!stored && prefersDark);
-        setIsDark(darkMode);
-        updateTheme(darkMode);
-    }, []);
 
-    // Listen for system theme changes
+        return stored === 'dark' || (!stored && prefersDark);
+    });
+
+    // ✅ Only update state
     useEffect(() => {
         const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
         const handleChange = (e: MediaQueryListEvent) => {
             setIsDark(e.matches);
-            updateTheme(e.matches);
-            localStorage.setItem('theme', e.matches ? 'dark' : 'light');
         };
+
         mediaQuery.addEventListener('change', handleChange);
         return () => mediaQuery.removeEventListener('change', handleChange);
-    }, [])
+    }, []);
 
-
-    const updateTheme = (dark: boolean) => {
-        if (dark) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-    };
+    // ✅ React to state changes (SINGLE source of side effects)
+    useEffect(() => {
+        document.documentElement.classList.toggle('dark', isDark);
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    }, [isDark]);
 
     const toggle = () => {
-        const newMode = !isDark;
-        setIsDark(newMode);
-        updateTheme(newMode);
-        localStorage.setItem('theme', newMode ? 'dark' : 'light');
+        setIsDark(prev => !prev);
     };
 
     return (

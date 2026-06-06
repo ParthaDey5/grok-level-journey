@@ -119,14 +119,14 @@ export default function PomodoroTimer() {
 
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 space-y-6">
-      <h1 className="text-3xl font-bold">Pomodoro Timer</h1>
+    <div className="dark:bg-[#0f172a] flex flex-col items-center justify-center lg:py-20 md:py-[10rem] py-40 bg-gray-100 md:space-y-6 space-y-10">
+      <h1 className="md:text-3xl text-6xl font-bold">Pomodoro Timer</h1>
 
-      <div className="text-6xl font-mono bg-white px-10 py-6 rounded-xl shadow">
+      <div className="md:text-6xl text-8xl font-mono dark:bg-[#9ca3af] bg-white px-10 md:py-6 py-10 rounded-xl shadow">
         {formatTime(time)}
       </div>
 
-      <div className="flex gap-4">
+      <div className="flex md:gap-4 gap-8 md:text-3xl text-4xl">
         <button
           onClick={(e) => {
             const currentMode = e.currentTarget.dataset.mode
@@ -134,7 +134,7 @@ export default function PomodoroTimer() {
             startTimer();
           }}
 
-          className={`tracking-wider  px-4 py-2 rounded ${state === "start" ? "bg-green-200 text-green-600 outline-1 outline" : "bg-green-500 text-white"}`}
+          className={`tracking-wider  md:px-4 md:py-2 px-10 py-5 lg:rounded md:rounded-lg rounded-2xl ${state === "start" ? "bg-green-200 text-green-600 outline-1 outline" : "bg-green-500 text-white"}`}
           data-mode="start"
         >
           Start
@@ -149,7 +149,7 @@ export default function PomodoroTimer() {
             pauseTimer();
           }}
 
-          className={`tracking-wider px-4 py-2 rounded ${state === "pause" ? "bg-yellow-200 text-yellow-600 outline-1 outline" : "bg-yellow-500 text-white"}`}
+          className={`tracking-wider  md:px-4 md:py-2 px-10 py-5 lg:rounded md:rounded-lg rounded-2xl ${state === "pause" ? "bg-yellow-200 text-yellow-600 outline-1 outline" : "bg-yellow-500 text-white"}`}
           data-mode="pause"
         >
           Pause
@@ -162,14 +162,14 @@ export default function PomodoroTimer() {
             resetTimer();
           }}
 
-          className={`tracking-wider px-4 py-2 rounded ${state === "reset" ? "bg-red-200 text-red-600 outline-1 outline" : "bg-red-500 text-white"}`}
+          className={`tracking-wider  md:px-4 md:py-2 px-10 py-5 lg:rounded md:rounded-lg rounded-2xl ${state === "reset" ? "bg-red-200 text-red-600 outline-1 outline" : "bg-red-500 text-white"}`}
           data-mode="reset"
         >
           Reset
         </button>
       </div>
 
-      <div className="text-lg">
+      <div className="lg:text-lg md:text-2xl text-3xl">
         Completed Pomodoros: <strong>{completed}</strong>
       </div>
     </div>
