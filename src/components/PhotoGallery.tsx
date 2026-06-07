@@ -25,10 +25,6 @@ function PhotoGallery() {
         setPage(prev => prev + 1);
     }
 
-    useEffect(() => {
-        console.log(images);
-
-    }, [images]);
 
     useEffect(() => {
         loadImages();
