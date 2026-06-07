@@ -5,6 +5,7 @@ import SearchBar from './components/SearchBar';
 import Table from './components/Table';
 import PomodoroTimer from './components/PomodoroTimer';
 import ContactForm from './components/ContactForm';
+import PhotoGallery from './components/PhotoGallery';
 
 // Define types for your data
 interface Card {
@@ -101,6 +102,7 @@ function App() {
       <Table />
       <PomodoroTimer/>
       <ContactForm/>
+      <PhotoGallery/>
       </>
   );
 }
