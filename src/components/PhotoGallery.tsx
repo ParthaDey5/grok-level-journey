@@ -4,9 +4,11 @@ function PhotoGallery() {
   const [images, setImages] = useState([]);
   const [page, setPage] = useState(1);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedImg, setSelectedImg] = useState(null);
+
   const LIMIT = 9;
 
-  // LOAD IMAGES
   function loadImages() {
     const newImages = [];
 
@@ -20,27 +22,57 @@ function PhotoGallery() {
     setPage(prev => prev + 1);
   }
 
-  // ON LOAD
   useEffect(() => {
     loadImages();
   }, []);
 
+  function openModal(src) {
+    setSelectedImg(src);
+    setIsModalOpen(true);
+  }
+
+  function closeModal() {
+    setIsModalOpen(false);
+    setSelectedImg(null);
+  }
+
   return (
-    <section className="gallery">
-      <h2>Inspiration Gallery</h2>
+    <>
+      <section className="gallery">
+        <h2>Inspiration Gallery</h2>
 
-      <div className="grid">
-        {images.map((src, i) => (
-          <div key={i} className="img-wrapper">
-            <img src={src} loading="lazy" alt="" />
-          </div>
-        ))}
-      </div>
+        <div className="grid">
+          {images.map((src, i) => (
+            <div key={i} className="img-wrapper">
+              <img
+                src={src}
+                loading="lazy"
+                alt=""
+                onClick={() => openModal(src)}
+              />
+            </div>
+          ))}
+        </div>
 
-      <button onClick={loadImages}>
-        Load More
-      </button>
-    </section>
+        <button onClick={loadImages}>
+          Load More
+        </button>
+      </section>
+
+      {/* MODAL */}
+      {isModalOpen && (
+        <div className="modal" onClick={closeModal}>
+          <span className="close">&times;</span>
+
+          <img
+            className="modal-img"
+            src={selectedImg}
+            onClick={(e) => e.stopPropagation()}
+            alt=""
+          />
+        </div>
+      )}
+    </>
   );
 }
 
