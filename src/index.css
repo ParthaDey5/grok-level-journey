@@ -54,15 +54,41 @@ body {
 }
 @media (min-width:768px) {
 .navlink { font-size: 0.840rem;letter-spacing: 0.140rem; }
+
+.loadImages{
+  padding: 0.5rem 1rem;
+  margin: 2rem 0;
+  background-color: green;
+  border-radius: 0.2em;
+}
+
+        
+
+}
+@media (max-width:767px) {
+.navlink { font-size: 0.840rem;letter-spacing: 0.140rem; }
+
+.loadImages{
+  font-size: 2.5rem;
+  padding: 1rem 2rem;
+  margin: 5rem 0;
+  background-color: green;
+  border-radius: 0.2em;
+}
+
+        
+
+}
 .gallery {
             padding: 20px;
             text-align: center;
         }
 
-        /* GRID */
+/* GRID */
         .grid {
+          @apply md:gap-x-10 md:gap-y-10 gap-y-32;
+
             display: grid;
-            gap: 12px;
             margin-top: 20px;
 
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -136,8 +162,6 @@ body {
             padding: 10px 20px;
             cursor: pointer;
         }
-
-}
 
 
 .fa-facebook-square, .fa-twitter-square {

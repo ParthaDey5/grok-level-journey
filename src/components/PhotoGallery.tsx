@@ -25,10 +25,7 @@ function PhotoGallery() {
         setPage(prev => prev + 1);
     }
 
-    useEffect(() => {
-        console.log(images);
-
-    }, [images]);
+    
 
     useEffect(() => {
         loadImages();
@@ -62,7 +59,7 @@ function PhotoGallery() {
                     ))}
                 </div>
 
-                <button onClick={loadImages}>
+                <button className="loadImages" onClick={loadImages}>
                     Load More
                 </button>
             </section>
@@ -70,7 +67,7 @@ function PhotoGallery() {
             {/* MODAL */}
             {isModalOpen && (
                 <div className="modal relative z-[999]" onClick={closeModal}>
-                    <span className="close cursor-pointer absolute top-5 right-5" onClick={closeModal}>
+                    <span className="close cursor-pointer absolute top-5 right-10" onClick={closeModal}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#fff" className="size-8">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                         </svg>

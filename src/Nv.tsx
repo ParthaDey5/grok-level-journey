@@ -10,11 +10,11 @@ export default function Navbar() {
 
   return (
     <nav className="navbar text-white shadow-lg dark:shadow-gray-400 fixed left-0 top-0 w-full z-50">
-      <div className="mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between ">
+      <div className="mx-auto md:py-4 py-10 px-16 sm:px-10 lg:px-8 flex items-center justify-between ">
         <div className="w-[90%] flex justify-between h-16 items-center">
 
           {/* Logo */}
-          <div className="flex-shrink-0 text-green-500 dark:text-orange-500 font-bold text-xl">
+          <div className="flex-shrink-0 text-green-500 dark:text-orange-500 font-bold md:text-xl text-5xl">
             Partha.dev
           </div>
 
@@ -64,7 +64,7 @@ export default function Navbar() {
               onClick={() => setIsOpen(!isOpen)}
               className="text-white focus:outline-none p-2"
             >
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="size-10 dark:text-white text-black " fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 {isOpen ? (
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 ) : (
@@ -74,13 +74,16 @@ export default function Navbar() {
             </button>
           </div>
         </div>
+        <span className='md:scale-[1] scale-[1.5]'>
+
         <DarkModeToggle/>
+        </span>
       </div>
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-gray-800 border-t border-gray-700">
-          <div className="px-4 py-6 space-y-4">
+        <div className="md:hidden bg-[#e8ede8] dark:bg-gray-800 dark:text-white text-black border-t border-gray-700 text-3xl">
+          <div className="px-10 py-6 space-y-4">
             <Link to="/" onClick={() => setIsOpen(false)} className="block px-3 py-3 hover:bg-gray-700 rounded">Home</Link>
             <Link to="/about" onClick={() => setIsOpen(false)} className="block px-3 py-3 hover:bg-gray-700 rounded">About</Link>
             <Link to="/projects" onClick={() => setIsOpen(false)} className="block px-3 py-3 hover:bg-gray-700 rounded">Projects</Link>
