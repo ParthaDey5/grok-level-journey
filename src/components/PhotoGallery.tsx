@@ -25,10 +25,6 @@ function PhotoGallery() {
         setPage(prev => prev + 1);
     }
 
-<<<<<<< HEAD
-    
-=======
->>>>>>> 9e70837dd95671d7fa986a567899830f4e0c9f0f
 
     useEffect(() => {
         loadImages();
