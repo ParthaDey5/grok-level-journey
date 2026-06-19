@@ -7,7 +7,7 @@ function PhotoGallery() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedImg, setSelectedImg] = useState(null);
 
-    const LIMIT = 9;
+    const LIMIT = 10;
 
     function loadImages() {
         const newImages = [];
@@ -18,8 +18,10 @@ function PhotoGallery() {
             );
         }
 
+
         setImages(prev =>
             [...prev, ...newImages]
+
         );
 
         setPage(prev => prev + 1);
@@ -52,6 +54,7 @@ function PhotoGallery() {
                                 src={src}
                                 loading="lazy"
                                 alt=""
+                                onLoad={(e) => e.target.classList.add("loaded")}
                                 onClick={() => openModal(src)}
                             />
                         </div>

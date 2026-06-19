@@ -7,14 +7,14 @@ interface SearchBarProps {
 
 export default function SearchBar({ value, setValue, handleChange, placeholder = "Search missions..." }: SearchBarProps) {
   return (
-    <div className="w-full max-w-md mx-auto px-4 mt-20 mb-8 ">
+    <div className="w-[30rem] mx-auto px-4 md:mt-28 mt-60 mb-8 ">
       <div className="relative">
         <input
           type="text"
           value={value}
           onChange={(e) => handleChange(e.target.value)}
           placeholder={placeholder}
-          className="w-full px-4 py-3 pl-12 md:h-[3.140rem] rounded-lg border border-gray-300 dark:border-gray-600 
+          className="w-full py-4 pl-12 md:h-[3.140rem] rounded-lg border border-gray-300 dark:border-gray-600 
                      bg-white dark:bg-gray-200 text-gray-900 dark:text-gray-500
                      focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
                      shadow-sm transition-all duration-200"

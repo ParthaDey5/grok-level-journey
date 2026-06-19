@@ -9,8 +9,8 @@ export default function Navbar() {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <nav className="navbar text-white shadow-lg dark:shadow-gray-400 fixed left-0 top-0 w-full z-50">
-      <div className="mx-auto md:py-4 py-10 px-16 sm:px-10 lg:px-8 flex items-center justify-between ">
+    <nav className="navbar text-white shadow-lg dark:shadow-gray-400 fixed left-0 right-0 top-0  z-50">
+      <div className="mx-auto md:py-0.5 py-10 px-16 sm:px-10 lg:px-8 flex items-center justify-between ">
         <div className="w-[90%] flex justify-between h-16 items-center">
 
           {/* Logo */}

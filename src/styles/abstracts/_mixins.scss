@@ -1,0 +1,17 @@
+@use 'variables' as *;
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin breakpoint($size) {
+  $value: map-get($media, $size);
+
+  @if $value {
+    @media (min-width: $value) {
+      @content;
+    }
+  }
+}

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import './styles/main.scss';
 import CardGrid from './components/CardGrid';
 import Nv from './Nv';
 import SearchBar from './components/SearchBar';
@@ -6,6 +7,8 @@ import Table from './components/Table';
 import PomodoroTimer from './components/PomodoroTimer';
 import ContactForm from './components/ContactForm';
 import PhotoGallery from './components/PhotoGallery';
+import ErrorBoundary from './components/ErrorBoundary';
+import Footer from './components/Footer';
 
 // Define types for your data
 interface Card {
@@ -28,7 +31,7 @@ function App() {
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [message, setMessage] = useState<string>('');
-  const [formErrors, setFormErrors] = useState<{name?: string; email?: string}>({});
+  const [formErrors, setFormErrors] = useState<{ name?: string; email?: string }>({});
   const [value, setValue] = useState<string>('');
   const [filteredCards, setFilteredCards] = useState<Card[]>(allCards);
 
@@ -53,25 +56,25 @@ function App() {
   }, [value]);
 
   const validateForm = (): boolean => {
-    const errors: {name?: string; email?: string} = {};
-    
+    const errors: { name?: string; email?: string } = {};
+
     if (!name.trim()) {
       errors.name = 'Name is required';
     }
-    
+
     if (!email.trim()) {
       errors.email = 'Email is required';
     } else if (!email.includes('@')) {
       errors.email = 'Please enter a valid email';
     }
-    
+
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (validateForm()) {
       console.log('Form submitted:', { name, email, message });
       // Here you would normally send data to server
@@ -83,7 +86,8 @@ function App() {
       setFormErrors({});
     }
   };
-  
+
+
 
   return (
     <>
@@ -95,15 +99,20 @@ function App() {
         handleChange={setValue}
         placeholder="Search missions..."
       />
-      
+
 
 
       <CardGrid cards={filteredCards} />
       <Table />
-      <PomodoroTimer/>
-      <ContactForm/>
-      <PhotoGallery/>
-      </>
+
+      <ErrorBoundary >
+        <PomodoroTimer />
+      </ErrorBoundary>
+
+      <ContactForm />
+      <PhotoGallery />
+      <Footer/> 
+    </>
   );
 }
 

@@ -111,13 +111,6 @@ export default function PomodoroTimer() {
   }, [time]);
 
 
-
-
-
-
-
-
-
   return (
     <div className="dark:bg-[#0f172a] flex flex-col items-center justify-center lg:py-20 md:py-[10rem] py-40 bg-gray-100 md:space-y-6 space-y-10">
       <h1 className="md:text-3xl text-6xl font-bold">Pomodoro Timer</h1>

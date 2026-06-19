@@ -1,0 +1,12 @@
+@use '../abstracts/mixins' as *;
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+
+.lol{
+  @include flex-center;
+}
