@@ -16,16 +16,16 @@ function Footer() {
 
                 {/* 1. Logo / About  */}
                 <div>
-                    <h2 className=" lg:text-2xl text-6xl font-bold text-gray-900 dark:text-white">Partha.dev</h2>
-                    <p className="w-[30ch] lg:mt-3 mt-8 lg:text-sm text-3xl leading-relaxed">
+                    <h2 className=" lg:text-2xl sm:text-5xl text-6xl font-bold text-gray-900 dark:text-white">Partha.dev</h2>
+                    <p className="w-[30ch] lg:mt-3 mt-8 lg:text-sm sm:text-2.125xl text-3xl leading-relaxed">
                         Building modern web experiences with clean design and powerful tools.
                     </p>
                 </div>
 
                 {/* 2. Quick Links  */}
                 <div>
-                    <h3 className="lg:text-lg text-4xl font-semibold text-gray-900 dark:text-white">Quick Links</h3>
-                    <ul className="lg:mt-4 mt-8 lg:space-y-2 space-y-8 lg:text-sm text-3xl">
+                    <h3 className="lg:text-lg sm:text-3xl text-4xl font-semibold text-gray-900 dark:text-white">Quick Links</h3>
+                    <ul className="lg:mt-4 mt-8 lg:space-y-2 space-y-8 lg:text-sm sm:text-2.5xl text-3xl">
                         <li><a href="#" className="hover:text-blue-500 transition">Home</a></li>
                         <li><a href="#" className="hover:text-blue-500 transition">About</a></li>
                         <li><a href="#" className="hover:text-blue-500 transition">Services</a></li>
@@ -35,8 +35,8 @@ function Footer() {
 
                 {/* 3. Contact / Social */}
                 <div>
-                    <h3 className="lg:text-lg text-4xl font-semibold text-gray-900 dark:text-white">Contact</h3>
-                    <p className="lg:mt-4 mt-10 lg:text-sm text-3xl">Email: hello@example.com</p>
+                    <h3 className="lg:text-lg sm:text-3xl text-4xl font-semibold text-gray-900 dark:text-white">Contact</h3>
+                    <p className="lg:mt-4 mt-10 lg:text-sm sm:text-2.5xl text-3xl">Email: hello@example.com</p>
                     <p className="lg:mt-2 mt-6 lg:text-sm text-3xl">Phone: +123 456 7890</p>
 
                     <div className="flex lg:gap-4 gap-16 lg:mt-4 mt-10">
@@ -48,10 +48,10 @@ function Footer() {
 
                 {/* 4. Newsletter */}
                 <div>
-                    <h3 className="lg:text-lg text-4xl font-semibold text-gray-900 dark:text-white">Newsletter</h3>
-                    <p className="lg:mt-4 mt-10 lg:text-sm text-3xl">Subscribe for updates</p>
+                    <h3 className="lg:text-lg sm:text-3xl text-4xl font-semibold text-gray-900 dark:text-white">Newsletter</h3>
+                    <p className="lg:mt-4 mt-10 lg:text-sm sm:text-2.5xl text-3xl">Subscribe for updates</p>
 
-                    <form className="lg:mt-4 mt-10 lg:text-sm text-3xl flex flex-col sm:flex-row lg:gap-2 gap-8">
+                    <form className="lg:mt-4 mt-10 lg:text-sm sm:text-2.5xl text-3xl flex flex-col sm:flex-row lg:gap-2 gap-8">
                         <input
                             type="email"
                             placeholder="Your email"
@@ -69,7 +69,7 @@ function Footer() {
             </div>
 
             {/* Bottom Copyright */}
-            <div className="bg-[#F7F8F9] dark:bg-gray-600 border-t border-gray-300 dark:border-gray-700 text-center lg:py-4 py-12 lg:text-sm text-3xl ">
+            <div className="bg-[#F7F8F9] dark:bg-gray-600 border-t border-gray-300 dark:border-gray-700 text-center lg:py-4 py-12 lg:text-sm sm:text-2.5xl text-3xl ">
                 © 2026 MyBrand. All rights reserved.
             </div>
 
