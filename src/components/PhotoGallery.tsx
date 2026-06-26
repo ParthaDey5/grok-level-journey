@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 function PhotoGallery() {
     const [images, setImages] = useState([]);
@@ -7,7 +7,7 @@ function PhotoGallery() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedImg, setSelectedImg] = useState(null);
 
-    const LIMIT = 10;
+    const LIMIT = 12;
 
     function loadImages() {
         const newImages = [];
@@ -45,8 +45,7 @@ function PhotoGallery() {
     return (
         <>
             <section className="gallery">
-                <h2>Inspiration Gallery</h2>
-
+                
                 <div className="grid">
                     {images.map((src, i) => (
                         <div key={i} className="img-wrapper">

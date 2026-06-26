@@ -17,7 +17,7 @@ interface User {
     };
 }
 
-function Table() {
+function UsersTable() {
 
     const [fetching, setFetching] = useState<boolean>(true)
     const [users, setUsers] = useState<User[]>([])
@@ -68,9 +68,9 @@ function Table() {
 
             {!fetching &&
 
-                <table className='custom-table'>
+                <table>
                     <thead>
-                        <tr className='border border-5 border-green-400 '>
+                        <tr>
                             <th>ID</th>
                             <th>Name</th>
                             <th>Username</th>
@@ -83,7 +83,7 @@ function Table() {
                     <tbody>
                         {users?.map((user) =>
                             <tr key={user.id}>
-                                <td className='font-bold'>{user.id}</td>
+                                <td>{user.id}</td>
                                 <td>{user.name}</td>
                                 <td>{user.username}</td>
                                 <td>{user.email}</td>
@@ -126,4 +126,4 @@ function Table() {
     )
 }
 
-export default Table
+export default UsersTable

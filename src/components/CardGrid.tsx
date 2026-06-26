@@ -15,10 +15,10 @@ export default function CardGrid({ cards }: CardGridProps) {
 
   return (
     // Main container with responsive margins
-    <div className=" mx-[5%] mt-[13%] py-12 md:mb-[2.450rem] mb-[7.7rem] md:-mt-[1.903rem]">
+    <div className=" mx-[5%] py-12 md:mb-[2.450rem] mb-[7.7rem] md:-mt-[1.903rem] mt-[8%] outline">
       
       {/* Responsive heading - larger on desktop, smaller on mobile */}
-      <h2 className="lg:text-3xl text-8xl font-bold text-center tracking-[0.1rem] sm:mb-10 mb-20">My Missions</h2>
+      <h2 className="lg:text-3xl sm:text-6xl text-8xl font-bold text-center tracking-[0.1rem] sm:mb-10 mb-20">My Missions</h2>
       
       {/* Flex container with responsive gaps */}
       <div className="flex flex-wrap lg:gap-x-6 lg:gap-y-14 sm:gap-x-10 sm:gap-y-16 gap-y-36  justify-center">

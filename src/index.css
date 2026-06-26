@@ -4,7 +4,7 @@
 @tailwind utilities;
 
 *{
-  outline: 1px solid greenyellow;
+  /* outline: 1px solid greenyellow; */
 }
 
 :root {
@@ -115,12 +115,12 @@ box-sizing: border-box;
 
 /* GRID */
         .grid {
-          @apply md:gap-x-10 md:gap-y-10 gap-y-32;
+          @apply md:gap-x-4 md:gap-y-4 gap-y-32;
 
             display: grid;
             margin-top: 20px;
 
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
         }
 
         img {
@@ -305,17 +305,22 @@ box-sizing: border-box;
     border-radius: 50%;
   }
 
-  .custom-table {
-    @apply border border-black dark:border-white md:text-[0.875rem] text-[1.125rem] md:p-[0.2rem] p-[0.01rem] bg-red-300 dark:bg-red-600 ;
+  table {
+    @apply border-separate border-spacing-0 border border-gray-100 rounded-xl md:text-[0.875rem] text-[1.125rem] overflow-hidden ;
     
-  border-collapse:separate;
-
+    
+  }
+  
+  th{
+    @apply bg-gray-100 md:h-10 h-16 ;
+  
+  }
+  td{
+    @apply bg-white dark:bg-gray-300 md:h-12 h-20;
   
 }
-
-
 th, td {
-  @apply md:h-8 h-16 md:px-4 px-2 border border-black dark:border-white text-center text-black dark:text-gray-600 bg-white dark:bg-gray-300 ;
+  @apply border-t md:px-4 px-2 text-center text-black dark:text-gray-600 ;
 }
 
 input, textarea{

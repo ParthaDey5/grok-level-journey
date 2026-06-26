@@ -33,9 +33,9 @@ export default function DarkModeToggle() {
     return (
         <button
             onClick={toggle}
-            className="relative w-16 h-8 rounded-full transition-all duration-300 ease-spring
+            className="relative w-16 h-8 md:scale-100  scale-[1.25] rounded-full transition-all duration-300 ease-spring
         bg-gray-400 
-        shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
+        shadow-lg hover:shadow-xl md:hover:scale-105 hover:scale-[1.26]  md:mr-0 mr-8"
             aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
         >
 

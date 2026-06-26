@@ -1,4 +1,4 @@
-import useForm from "./useForm";
+import useForm from "../hooks/useForm";
 
 export default function ContactForm() {
     const { values, errors, handleChange, handleSubmit } = useForm(
