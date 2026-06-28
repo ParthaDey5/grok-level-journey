@@ -1,28 +1,41 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, FC } from "react";
 
-const WORK_TIME = 25 * 60; // 25 minutes in seconds
-const BREAK_TIME = 5 * 60; // 5 minutes in seconds
+// Constants
+const WORK_TIME: number = 25 * 60; // 25 minutes in seconds
+const BREAK_TIME: number = 5 * 60; // 5 minutes in seconds
 
-// ✅ Keeping your closure counter
-function createCounter() {
-  let count = 0;
+// Types
+type Mode = "work" | "break";
 
-  return function () {
+interface PomodoroStats {
+  sessionsCompleted: number;
+  sessionsGoal: number;
+  currentMode: Mode;
+  timeLeft: number;
+  isRunning: boolean;
+}
+
+// Closure counter with proper typing
+function createCounter(): () => number {
+  let count: number = 0;
+
+  return function (): number {
     count++;
     return count;
   };
 }
 
-const incrementCompleted = createCounter();
+const incrementCompleted: () => number = createCounter();
 
-export default function PomodoroTimer() {
+const PomodoroTimer: FC = () => {
+  // State with explicit types
   const [time, setTime] = useState<number>(WORK_TIME);
-  const [mode, setMode] = useState<"work" | "break">("work");
-  const [isRunning, setIsRunning] = useState(false);
-  const [sessionsCompleted, setSessionsCompleted] = useState(() => {
-    const today = new Date().toDateString();
-    const savedDate = localStorage.getItem("lastSavedDate");
-    const savedSessions = Number(localStorage.getItem("sessionsCompleted")) || 0;
+  const [mode, setMode] = useState<Mode>("work");
+  const [isRunning, setIsRunning] = useState<boolean>(false);
+  const [sessionsCompleted, setSessionsCompleted] = useState<number>(() => {
+    const today: string = new Date().toDateString();
+    const savedDate: string | null = localStorage.getItem("lastSavedDate");
+    const savedSessions: number = Number(localStorage.getItem("sessionsCompleted")) || 0;
     
     // Reset if it's a new day
     if (savedDate !== today) {
@@ -32,31 +45,34 @@ export default function PomodoroTimer() {
     return savedSessions;
   });
 
+  // Refs
   const intervalRef = useRef<number | null>(null);
-  const sessionsGoal = 8;
+  const sessionsGoal: number = 8;
 
   // Save sessions to localStorage whenever they change
-  useEffect(() => {
+  useEffect((): void => {
     localStorage.setItem("sessionsCompleted", sessionsCompleted.toString());
   }, [sessionsCompleted]);
 
   // Format mm:ss
-  const formatTime = (seconds: number) => {
-    const m = String(Math.floor(seconds / 60)).padStart(2, "0");
-    const s = String(seconds % 60).padStart(2, "0");
+  const formatTime = (seconds: number): string => {
+    const m: string = String(Math.floor(seconds / 60)).padStart(2, "0");
+    const s: string = String(seconds % 60).padStart(2, "0");
     return `${m}:${s}`;
   };
 
   // Start Timer
-  const startTimer = () => {
+  const startTimer = (): void => {
     if (intervalRef.current !== null || time === 0) return;
     setIsRunning(true);
 
-    intervalRef.current = window.setInterval(() => {
-      setTime((prev) => {
+    intervalRef.current = window.setInterval((): void => {
+      setTime((prev: number): number => {
         if (prev <= 1) {
-          clearInterval(intervalRef.current!);
-          intervalRef.current = null;
+          if (intervalRef.current !== null) {
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+          }
           setIsRunning(false);
           return 0;
         }
@@ -66,8 +82,8 @@ export default function PomodoroTimer() {
   };
 
   // Pause Timer
-  const pauseTimer = () => {
-    if (intervalRef.current) {
+  const pauseTimer = (): void => {
+    if (intervalRef.current !== null) {
       clearInterval(intervalRef.current);
       intervalRef.current = null;
       setIsRunning(false);
@@ -75,14 +91,14 @@ export default function PomodoroTimer() {
   };
 
   // Reset Timer
-  const resetTimer = () => {
+  const resetTimer = (): void => {
     pauseTimer();
     setMode("work");
     setTime(WORK_TIME);
   };
 
   // Skip Mode
-  const skipMode = () => {
+  const skipMode = (): void => {
     pauseTimer();
     if (mode === "work") {
       setMode("break");
@@ -94,11 +110,11 @@ export default function PomodoroTimer() {
   };
 
   // Handle timer completion
-  useEffect(() => {
+  useEffect((): void => {
     if (time === 0) {
       if (mode === "work" && sessionsCompleted < sessionsGoal) {
-        // ✅ Using your closure counter
-        const newCount = incrementCompleted();
+        // Using closure counter
+        const newCount: number = incrementCompleted();
         setSessionsCompleted(newCount);
         
         setMode("break");
@@ -112,16 +128,16 @@ export default function PomodoroTimer() {
   }, [time, mode, sessionsCompleted, sessionsGoal]);
 
   // Cleanup on unmount
-  useEffect(() => {
-    return () => {
-      if (intervalRef.current) {
+  useEffect((): (() => void) => {
+    return (): void => {
+      if (intervalRef.current !== null) {
         clearInterval(intervalRef.current);
         intervalRef.current = null;
       }
     };
   }, []);
 
-  const progress = Math.min((sessionsCompleted / sessionsGoal) * 100, 100);
+  const progress: number = Math.min((sessionsCompleted / sessionsGoal) * 100, 100);
 
   return (
     <div className="dark:bg-[#0f172a] flex items-center justify-around lg:py-16 md:py-[10rem] py-40 bg-gray-50 outline dark:outline-gray-500 outline-gray-100 rounded-xl">
@@ -136,9 +152,22 @@ export default function PomodoroTimer() {
       {/* Control Section */}
       <div className="flex md:gap-4 gap-8 md:text-3xl text-4xl">
         {/* Reset Button */}
-        <button onClick={resetTimer}>
-          <svg className="size-12 stroke-black dark:stroke-gray-200" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
-            <g fill="none" fillRule="evenodd" strokeLinecap="round" strokeLinejoin="round" transform="matrix(0 1 1 0 2.5 2.5)">
+        <button 
+          onClick={resetTimer}
+          aria-label="Reset timer"
+        >
+          <svg 
+            className="size-12 stroke-black dark:stroke-gray-200" 
+            viewBox="0 0 21 21" 
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g 
+              fill="none" 
+              fillRule="evenodd" 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              transform="matrix(0 1 1 0 2.5 2.5)"
+            >
               <path d="m3.98652376 1.07807068c-2.38377179 1.38514556-3.98652376 3.96636605-3.98652376 6.92192932 0 4.418278 3.581722 8 8 8s8-3.581722 8-8-3.581722-8-8-8" />
               <path d="m4 1v4h-4" transform="matrix(1 0 0 -1 0 6)" />
             </g>
@@ -149,27 +178,55 @@ export default function PomodoroTimer() {
           <button
             onClick={startTimer}
             className={`absolute ${isRunning ? "hidden" : "block"}`}
+            aria-label="Start timer"
+            disabled={time === 0}
           >
             {/* Start SVG */}
-            <svg className="w-[100%] dark:fill-gray-200 fill-pink-900" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path fillRule="evenodd" clipRule="evenodd" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22ZM10.6935 15.8458L15.4137 13.059C16.1954 12.5974 16.1954 11.4026 15.4137 10.941L10.6935 8.15419C9.93371 7.70561 9 8.28947 9 9.21316V14.7868C9 15.7105 9.93371 16.2944 10.6935 15.8458Z" />
+            <svg 
+              className="w-[100%] dark:fill-gray-200 fill-pink-900" 
+              viewBox="0 0 24 24" 
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path 
+                fillRule="evenodd" 
+                clipRule="evenodd" 
+                d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22ZM10.6935 15.8458L15.4137 13.059C16.1954 12.5974 16.1954 11.4026 15.4137 10.941L10.6935 8.15419C9.93371 7.70561 9 8.28947 9 9.21316V14.7868C9 15.7105 9.93371 16.2944 10.6935 15.8458Z" 
+              />
             </svg>
           </button>
 
           <button
             onClick={pauseTimer}
             className={`absolute ${!isRunning ? "hidden" : "block"}`}
+            aria-label="Pause timer"
           >
             {/* Pause SVG */}
-            <svg className="w-[100%] dark:fill-gray-200 fill-pink-900" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fillRule="evenodd" clipRule="evenodd" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22ZM8.07612 8.61732C8 8.80109 8 9.03406 8 9.5V14.5C8 14.9659 8 15.1989 8.07612 15.3827C8.17761 15.6277 8.37229 15.8224 8.61732 15.9239C8.80109 16 9.03406 16 9.5 16C9.96594 16 10.1989 16 10.3827 15.9239C10.6277 15.8224 10.8224 15.6277 10.9239 15.3827C11 15.1989 11 14.9659 11 14.5V9.5C11 9.03406 11 8.80109 10.9239 8.61732C10.8224 8.37229 10.6277 8.17761 10.3827 8.07612C10.1989 8 9.96594 8 9.5 8C9.03406 8 8.80109 8 8.61732 8.07612C8.37229 8.17761 8.17761 8.37229 8.07612 8.61732ZM13.0761 8.61732C13 8.80109 13 9.03406 13 9.5V14.5C13 14.9659 13 15.1989 13.0761 15.3827C13.1776 15.6277 13.3723 15.8224 13.6173 15.9239C13.8011 16 14.0341 16 14.5 16C14.9659 16 15.1989 16 15.3827 15.9239C15.6277 15.8224 15.8224 15.6277 15.9239 15.3827C16 15.1989 16 14.9659 16 14.5V9.5C16 9.03406 16 8.80109 15.9239 8.61732C15.8224 8.37229 15.6277 8.17761 15.3827 8.07612C15.1989 8 14.9659 8 14.5 8C14.0341 8 13.8011 8 13.6173 8.07612C13.3723 8.17761 13.1776 8.37229 13.0761 8.61732Z" />
+            <svg 
+              className="w-[100%] dark:fill-gray-200 fill-pink-900" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path 
+                fillRule="evenodd" 
+                clipRule="evenodd" 
+                d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22ZM8.07612 8.61732C8 8.80109 8 9.03406 8 9.5V14.5C8 14.9659 8 15.1989 8.07612 15.3827C8.17761 15.6277 8.37229 15.8224 8.61732 15.9239C8.80109 16 9.03406 16 9.5 16C9.96594 16 10.1989 16 10.3827 15.9239C10.6277 15.8224 10.8224 15.6277 10.9239 15.3827C11 15.1989 11 14.9659 11 14.5V9.5C11 9.03406 11 8.80109 10.9239 8.61732C10.8224 8.37229 10.6277 8.17761 10.3827 8.07612C10.1989 8 9.96594 8 9.5 8C9.03406 8 8.80109 8 8.61732 8.07612C8.37229 8.17761 8.17761 8.37229 8.07612 8.61732ZM13.0761 8.61732C13 8.80109 13 9.03406 13 9.5V14.5C13 14.9659 13 15.1989 13.0761 15.3827C13.1776 15.6277 13.3723 15.8224 13.6173 15.9239C13.8011 16 14.0341 16 14.5 16C14.9659 16 15.1989 16 15.3827 15.9239C15.6277 15.8224 15.8224 15.6277 15.9239 15.3827C16 15.1989 16 14.9659 16 14.5V9.5C16 9.03406 16 8.80109 15.9239 8.61732C15.8224 8.37229 15.6277 8.17761 15.3827 8.07612C15.1989 8 14.9659 8 14.5 8C14.0341 8 13.8011 8 13.6173 8.07612C13.3723 8.17761 13.1776 8.37229 13.0761 8.61732Z" 
+              />
             </svg>
           </button>
         </div>
 
         {/* Skip Button */}
-        <button onClick={skipMode}>
-          <svg className="size-9 rotate-180 fill-black dark:fill-gray-200" viewBox="-2 0 32 32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid">
+        <button 
+          onClick={skipMode}
+          aria-label="Skip to next mode"
+        >
+          <svg 
+            className="size-9 rotate-180 fill-black dark:fill-gray-200" 
+            viewBox="-2 0 32 32" 
+            xmlns="http://www.w3.org/2000/svg" 
+            preserveAspectRatio="xMidYMid"
+          >
             <path d="M26.530,31.994 C26.222,31.994 25.915,31.903 25.619,31.722 L2.000,17.205 L2.000,31.000 C2.000,31.553 1.552,32.000 1.000,32.000 C0.448,32.000 -0.000,31.553 -0.000,31.000 L-0.000,1.006 C-0.000,0.453 0.448,0.006 1.000,0.006 C1.552,0.006 2.000,0.453 2.000,1.006 L2.000,13.855 L25.628,0.248 C25.917,0.083 26.211,-0.000 26.507,-0.000 C27.372,-0.000 28.000,0.689 28.000,1.639 L28.000,30.367 C28.000,31.435 27.260,31.994 26.530,31.994 ZM3.097,15.531 L26.000,29.608 L26.000,2.341 L3.097,15.531 Z" />
           </svg>
         </button>
@@ -177,7 +234,9 @@ export default function PomodoroTimer() {
 
       {/* Session Section */}
       <div className="dark:bg-[#9ca3af] bg-white px-6 py-5 rounded-xl shadow-md w-[17rem] space-y-2">
-        <p className="text-md text-gray-500 dark:text-gray-50 text-shadow-xs">Sessions Today</p>
+        <p className="text-md text-gray-500 dark:text-gray-50 text-shadow-xs">
+          Sessions Today
+        </p>
         <h2 className="text-3xl font-bold">
           {sessionsCompleted} / {sessionsGoal}
         </h2>
@@ -185,9 +244,15 @@ export default function PomodoroTimer() {
           <div
             className="bg-purple-500 dark:bg-purple-300 h-2 rounded-full transition-all duration-300"
             style={{ width: `${progress}%` }}
-          ></div>
+            role="progressbar"
+            aria-valuenow={progress}
+            aria-valuemin={0}
+            aria-valuemax={100}
+          />
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default PomodoroTimer;
