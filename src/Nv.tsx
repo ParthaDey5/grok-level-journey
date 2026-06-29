@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import DarkModeToggle from './components/DarkModeToggle.js';
+import SearchBar from './components/SearchBar.js';
 
-export default function Navbar() {
+export default function Navbar({value, setValue}) {
   const [isOpen, setIsOpen] = useState(false);
+  
+
   const location = useLocation();
 
   const isActive = (path: string) => location.pathname === path;
@@ -23,7 +26,7 @@ export default function Navbar() {
           </div>
         
 
-         <div className="w-[90%] flex md:justify-between  h-16 items-center ">
+         <div className="w-[96%] flex md:justify-between  h-16 items-center ">
 
           {/* Mobile Hamburger */}
           <div className="m-4 md:hidden">
@@ -46,6 +49,8 @@ export default function Navbar() {
             Partha.dev
           </div>
 
+        <div className='flex justify-between gap-10 mr-4'>
+          
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
 
@@ -86,7 +91,9 @@ export default function Navbar() {
             </Link>
           </div>
 
-          
+          {/* Searchbar */}
+          <SearchBar value={value} setValue={setValue}/>
+          </div>
         </div> 
 
         <span className='md:scale-[1] scale-[1.5]'>

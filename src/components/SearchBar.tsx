@@ -5,16 +5,16 @@ interface SearchBarProps {
   placeholder?: string;
 }
 
-export default function SearchBar({ value, setValue, handleChange, placeholder = "Search missions..." }: SearchBarProps) {
+export default function SearchBar({ value, setValue, placeholder = "Search missions..." }: SearchBarProps) {
   return (
-    <div className="w-[30rem] mx-auto px-4 md:mt-28 mt-60 mb-8 ">
+    <div className="w-[16rem]">
       <div className="relative">
         <input
           type="text"
           value={value}
-          onChange={(e) => handleChange(e.target.value)}
+          onChange={(e)=>setValue(e.target.value)}
           placeholder={placeholder}
-          className="w-full py-4 pl-12 md:h-[3.140rem] rounded-lg border border-gray-300 dark:border-gray-600 
+          className="w-full py-4 pl-12 md:h-[2.5rem] rounded-lg border border-gray-300 dark:border-gray-600 text-sm
                      bg-white dark:bg-gray-200 text-gray-900 dark:text-gray-500
                      focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
                      shadow-sm transition-all duration-200"

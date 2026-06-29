@@ -55,6 +55,8 @@ function App() {
     return () => clearTimeout(timer);
   }, [value]);
 
+
+  
   const validateForm = (): boolean => {
     const errors: { name?: string; email?: string } = {};
 
@@ -93,7 +95,7 @@ function App() {
 
     <ErrorBoundary>
       <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
-        <Nv />
+        <Nv value={value} setValue={setValue}/>
 
         <main className=" max-w-7xl mx-auto md:px-10 px-20 py-8">
           {/* Hero Section */}
@@ -125,7 +127,7 @@ function App() {
               </svg>
               <h2 className=" w-fit lg:text-2xl sm:text-5xl text-7xl font-bold  tracking-tight">Missions</h2>
             </div>
-            <CardGrid cards={allCards} />
+            <CardGrid cards={filteredCards} />
           </section>
 
           {/* Users Table */}
