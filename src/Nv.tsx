@@ -13,8 +13,8 @@ export default function Navbar() {
       <div className="relative mx-auto md:py-0.5 py-10 px-16 sm:px-10 lg:px-8 flex items-center justify-between ">
 
         {/* Mobile Menu */}
-          <div className={`${isOpen?"h-40" : "h-0"} absolute top-[8rem] inset-x-0 md:hidden bg-[#e8ede8] dark:bg-gray-800 dark:text-white text-black text-3xl shadow-lg dark:shadow-gray-400 transition-transform ease-out duration-1000`}>
-            <div className="px-28 ">
+          <div className={`${isOpen?"h-[22rem] " : "h-0 "} absolute top-[8rem] inset-x-0 md:hidden bg-[#e8ede8] dark:bg-gray-800 dark:text-white text-black text-3xl shadow-lg dark:shadow-gray-400 transition-all ease-in-out duration-500 overflow-hidden`}>
+            <div className={`px-28 mt-8 space-y-10 `}>
               <Link to="/" onClick={() => setIsOpen(false)} className="block px-3 hover:bg-gray-700 rounded">Home</Link>
               <Link to="/about" onClick={() => setIsOpen(false)} className="block px-3  hover:bg-gray-700 rounded">About</Link>
               <Link to="/projects" onClick={() => setIsOpen(false)} className="block px-3  hover:bg-gray-700 rounded">Projects</Link>
@@ -26,7 +26,7 @@ export default function Navbar() {
          <div className="w-[90%] flex md:justify-between  h-16 items-center ">
 
           {/* Mobile Hamburger */}
-          <div className="ml-6 mr-4 md:hidden">
+          <div className="m-4 md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-white focus:outline-none p-2"

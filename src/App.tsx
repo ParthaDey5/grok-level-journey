@@ -97,9 +97,9 @@ function App() {
 
         <main className=" max-w-7xl mx-auto md:px-10 px-20 py-8">
           {/* Hero Section */}
-          <div className="text-center py-12">
-            <h1 className="text-5xl font-bold mb-4">My Grok Level Journey</h1>
-            <p className="text-xl text-gray-600 dark:text-gray-400">
+          <div className="text-center md:py-24 py-40 md:mt-10 mt-32">
+            <h1 className="md:text-5xl text-[5rem] font-bold mb-4">My Grok Level Journey</h1>
+            <p className="md:text-xl text-[2.125rem] text-gray-600 dark:text-gray-400">
               Building my way to Senior Frontend Developer
             </p>
           </div>
