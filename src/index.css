@@ -50,9 +50,15 @@ html{
   scrollbar-gutter: stable;
 }
 
+*, *::before, *::after{
+  margin: 0;
+  padding: 0;
+}
 html, body{
+  width: 100%;
   max-width: 100%;
-  /* overflow-x: hidden; */
+  overflow-x: clip
+  
 }
 
 body {
@@ -82,7 +88,7 @@ box-sizing: border-box;
   @apply text-white
 }
 @media (min-width:768px) {
-.navlink { font-size: 0.840rem;letter-spacing: 0.140rem; }
+.navlink { font-size: 0.840rem;letter-spacing: 0.1rem; }
 
 .loadImages{
   padding: 0.5rem 1rem;

@@ -25,7 +25,7 @@ export default function CardGrid({ cards }: CardGridProps) {
         
         {/* No results found message */}
         {cards.length === 0 && (
-          <div className="text-center py-12">
+          <div className="text-center py-12 ">
             <p className="text-gray-500 dark:text-gray-400 text-lg">
               No results found
             </p>
